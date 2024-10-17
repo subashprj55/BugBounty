@@ -1,4 +1,4 @@
-import BugNavContainer from "component/BugNavContainer";
+import BugNavContainer from "Components/BugNavContainer";
 import React from "react";
 
 const BugAboutUs = () => {
