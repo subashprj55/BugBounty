@@ -15,5 +15,11 @@ export const theme = createTheme({
         letterSpacing: "0.15px",
       },
     },
+    footer: {
+      fontSize: "16px",
+      fontWeight: "400",
+      lineHeight: "24px",
+      letterSpacing: "0.17px",
+    },
   },
 });
