@@ -49,7 +49,6 @@ export const StyledSidebarLinks = styled(Stack)`
 `;
 
 export const StyledLinksTypography = styled(Typography)`
-  text-overflow: ellipsis;
   white-space: nowrap;
 `;
 
