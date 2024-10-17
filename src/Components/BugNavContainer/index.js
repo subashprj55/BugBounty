@@ -1,6 +1,6 @@
-import BugFooter from "component/BugFooter";
-import BugNavbar from "component/BugNavbar";
-import BugSidebar from "component/BugSidebar";
+import BugFooter from "Components/BugFooter";
+import BugNavbar from "Components/BugNavbar";
+import BugSidebar from "Components/BugSidebar";
 import React from "react";
 import { StyledChildDiv, StyledStack } from "./style";
 
