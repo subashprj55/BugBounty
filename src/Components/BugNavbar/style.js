@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 
 export const StyledAppBar = styled(AppBar)`
   background-color: #978fdc !important;
+  position: fixed !important;
 `;
 
 export const StyledStack = styled(Stack)`

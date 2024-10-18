@@ -2,9 +2,9 @@ import { Divider, Stack, Typography } from "@mui/material";
 import { styled } from "styled-components";
 
 export const StyledSideBar = styled(Stack)`
-  height: 88vh;
+  height: 100vh;
   background-color: white;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   overflow: hidden;
   transition: width 0.3s ease-in-out;
