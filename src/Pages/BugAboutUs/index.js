@@ -1,10 +1,16 @@
 import BugNavContainer from "Components/BugNavContainer";
 import React from "react";
+import { transactionHistoryData } from "./data";
 import {
   StyledAboutUsPage,
   StyledBox,
   StyledButton,
   StyledForm,
+  StyledTable,
+  StyledTableBody,
+  StyledTableCell,
+  StyledTableHead,
+  StyledTableRow,
   StyledTypography,
   StyledWithdrawBox,
   StyledWithdrawSection,
@@ -16,6 +22,7 @@ const BugAboutUs = () => {
       <BugNavContainer>
         <StyledAboutUsPage>
           <WithdrawTokenSection />
+          <TransactionHistorySection />
         </StyledAboutUsPage>
       </BugNavContainer>
     </>
@@ -33,20 +40,59 @@ const WithdrawTokenSection = () => {
         <StyledTypography variant="h6" className="color">
           Enter the amount and address to withdraw your tokens
         </StyledTypography>
+
         <StyledBox>
           <StyledTypography variant="h6" className="bold space">
             Amount (XLOP)
           </StyledTypography>
           <input type="number" placeholder="Enter Amount" />
+
           <StyledForm>
             <StyledTypography variant="h6" className="bold space">
               Wallet Address
             </StyledTypography>
             <input type="email" placeholder="Enter wallet address" />
           </StyledForm>
+
           <div>
             <StyledButton variant="contained">Withdraw Tokens</StyledButton>
           </div>
+        </StyledBox>
+      </StyledWithdrawBox>
+    </StyledWithdrawSection>
+  );
+};
+
+const TransactionHistorySection = () => {
+  return (
+    <StyledWithdrawSection className="space">
+      <StyledWithdrawBox>
+        <StyledTypography variant="h2">Transaction History</StyledTypography>
+        <StyledTypography variant="h6" className="color">
+          Recent token withdrawals
+        </StyledTypography>
+
+        <StyledBox>
+          <StyledTable>
+            <StyledTableHead>
+              <StyledTableRow>
+                <StyledTableCell className="bold">Data</StyledTableCell>
+                <StyledTableCell className="bold">Amount</StyledTableCell>
+                <StyledTableCell className="bold">Status</StyledTableCell>
+              </StyledTableRow>
+            </StyledTableHead>
+            <StyledTableBody>
+              {transactionHistoryData.map(({ id, data, amount, status }) => {
+                return (
+                  <StyledTableRow key={id}>
+                    <StyledTableCell>{data}</StyledTableCell>
+                    <StyledTableCell>{amount}</StyledTableCell>
+                    <StyledTableCell>{status}</StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            </StyledTableBody>
+          </StyledTable>
         </StyledBox>
       </StyledWithdrawBox>
     </StyledWithdrawSection>

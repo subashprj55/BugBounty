@@ -1,4 +1,13 @@
-const { Typography, Stack, Box, Button } = require("@mui/material");
+const {
+  Typography,
+  Box,
+  Button,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} = require("@mui/material");
 const { styled } = require("styled-components");
 
 export const StyledAboutUsPage = styled.div`
@@ -25,13 +34,16 @@ export const StyledTypography = styled(Typography)`
 export const StyledWithdrawSection = styled.div`
   margin-left: 100px;
   margin-top: 50px;
+  &.space {
+    margin-bottom: 80px;
+  }
 `;
 
 export const StyledWithdrawBox = styled(Box)`
   margin: 15px 0;
   width: 630px;
   background-color: white;
-  padding: 15px;
+  padding: 20px;
   border-radius: 12px;
   border: 1px solid #e4e4e7;
   @media (max-width: 768px) {
@@ -61,3 +73,18 @@ export const StyledForm = styled(Box)`
 `;
 
 export const StyledButton = styled(Button)``;
+
+export const StyledTable = styled(Table)``;
+
+export const StyledTableHead = styled(TableHead)``;
+
+export const StyledTableRow = styled(TableRow)``;
+
+export const StyledTableCell = styled(TableCell)`
+  border: none !important;
+  &.bold {
+    font-weight: 600;
+  }
+`;
+
+export const StyledTableBody = styled(TableBody)``;
