@@ -56,12 +56,12 @@ export const StyledLinksStack = styled(Stack)``;
 //home page section styles
 
 export const StyledHomeStack = styled(Stack)`
-  margin: 150px 0;
+  margin: 150px 0 100px 0;
   flex-direction: row !important;
   align-items: center;
   justify-content: space-around;
   @media (max-width: 768px) {
-    margin: 150px 30px;
+    margin: 150px 30px 100px 30px;
   }
   @media (max-width: 425px) {
     margin: 100px 2%;
@@ -89,4 +89,46 @@ export const StyledHomeTypography = styled(Typography)`
 export const StyledButton = styled(Button)`
   width: 140px !important;
   margin: 20px 0 !important;
+`;
+
+//how it works section styles
+
+export const StyledHowItWorksTypography = styled(Typography)`
+  &.title {
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 30px;
+  }
+`;
+
+export const StyledHowItWorksSection = styled(Stack)`
+  margin: 40px 0;
+  flex-direction: row !important;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2%;
+`;
+
+export const StyledHowItWorksBox = styled(Box)`
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px 40px;
+  @media (max-width: 768px) {
+    margin-bottom: 20px !important;
+  }
+`;
+
+export const StyledHowItWorkItem = styled(Box)`
+  display: flex;
+  gap: 8px;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+export const StyledItemsButton = styled(Button)`
+  margin-top: 30px !important;
+  margin-bottom: 15px !important;
+  width: auto !important;
 `;
