@@ -26,7 +26,6 @@ import bugImg from "Images/bug_image.jpg";
 import search from "Images/search.png";
 import bug from "Images/bug.png";
 import reward from "Images/reward.png";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 
 const BugHome = () => {
   return (
@@ -35,6 +34,7 @@ const BugHome = () => {
       <HomePageSection />
       <HowItWorksSection />
       <SuccessStories />
+      <BestHunterPage />
     </StyledHomePageBox>
   );
 };
@@ -76,7 +76,7 @@ const HomePageSection = () => {
       </StyledHomeBox>
 
       <StyledHomeBox>
-        <img src={bugImg} alt="Bug Image" />
+        <img src={bugImg} alt="Bug" />
       </StyledHomeBox>
     </StyledHomeStack>
   );
@@ -158,7 +158,9 @@ const SuccessStories = () => {
               <StyledHowItWorksTypography>
                 Alice Wonderland
               </StyledHowItWorksTypography>
-              <StyledHowItWorksTypography>@alice_w</StyledHowItWorksTypography>
+              <StyledHowItWorksTypography className="color">
+                @alice_w
+              </StyledHowItWorksTypography>
               <StyledHowItWorksTypography>
                 "Xlooop has been an amazing platform to hone my skills and earn
                 rewards. I've found some critical bugs and the community is
@@ -175,7 +177,9 @@ const SuccessStories = () => {
               <StyledHowItWorksTypography>
                 Alice Wonderland
               </StyledHowItWorksTypography>
-              <StyledHowItWorksTypography>@alice_w</StyledHowItWorksTypography>
+              <StyledHowItWorksTypography className="color">
+                @alice_w
+              </StyledHowItWorksTypography>
               <StyledHowItWorksTypography>
                 "Xlooop has been an amazing platform to hone my skills and earn
                 rewards. I've found some critical bugs and the community is
@@ -185,6 +189,33 @@ const SuccessStories = () => {
           </StyledHowItWorkItem>
         </StyledHowItWorksBox>
       </StyledSuccessSection>
+    </StyledSuccessStack>
+  );
+};
+
+const BestHunterPage = () => {
+  return (
+    <StyledSuccessStack>
+      <StyledHowItWorksTypography variant="h1" className="title">
+        Hunter of the Month
+      </StyledHowItWorksTypography>
+
+      <StyledHowItWorksSection>
+        <StyledHowItWorksBox>
+          <StyledHowItWorkItem>
+            <StyledPermIdentityIcon className="size" />
+            <StyledSuccessBox>
+              <StyledHowItWorksTypography className="bold">
+                Alice Wonderland
+              </StyledHowItWorksTypography>
+              <StyledHowItWorksTypography>@alice_w</StyledHowItWorksTypography>
+              <StyledHowItWorksTypography className="bold">
+                50,000 xlop tokens earned
+              </StyledHowItWorksTypography>
+            </StyledSuccessBox>
+          </StyledHowItWorkItem>
+        </StyledHowItWorksBox>
+      </StyledHowItWorksSection>
     </StyledSuccessStack>
   );
 };
