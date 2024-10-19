@@ -19,7 +19,7 @@ const BugNavbar = () => {
 
   return (
     <>
-      <StyledAppBar position="sticky">
+      <StyledAppBar>
         <StyledStack>
           <StyledLogoBox>
             <StyledImg src={logo} alt="logo" />
