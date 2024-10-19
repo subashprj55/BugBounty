@@ -2,6 +2,11 @@ import React from "react";
 import {
   StyledAppBar,
   StyledButton,
+  StyledDivider,
+  StyledFooterBox,
+  StyledFooterContainer,
+  StyledFooterSection,
+  StyledFooterTypography,
   StyledHomeBox,
   StyledHomePageBox,
   StyledHomeStack,
@@ -11,12 +16,14 @@ import {
   StyledHowItWorksSection,
   StyledHowItWorksTypography,
   StyledImg,
+  StyledInputBox,
   StyledItemsButton,
   StyledLinksStack,
   StyledLogoBox,
   StyledNavLink,
   StyledPermIdentityIcon,
   StyledStack,
+  StyledSubscribeButton,
   StyledSuccessBox,
   StyledSuccessSection,
   StyledSuccessStack,
@@ -26,6 +33,7 @@ import bugImg from "Images/bug_image.jpg";
 import search from "Images/search.png";
 import bug from "Images/bug.png";
 import reward from "Images/reward.png";
+import { useNavigate } from "react-router-dom";
 
 const BugHome = () => {
   return (
@@ -35,6 +43,7 @@ const BugHome = () => {
       <HowItWorksSection />
       <SuccessStories />
       <BestHunterPage />
+      <FooterSection />
     </StyledHomePageBox>
   );
 };
@@ -51,7 +60,7 @@ const HomePageNav = () => {
           </StyledLogoBox>
           {/*  this links display on tab and laptop version */}
           <StyledLinksStack>
-            <StyledNavLink to={"/"}>Sign Up</StyledNavLink>
+            <StyledNavLink to={"/signup"}>Sign Up</StyledNavLink>
           </StyledLinksStack>
         </StyledStack>
       </StyledAppBar>
@@ -60,6 +69,7 @@ const HomePageNav = () => {
 };
 
 const HomePageSection = () => {
+  const navigate = useNavigate();
   return (
     <StyledHomeStack>
       <StyledHomeBox>
@@ -72,7 +82,9 @@ const HomePageSection = () => {
         <StyledHomeTypography>
           Tokens for reporting vulnerabilities.
         </StyledHomeTypography>
-        <StyledButton variant="contained">Get Started</StyledButton>
+        <StyledButton variant="contained" onClick={() => navigate("/login")}>
+          Get Started
+        </StyledButton>
       </StyledHomeBox>
 
       <StyledHomeBox>
@@ -217,5 +229,59 @@ const BestHunterPage = () => {
         </StyledHowItWorksBox>
       </StyledHowItWorksSection>
     </StyledSuccessStack>
+  );
+};
+
+const FooterSection = () => {
+  return (
+    <>
+      <StyledFooterSection>
+        <StyledFooterContainer>
+          <StyledFooterBox>
+            <StyledFooterTypography variant="h2" className="space">
+              Quick Links
+            </StyledFooterTypography>
+            <StyledFooterTypography>Guidelines</StyledFooterTypography>
+            <StyledFooterTypography>FAQs</StyledFooterTypography>
+            <StyledFooterTypography>Contact Support</StyledFooterTypography>
+          </StyledFooterBox>
+
+          <StyledFooterBox>
+            <StyledFooterTypography variant="h2" className="space">
+              Legal
+            </StyledFooterTypography>
+            <StyledFooterTypography>Terms of Service</StyledFooterTypography>
+            <StyledFooterTypography>Privacy Policy</StyledFooterTypography>
+          </StyledFooterBox>
+
+          <StyledFooterBox>
+            <StyledFooterTypography variant="h2" className="space">
+              Connect
+            </StyledFooterTypography>
+            <StyledFooterTypography>Twitter</StyledFooterTypography>
+            <StyledFooterTypography>LinkedIn</StyledFooterTypography>
+            <StyledFooterTypography>GitHub</StyledFooterTypography>
+          </StyledFooterBox>
+
+          <StyledFooterBox>
+            <StyledFooterTypography variant="h2" className="space">
+              NewsLetter
+            </StyledFooterTypography>
+            <StyledFooterTypography>
+              Stay updated with the latest bounties <br /> and features.
+            </StyledFooterTypography>
+            <StyledInputBox>
+              <input type="text" />
+              <StyledSubscribeButton>Subscribe</StyledSubscribeButton>
+            </StyledInputBox>
+          </StyledFooterBox>
+        </StyledFooterContainer>
+        <StyledDivider />
+
+        <StyledFooterTypography className="center">
+          © 2024 Xlooop Bug Bounty. All rights reserved.
+        </StyledFooterTypography>
+      </StyledFooterSection>
+    </>
   );
 };

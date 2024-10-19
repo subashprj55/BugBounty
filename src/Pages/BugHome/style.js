@@ -1,5 +1,5 @@
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import { AppBar, Box, Button, Typography } from "@mui/material";
+import { AppBar, Box, Button, Divider, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const { Stack } = require("@mui/system");
@@ -164,4 +164,59 @@ export const StyledPermIdentityIcon = styled(PermIdentityIcon)`
   &.size {
     font-size: 60px !important;
   }
+`;
+
+//footer section styles
+
+export const StyledFooterSection = styled(Stack)`
+  margin-top: 80px;
+  background-color: #978fdc;
+  padding: 40px 9% 30px 9%;
+`;
+
+export const StyledFooterContainer = styled(Stack)`
+  flex-direction: row !important;
+  justify-content: space-between;
+  padding-bottom: 30px;
+`;
+
+export const StyledFooterBox = styled(Box)`
+  input {
+    border-radius: 8px 0 0 8px;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+  }
+  input:focus {
+    outline: none;
+    border: none;
+  }
+`;
+
+export const StyledFooterTypography = styled(Typography)`
+  margin-bottom: 3px !important;
+  &.space {
+    margin-bottom: 10px !important;
+    font-family: serif !important;
+  }
+  &.center {
+    margin-top: 30px;
+    text-align: center;
+  }
+`;
+
+export const StyledDivider = styled(Divider)`
+  border-color: black !important;
+  border-bottom-width: revert !important;
+`;
+
+export const StyledInputBox = styled(Box)`
+  display: flex;
+`;
+
+export const StyledSubscribeButton = styled(Button)`
+  font-size: 14px !important;
+  color: white !important;
+  background-color: black !important;
+  border-radius: 0 8px 8px 0 !important;
 `;
