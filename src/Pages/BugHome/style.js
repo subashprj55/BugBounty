@@ -100,6 +100,12 @@ export const StyledHowItWorksTypography = styled(Typography)`
     text-align: center;
     font-size: 30px;
   }
+  &.color {
+    color: #6b7280;
+  }
+  &.bold {
+    font-weight: bold;
+  }
 `;
 
 export const StyledHowItWorksSection = styled(Stack)`
@@ -155,4 +161,7 @@ export const StyledPermIdentityIcon = styled(PermIdentityIcon)`
   margin-top: 5px !important;
   font-size: 35px !important;
   color: gray;
+  &.size {
+    font-size: 60px !important;
+  }
 `;
