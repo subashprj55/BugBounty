@@ -1,3 +1,4 @@
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { AppBar, Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -113,7 +114,7 @@ export const StyledHowItWorksBox = styled(Box)`
   background-color: white;
   border-radius: 8px;
   padding: 30px 40px;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     margin-bottom: 20px !important;
   }
 `;
@@ -131,4 +132,27 @@ export const StyledItemsButton = styled(Button)`
   margin-top: 30px !important;
   margin-bottom: 15px !important;
   width: auto !important;
+`;
+
+// success Stories styles
+export const StyledSuccessStack = styled(Stack)`
+  padding-top: 80px;
+`;
+
+export const StyledSuccessBox = styled(Box)``;
+
+export const StyledSuccessSection = styled(Stack)`
+  margin: 40px 9%;
+  flex-direction: row !important;
+  justify-content: center;
+  gap: 2%;
+  @media (max-width: 425px) {
+    flex-wrap: wrap;
+  }
+`;
+
+export const StyledPermIdentityIcon = styled(PermIdentityIcon)`
+  margin-top: 5px !important;
+  font-size: 35px !important;
+  color: gray;
 `;

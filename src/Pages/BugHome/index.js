@@ -15,14 +15,18 @@ import {
   StyledLinksStack,
   StyledLogoBox,
   StyledNavLink,
+  StyledPermIdentityIcon,
   StyledStack,
+  StyledSuccessBox,
+  StyledSuccessSection,
+  StyledSuccessStack,
 } from "./style";
 import logo from "Images/logo.png";
 import bugImg from "Images/bug_image.jpg";
-import SearchIcon from "@mui/icons-material/Search";
 import search from "Images/search.png";
 import bug from "Images/bug.png";
 import reward from "Images/reward.png";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 
 const BugHome = () => {
   return (
@@ -30,6 +34,7 @@ const BugHome = () => {
       <HomePageNav />
       <HomePageSection />
       <HowItWorksSection />
+      <SuccessStories />
     </StyledHomePageBox>
   );
 };
@@ -135,5 +140,51 @@ const HowItWorksSection = () => {
         </StyledHowItWorksBox>
       </StyledHowItWorksSection>
     </>
+  );
+};
+
+const SuccessStories = () => {
+  return (
+    <StyledSuccessStack>
+      <StyledHowItWorksTypography variant="h1" className="title">
+        Success Stories
+      </StyledHowItWorksTypography>
+
+      <StyledSuccessSection>
+        <StyledHowItWorksBox>
+          <StyledHowItWorkItem>
+            <StyledPermIdentityIcon />
+            <StyledSuccessBox>
+              <StyledHowItWorksTypography>
+                Alice Wonderland
+              </StyledHowItWorksTypography>
+              <StyledHowItWorksTypography>@alice_w</StyledHowItWorksTypography>
+              <StyledHowItWorksTypography>
+                "Xlooop has been an amazing platform to hone my skills and earn
+                rewards. I've found some critical bugs and the community is
+                super supportive!"
+              </StyledHowItWorksTypography>
+            </StyledSuccessBox>
+          </StyledHowItWorkItem>
+        </StyledHowItWorksBox>
+
+        <StyledHowItWorksBox>
+          <StyledHowItWorkItem>
+            <StyledPermIdentityIcon />
+            <StyledSuccessBox>
+              <StyledHowItWorksTypography>
+                Alice Wonderland
+              </StyledHowItWorksTypography>
+              <StyledHowItWorksTypography>@alice_w</StyledHowItWorksTypography>
+              <StyledHowItWorksTypography>
+                "Xlooop has been an amazing platform to hone my skills and earn
+                rewards. I've found some critical bugs and the community is
+                super supportive!"
+              </StyledHowItWorksTypography>
+            </StyledSuccessBox>
+          </StyledHowItWorkItem>
+        </StyledHowItWorksBox>
+      </StyledSuccessSection>
+    </StyledSuccessStack>
   );
 };
