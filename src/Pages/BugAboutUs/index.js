@@ -1,3 +1,4 @@
+import BugInputField from "Components/BugInputField";
 import BugNavContainer from "Components/BugNavContainer";
 import React from "react";
 import { transactionHistoryData } from "./data";
@@ -45,13 +46,13 @@ const WithdrawTokenSection = () => {
           <StyledTypography variant="h6" className="bold space">
             Amount (XLOP)
           </StyledTypography>
-          <input type="number" placeholder="Enter Amount" />
+          <BugInputField type="number" placeholder="Enter Amount" />
 
           <StyledForm>
             <StyledTypography variant="h6" className="bold space">
               Wallet Address
             </StyledTypography>
-            <input type="email" placeholder="Enter wallet address" />
+            <BugInputField type="email" placeholder="Enter wallet address" />
           </StyledForm>
 
           <div>
