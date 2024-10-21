@@ -22,9 +22,6 @@ export const StyledFormControl = styled(FormControl)`
   }
 `;
 
-export const StyledSelect = styled(Select)`
-  .css-113d811-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-  }
-`;
+export const StyledSelect = styled(Select)``;
 
 export const StyledMenuItem = styled(MenuItem)``;
