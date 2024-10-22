@@ -8,4 +8,5 @@ export const StyledStack = styled(Stack)`
 
 export const StyledChildDiv = styled.div`
   margin-left: 60px;
+  width: -webkit-fill-available;
 `;

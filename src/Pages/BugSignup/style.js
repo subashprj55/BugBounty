@@ -7,7 +7,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const StyledSignupStack = styled(Stack)`
@@ -52,11 +51,6 @@ export const StyledBottomBox = styled(Box)`
   display: flex;
   align-items: center;
 `;
-
-// @media (max-width: 400px) {
-//     flex-direction: column;
-//     gap: 0.8em;
-//   }
 
 export const StyledToggleButtonGroup = styled(ToggleButtonGroup)``;
 
