@@ -6,6 +6,7 @@ import Bug404 from "Pages/Bug404";
 import BugLogin from "Pages/BugLogin";
 import BugSignup from "Pages/BugSignup";
 import BugProfile from "Pages/BugProfile";
+import BugDashboard from "Pages/BugDashboard";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<BugHome />} />
         <Route path="profile" element={<BugProfile />} />
+        <Route path="dashboard" element={<BugDashboard />} />
         <Route path="transaction" element={<BugAboutUs />} />
         <Route path="login" element={<BugLogin />} />
         <Route path="signup" element={<BugSignup />} />
