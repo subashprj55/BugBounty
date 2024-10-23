@@ -2,17 +2,11 @@ import BugInputField from "Components/BugInputField";
 import BugNavContainer from "Components/BugNavContainer";
 import BugTable from "Components/BugTable";
 import React from "react";
-import { transactionHistoryData } from "./data";
 import {
   StyledAboutUsPage,
   StyledBox,
   StyledButton,
   StyledForm,
-  StyledTable,
-  StyledTableBody,
-  StyledTableCell,
-  StyledTableHead,
-  StyledTableRow,
   StyledTypography,
   StyledWithdrawBox,
   StyledWithdrawSection,
