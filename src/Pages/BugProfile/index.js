@@ -113,13 +113,19 @@ const BadgesSection = () => {
           Achievements and recognitions
         </StyledTypography>
         <StyledBadgesBox>
-          <StyledBadgesChip icon={<img src={CupIcon} />} label="Top Hunter" />
+          <StyledBadgesChip
+            icon={<img src={CupIcon} alt="trophy" />}
+            label="Top Hunter"
+          />
           <StyledBadgesChip
             className="badge"
-            icon={<img src={Mark} />}
+            icon={<img src={Mark} alt="achievement" />}
             label="Critical Bug Finding"
           />
-          <StyledBadgesChip icon={<img src={Shield} />} label="Speed Demon" />
+          <StyledBadgesChip
+            icon={<img src={Shield} alt="circle" />}
+            label="Speed Demon"
+          />
         </StyledBadgesBox>
       </StyledBadgesSection>
 

@@ -1,13 +1,4 @@
-const {
-  Typography,
-  Box,
-  Button,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} = require("@mui/material");
+const { Typography, Box, Button } = require("@mui/material");
 const { styled } = require("styled-components");
 
 export const StyledAboutUsPage = styled.div`
@@ -73,18 +64,3 @@ export const StyledForm = styled(Box)`
 `;
 
 export const StyledButton = styled(Button)``;
-
-export const StyledTable = styled(Table)``;
-
-export const StyledTableHead = styled(TableHead)``;
-
-export const StyledTableRow = styled(TableRow)``;
-
-export const StyledTableCell = styled(TableCell)`
-  border: none !important;
-  &.bold {
-    font-weight: 600;
-  }
-`;
-
-export const StyledTableBody = styled(TableBody)``;
