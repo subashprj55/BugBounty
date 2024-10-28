@@ -1,0 +1,42 @@
+export const leaderboardData = [
+  {
+    id: 0,
+    ranking: 1,
+    name: "Alice Wonderland",
+    user_id: "@alice_w",
+    tokens: 15000,
+    link: "",
+  },
+  {
+    id: 1,
+    ranking: 2,
+    name: "Bob Builder",
+    user_id: "@bob_builds",
+    tokens: 12500,
+    link: "",
+  },
+  {
+    id: 2,
+    ranking: 3,
+    name: "Charlie Cyber",
+    user_id: "@cyber_charlie",
+    tokens: 10000,
+    link: "",
+  },
+  {
+    id: 3,
+    ranking: 4,
+    name: "Diana Debugger",
+    user_id: "@debug_diana",
+    tokens: 9000,
+    link: "",
+  },
+  {
+    id: 4,
+    ranking: 5,
+    name: "Ethan Ethical",
+    user_id: "@ethical_ethan",
+    tokens: 8500,
+    link: "",
+  },
+];
