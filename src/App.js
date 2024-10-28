@@ -8,6 +8,7 @@ import BugSignup from "Pages/BugSignup";
 import BugProfile from "Pages/BugProfile";
 import BugDashboard from "Pages/BugDashboard";
 import BugSubmit from "Pages/BugSubmit";
+import BugLeaderBoard from "Pages/BugLeaderboard";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="dashboard" element={<BugDashboard />} />
         <Route path="transaction" element={<BugAboutUs />} />
         <Route path="bugSubmit" element={<BugSubmit />} />
+        <Route path="leaderboard" element={<BugLeaderBoard />} />
         <Route path="login" element={<BugLogin />} />
         <Route path="signup" element={<BugSignup />} />
         <Route path="*" element={<Bug404 />} />

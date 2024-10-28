@@ -51,6 +51,8 @@ export const theme = createTheme({
           padding: "10px 20px",
           borderRadius: "15px",
           textTransform: "capitalize",
+          fontFamily: "inherit",
+          fontWeight: 500,
           "&:hover": {
             backgroundColor: "#3dc4b4",
             color: "white",
