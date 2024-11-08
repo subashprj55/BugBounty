@@ -10,6 +10,7 @@ import BugDashboard from "Pages/BugDashboard";
 import BugSubmit from "Pages/BugSubmit";
 import BugLeaderBoard from "Pages/BugLeaderboard";
 import BugRewards from "Pages/BugRewards";
+import BugActiveBounties from "Pages/BugActiveBounties";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="transaction" element={<BugAboutUs />} />
         <Route path="bugSubmit" element={<BugSubmit />} />
         <Route path="leaderboard" element={<BugLeaderBoard />} />
+        <Route path="activeBounties" element={<BugActiveBounties />} />
         <Route path="rewards" element={<BugRewards />} />
         <Route path="login" element={<BugLogin />} />
         <Route path="signup" element={<BugSignup />} />
