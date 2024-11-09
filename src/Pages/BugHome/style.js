@@ -6,7 +6,7 @@ const { Stack } = require("@mui/system");
 const { styled } = require("styled-components");
 
 export const StyledHomePageBox = styled(Box)`
-  background-color: #f1f1f1;
+  background-color: #f1f4f8;
 `;
 export const StyledAppBar = styled(AppBar)`
   background-color: #978fdc !important;
@@ -84,7 +84,15 @@ export const StyledHomeBox = styled(Box)`
 
 export const StyledHomeTypography = styled(Typography)`
   text-transform: capitalize;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  font-family: "Roboto", sans-serif !important;
+  &.font-roboto {
+    font-size: 45px !important;
+    padding-bottom: 20px;
+  }
+  &.fontWeight {
+    font-weight: 500 !important;
+  }
 `;
 
 export const StyledButton = styled(Button)`
@@ -98,13 +106,16 @@ export const StyledHowItWorksTypography = styled(Typography)`
   &.title {
     text-transform: capitalize;
     text-align: center;
-    font-size: 30px;
+    font-size: 32px;
   }
   &.color {
     color: #6b7280;
   }
   &.bold {
     font-weight: bold;
+  }
+  &.space-top {
+    margin-top: 7px;
   }
 `;
 
@@ -119,7 +130,7 @@ export const StyledHowItWorksSection = styled(Stack)`
 export const StyledHowItWorksBox = styled(Box)`
   background-color: white;
   border-radius: 8px;
-  padding: 30px 40px;
+  padding: 30px;
   @media (max-width: 1024px) {
     margin-bottom: 20px !important;
   }
@@ -127,7 +138,10 @@ export const StyledHowItWorksBox = styled(Box)`
 
 export const StyledHowItWorkItem = styled(Box)`
   display: flex;
-  gap: 8px;
+  gap: 25px;
+  &.space-button {
+    margin-bottom: 40px;
+  }
   img {
     width: 24px;
     height: 24px;

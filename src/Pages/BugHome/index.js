@@ -73,13 +73,13 @@ const HomePageSection = () => {
   return (
     <StyledHomeStack>
       <StyledHomeBox>
-        <StyledHomeTypography variant="h1">
+        <StyledHomeTypography variant="h1" className="font-roboto">
           Earn Rewards for Finding Bugs!
         </StyledHomeTypography>
-        <StyledHomeTypography>
+        <StyledHomeTypography variant="h1" className="fontWeight">
           Join the Xlooop Bug Bounty Program and start earning xlop{" "}
         </StyledHomeTypography>
-        <StyledHomeTypography>
+        <StyledHomeTypography variant="h1" className="fontWeight">
           Tokens for reporting vulnerabilities.
         </StyledHomeTypography>
         <StyledButton variant="contained" onClick={() => navigate("/login")}>
@@ -103,14 +103,14 @@ const HowItWorksSection = () => {
 
       <StyledHowItWorksSection>
         <StyledHowItWorksBox>
-          <StyledHowItWorkItem>
+          <StyledHowItWorkItem className="space-button">
             <img src={search} alt="search" />
             <StyledHomeTypography variant="h2">
               Explore Bounties
             </StyledHomeTypography>
           </StyledHowItWorkItem>
           <StyledHowItWorksTypography variant="footer" className="space">
-            Find exciting bug bounty programs and <br></br> choose your target.
+            Find exciting bug bounty programs and <br /> choose your target.
           </StyledHowItWorksTypography>
           <br />
 
@@ -120,7 +120,7 @@ const HowItWorksSection = () => {
         </StyledHowItWorksBox>
 
         <StyledHowItWorksBox>
-          <StyledHowItWorkItem>
+          <StyledHowItWorkItem className="space-button">
             <img src={bug} alt="bug icon" />
             <StyledHomeTypography variant="h2">
               Submit Bugs
@@ -136,7 +136,7 @@ const HowItWorksSection = () => {
         </StyledHowItWorksBox>
 
         <StyledHowItWorksBox>
-          <StyledHowItWorkItem>
+          <StyledHowItWorkItem className="space-button">
             <img src={reward} alt="reward icon" />
             <StyledHomeTypography variant="h2">
               Earn Rewards
@@ -167,7 +167,7 @@ const SuccessStories = () => {
           <StyledHowItWorkItem>
             <StyledPermIdentityIcon />
             <StyledSuccessBox>
-              <StyledHowItWorksTypography>
+              <StyledHowItWorksTypography variant="h3">
                 Alice Wonderland
               </StyledHowItWorksTypography>
               <StyledHowItWorksTypography className="color">
@@ -186,7 +186,7 @@ const SuccessStories = () => {
           <StyledHowItWorkItem>
             <StyledPermIdentityIcon />
             <StyledSuccessBox>
-              <StyledHowItWorksTypography>
+              <StyledHowItWorksTypography variant="h3">
                 Alice Wonderland
               </StyledHowItWorksTypography>
               <StyledHowItWorksTypography className="color">
@@ -221,7 +221,7 @@ const BestHunterPage = () => {
                 Alice Wonderland
               </StyledHowItWorksTypography>
               <StyledHowItWorksTypography>@alice_w</StyledHowItWorksTypography>
-              <StyledHowItWorksTypography className="bold">
+              <StyledHowItWorksTypography className="bold space-top">
                 50,000 xlop tokens earned
               </StyledHowItWorksTypography>
             </StyledSuccessBox>
