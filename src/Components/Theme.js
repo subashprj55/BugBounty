@@ -4,26 +4,22 @@ export const theme = createTheme({
   palette: {},
   typography: {
     h1: {
-      fontFamily: "Epilogue",
+      fontFamily: "Inter",
       fontSize: "25px",
       fontWeight: 700,
-      lineHeight: "38px",
     },
     h2: {
       fontFamily: "Epilogue",
       fontSize: "20px",
       fontWeight: 700,
-      lineHeight: "30px",
     },
     h3: {
-      fontSize: "14px",
+      fontSize: "16px",
       fontWeight: "600",
-      lineHeight: "20px",
       letterSpacing: "0.17px",
 
       "@media (max-width: 768px)": {
         fontSize: "12px",
-        lineHeight: "18px",
         letterSpacing: "0.15px",
       },
     },
@@ -31,12 +27,10 @@ export const theme = createTheme({
       fontFamily: "Inter",
       fontSize: "15px",
       fontWeight: 400,
-      lineHeight: "20px",
     },
     footer: {
       fontSize: "16px",
       fontWeight: "400",
-      lineHeight: "24px",
       letterSpacing: "0.17px",
     },
   },

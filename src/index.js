@@ -4,6 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import "@fontsource/roboto"; // Default weight
+import "@fontsource/roboto/400.css"; // For specific weight (e.g., 400)
+import "@fontsource/roboto/700.css"; // For bold text
+
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./Components/Theme";
 import { BrowserRouter } from "react-router-dom";
