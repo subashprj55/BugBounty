@@ -61,13 +61,17 @@ const BugNavbar = () => {
         <StyledNavLinksBox
           className={`${isNavOpen ? "openNavbar" : "closeNavbar"}`}
         >
-          <StyledNavLink className="active" to={"/dashboard"}>
-            Dashboard
-          </StyledNavLink>
-          <StyledNavLink to={"/activeBounties"}>Active Bounties</StyledNavLink>
-          <StyledNavLink to={"/bugSubmit"}>Submit Bug</StyledNavLink>
-          <StyledNavLink to={"/rewards"}>Rewards</StyledNavLink>
-          <StyledNavLink to={"/leaderboard"}>LeaderBoard</StyledNavLink>
+          {navData.map(({ id, linkAddress, name }) => {
+            return (
+              <StyledNavLink
+                key={id}
+                className={`${location === linkAddress ? "active" : ""}`}
+                to={linkAddress}
+              >
+                {name}
+              </StyledNavLink>
+            );
+          })}
         </StyledNavLinksBox>
       </StyledNavLinksStack>
     </>
