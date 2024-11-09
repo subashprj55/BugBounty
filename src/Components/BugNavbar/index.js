@@ -13,27 +13,38 @@ import {
 import logo from "Images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link, useLocation } from "react-router-dom";
+import { navData } from "./navData";
 
 const BugNavbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(true);
+
+  const location = useLocation().pathname;
 
   return (
     <>
       <StyledAppBar>
         <StyledStack>
           <StyledLogoBox>
-            <StyledImg src={logo} alt="logo" />
+            <Link to={"/"}>
+              <StyledImg src={logo} alt="logo" />
+            </Link>
           </StyledLogoBox>
           {/*  this links display on tab and laptop version */}
           <StyledLinksStack>
-            <StyledNavLink to={"/"}>Dashboard</StyledNavLink>
-            <StyledNavLink to={"/activeBounties"}>
-              Active Bounties
-            </StyledNavLink>
-            <StyledNavLink to={"/submitBug"}>Submit Bug</StyledNavLink>
-            <StyledNavLink to={"/rewards"}>Rewards</StyledNavLink>
-            <StyledNavLink to={"/leaderBoard"}>LeaderBoard</StyledNavLink>
+            {navData.map(({ id, linkAddress, name }) => {
+              return (
+                <StyledNavLink
+                  key={id}
+                  className={`${location === linkAddress ? "nav-active" : ""}`}
+                  to={linkAddress}
+                >
+                  {name}
+                </StyledNavLink>
+              );
+            })}
           </StyledLinksStack>
+
           {/* Side bar toggle button */}
           <StyledNavStack>
             {isNavOpen ? (
@@ -50,13 +61,17 @@ const BugNavbar = () => {
         <StyledNavLinksBox
           className={`${isNavOpen ? "openNavbar" : "closeNavbar"}`}
         >
-          <StyledNavLink className="active" to={"/"}>
-            Dashboard
-          </StyledNavLink>
-          <StyledNavLink to={"/activeBounties"}>Active Bounties</StyledNavLink>
-          <StyledNavLink to={"/submitBug"}>Submit Bug</StyledNavLink>
-          <StyledNavLink to={"/rewards"}>Rewards</StyledNavLink>
-          <StyledNavLink to={"/leaderBoard"}>LeaderBoard</StyledNavLink>
+          {navData.map(({ id, linkAddress, name }) => {
+            return (
+              <StyledNavLink
+                key={id}
+                className={`${location === linkAddress ? "active" : ""}`}
+                to={linkAddress}
+              >
+                {name}
+              </StyledNavLink>
+            );
+          })}
         </StyledNavLinksBox>
       </StyledNavLinksStack>
     </>
