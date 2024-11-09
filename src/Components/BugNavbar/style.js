@@ -29,19 +29,21 @@ export const StyledImg = styled.img`
 
 export const StyledNavLink = styled(Link)`
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
-  line-height: 20px;
   color: #000000;
+  letter-spacing: 0.2px;
   @media (max-width: 768px) {
     font-size: 14px;
-    line-height: 16px;
   }
   @media (max-width: 600px) {
     font-weight: 600;
     font-size: 16px;
-    line-height: 16px;
     padding: 13px 2%;
+  }
+  &.nav-active {
+    color: #6a1b9a;
+    font-weight: 500;
   }
 `;
 
