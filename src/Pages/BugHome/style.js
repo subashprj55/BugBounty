@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 const { Stack } = require("@mui/system");
 const { styled } = require("styled-components");
 
-export const StyledHomePageBox = styled(Box)`
-  background-color: #f1f4f8;
-`;
+export const StyledHomePageBox = styled(Box)``;
+
 export const StyledAppBar = styled(AppBar)`
   background-color: #978fdc !important;
   position: fixed !important;
@@ -38,8 +37,8 @@ export const StyledNavLink = styled(Link)`
   font-size: 16px;
   line-height: 20px;
   color: #000000;
-  padding: 9px 10px;
-  background-color: #27d9b5;
+  padding: 10px 20px;
+  background-color: #39d2c0;
   border-radius: 15px;
   @media (max-width: 768px) {
     font-size: 14px;
@@ -128,8 +127,6 @@ export const StyledHowItWorksSection = styled(Stack)`
 `;
 
 export const StyledHowItWorksBox = styled(Box)`
-  background-color: white;
-  border-radius: 8px;
   padding: 30px;
   @media (max-width: 1024px) {
     margin-bottom: 20px !important;
@@ -150,7 +147,6 @@ export const StyledHowItWorkItem = styled(Box)`
 
 export const StyledItemsButton = styled(Button)`
   margin-top: 30px !important;
-  margin-bottom: 15px !important;
   width: auto !important;
 `;
 

@@ -34,6 +34,7 @@ import search from "Images/search.png";
 import bug from "Images/bug.png";
 import reward from "Images/reward.png";
 import { useNavigate } from "react-router-dom";
+import BugBox from "Components/BugBox";
 
 const BugHome = () => {
   return (
@@ -102,54 +103,64 @@ const HowItWorksSection = () => {
       </StyledHowItWorksTypography>
 
       <StyledHowItWorksSection>
-        <StyledHowItWorksBox>
-          <StyledHowItWorkItem className="space-button">
-            <img src={search} alt="search" />
-            <StyledHomeTypography variant="h2">
+        <BugBox>
+          <StyledHowItWorksBox>
+            <StyledHowItWorkItem className="space-button">
+              <img src={search} alt="search" />
+              <StyledHomeTypography variant="h2">
+                Explore Bounties
+              </StyledHomeTypography>
+            </StyledHowItWorkItem>
+            <StyledHowItWorksTypography variant="footer" className="space">
+              Find exciting bug bounty programs and <br /> choose your target.
+            </StyledHowItWorksTypography>
+            <br />
+
+            <StyledItemsButton variant="contained">
               Explore Bounties
-            </StyledHomeTypography>
-          </StyledHowItWorkItem>
-          <StyledHowItWorksTypography variant="footer" className="space">
-            Find exciting bug bounty programs and <br /> choose your target.
-          </StyledHowItWorksTypography>
-          <br />
+            </StyledItemsButton>
+          </StyledHowItWorksBox>
+        </BugBox>
 
-          <StyledItemsButton variant="contained">
-            Explore Bounties
-          </StyledItemsButton>
-        </StyledHowItWorksBox>
+        <BugBox>
+          <StyledHowItWorksBox>
+            <StyledHowItWorkItem className="space-button">
+              <img src={bug} alt="bug icon" />
+              <StyledHomeTypography variant="h2">
+                Submit Bugs
+              </StyledHomeTypography>
+            </StyledHowItWorkItem>
+            <StyledHowItWorksTypography variant="footer" className="space">
+              Report vulnerabilities easily through our <br></br> streamlined
+              process target.
+            </StyledHowItWorksTypography>
+            <br />
 
-        <StyledHowItWorksBox>
-          <StyledHowItWorkItem className="space-button">
-            <img src={bug} alt="bug icon" />
-            <StyledHomeTypography variant="h2">
+            <StyledItemsButton variant="contained">
               Submit Bugs
+            </StyledItemsButton>
+          </StyledHowItWorksBox>
+        </BugBox>
+
+        <BugBox>
+          <StyledHowItWorksBox>
+            <StyledHowItWorkItem className="space-button">
+              <img src={reward} alt="reward icon" />
+              <StyledHomeTypography variant="h2">
+                Earn Rewards
+              </StyledHomeTypography>
+            </StyledHowItWorkItem>
+            <StyledHomeTypography variant="footer">
+              Get rewarded with xlop tokens for your <br></br> valuable
+              contributions.
             </StyledHomeTypography>
-          </StyledHowItWorkItem>
-          <StyledHowItWorksTypography variant="footer" className="space">
-            Report vulnerabilities easily through our <br></br> streamlined
-            process target.
-          </StyledHowItWorksTypography>
-          <br />
+            <br />
 
-          <StyledItemsButton variant="contained">Submit Bugs</StyledItemsButton>
-        </StyledHowItWorksBox>
-
-        <StyledHowItWorksBox>
-          <StyledHowItWorkItem className="space-button">
-            <img src={reward} alt="reward icon" />
-            <StyledHomeTypography variant="h2">
-              Earn Rewards
-            </StyledHomeTypography>
-          </StyledHowItWorkItem>
-          <StyledHomeTypography variant="footer">
-            Get rewarded with xlop tokens for your <br></br> valuable
-            contributions.
-          </StyledHomeTypography>
-          <br />
-
-          <StyledItemsButton variant="contained">View Reward</StyledItemsButton>
-        </StyledHowItWorksBox>
+            <StyledItemsButton variant="contained">
+              View Reward
+            </StyledItemsButton>
+          </StyledHowItWorksBox>
+        </BugBox>
       </StyledHowItWorksSection>
     </>
   );
@@ -163,43 +174,47 @@ const SuccessStories = () => {
       </StyledHowItWorksTypography>
 
       <StyledSuccessSection>
-        <StyledHowItWorksBox>
-          <StyledHowItWorkItem>
-            <StyledPermIdentityIcon />
-            <StyledSuccessBox>
-              <StyledHowItWorksTypography variant="h3">
-                Alice Wonderland
-              </StyledHowItWorksTypography>
-              <StyledHowItWorksTypography className="color">
-                @alice_w
-              </StyledHowItWorksTypography>
-              <StyledHowItWorksTypography>
-                "Xlooop has been an amazing platform to hone my skills and earn
-                rewards. I've found some critical bugs and the community is
-                super supportive!"
-              </StyledHowItWorksTypography>
-            </StyledSuccessBox>
-          </StyledHowItWorkItem>
-        </StyledHowItWorksBox>
+        <BugBox>
+          <StyledHowItWorksBox>
+            <StyledHowItWorkItem>
+              <StyledPermIdentityIcon />
+              <StyledSuccessBox>
+                <StyledHowItWorksTypography variant="h3">
+                  Alice Wonderland
+                </StyledHowItWorksTypography>
+                <StyledHowItWorksTypography className="color">
+                  @alice_w
+                </StyledHowItWorksTypography>
+                <StyledHowItWorksTypography>
+                  "Xlooop has been an amazing platform to hone my skills and
+                  earn rewards. I've found some critical bugs and the community
+                  is super supportive!"
+                </StyledHowItWorksTypography>
+              </StyledSuccessBox>
+            </StyledHowItWorkItem>
+          </StyledHowItWorksBox>
+        </BugBox>
 
-        <StyledHowItWorksBox>
-          <StyledHowItWorkItem>
-            <StyledPermIdentityIcon />
-            <StyledSuccessBox>
-              <StyledHowItWorksTypography variant="h3">
-                Alice Wonderland
-              </StyledHowItWorksTypography>
-              <StyledHowItWorksTypography className="color">
-                @alice_w
-              </StyledHowItWorksTypography>
-              <StyledHowItWorksTypography>
-                "Xlooop has been an amazing platform to hone my skills and earn
-                rewards. I've found some critical bugs and the community is
-                super supportive!"
-              </StyledHowItWorksTypography>
-            </StyledSuccessBox>
-          </StyledHowItWorkItem>
-        </StyledHowItWorksBox>
+        <BugBox>
+          <StyledHowItWorksBox>
+            <StyledHowItWorkItem>
+              <StyledPermIdentityIcon />
+              <StyledSuccessBox>
+                <StyledHowItWorksTypography variant="h3">
+                  Alice Wonderland
+                </StyledHowItWorksTypography>
+                <StyledHowItWorksTypography className="color">
+                  @alice_w
+                </StyledHowItWorksTypography>
+                <StyledHowItWorksTypography>
+                  "Xlooop has been an amazing platform to hone my skills and
+                  earn rewards. I've found some critical bugs and the community
+                  is super supportive!"
+                </StyledHowItWorksTypography>
+              </StyledSuccessBox>
+            </StyledHowItWorkItem>
+          </StyledHowItWorksBox>
+        </BugBox>
       </StyledSuccessSection>
     </StyledSuccessStack>
   );
@@ -213,20 +228,24 @@ const BestHunterPage = () => {
       </StyledHowItWorksTypography>
 
       <StyledHowItWorksSection>
-        <StyledHowItWorksBox>
-          <StyledHowItWorkItem>
-            <StyledPermIdentityIcon className="size" />
-            <StyledSuccessBox>
-              <StyledHowItWorksTypography className="bold">
-                Alice Wonderland
-              </StyledHowItWorksTypography>
-              <StyledHowItWorksTypography>@alice_w</StyledHowItWorksTypography>
-              <StyledHowItWorksTypography className="bold space-top">
-                50,000 xlop tokens earned
-              </StyledHowItWorksTypography>
-            </StyledSuccessBox>
-          </StyledHowItWorkItem>
-        </StyledHowItWorksBox>
+        <BugBox>
+          <StyledHowItWorksBox>
+            <StyledHowItWorkItem>
+              <StyledPermIdentityIcon className="size" />
+              <StyledSuccessBox>
+                <StyledHowItWorksTypography className="bold">
+                  Alice Wonderland
+                </StyledHowItWorksTypography>
+                <StyledHowItWorksTypography>
+                  @alice_w
+                </StyledHowItWorksTypography>
+                <StyledHowItWorksTypography className="bold space-top">
+                  50,000 xlop tokens earned
+                </StyledHowItWorksTypography>
+              </StyledSuccessBox>
+            </StyledHowItWorkItem>
+          </StyledHowItWorksBox>
+        </BugBox>
       </StyledHowItWorksSection>
     </StyledSuccessStack>
   );
