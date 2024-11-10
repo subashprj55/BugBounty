@@ -3,3 +3,6 @@
   margin: 0;
   overflow-x: hidden;
 }
+body {
+  background-color: #f1f4f8;
+}
