@@ -7,9 +7,12 @@ import {
   StyledSelect,
 } from "./style";
 
-const BugSelectField = ({ label }) => {
-  const [selectValue, setSelectValue] = React.useState("");
-
+const BugSelectField = ({
+  label,
+  options = [],
+  selectValue,
+  setSelectValue,
+}) => {
   const handleChange = (event) => {
     setSelectValue(event.target.value);
   };
@@ -25,9 +28,13 @@ const BugSelectField = ({ label }) => {
           label={label}
           onChange={handleChange}
         >
-          <StyledMenuItem value={10}>Demo1</StyledMenuItem>
-          <StyledMenuItem value={20}>Demo2</StyledMenuItem>
-          <StyledMenuItem value={30}>Demo3</StyledMenuItem>
+          {options?.map(({ id, name, value }) => {
+            return (
+              <StyledMenuItem key={id} value={value}>
+                {name}
+              </StyledMenuItem>
+            );
+          })}
         </StyledSelect>
       </StyledFormControl>
     </StyledBox>
