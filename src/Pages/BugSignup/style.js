@@ -10,17 +10,13 @@ import { Stack } from "@mui/system";
 import { styled } from "styled-components";
 
 export const StyledSignupStack = styled(Stack)`
-  background-color: #f1f1f1;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
 `;
 
 export const StyledSignupBox = styled(Box)`
-  background-color: white;
   width: fit-content;
-  border: 2px solid #e4e4e7;
-  border-radius: 10px;
   padding: 30px 50px;
 `;
 
