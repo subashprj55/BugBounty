@@ -33,7 +33,7 @@ import bugImg from "Images/bug_image.jpg";
 import search from "Images/search.png";
 import bug from "Images/bug.png";
 import reward from "Images/reward.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BugBox from "Components/BugBox";
 
 const BugHome = () => {
@@ -51,13 +51,15 @@ const BugHome = () => {
 
 export default BugHome;
 
-const HomePageNav = () => {
+export const HomePageNav = () => {
   return (
     <>
       <StyledAppBar>
         <StyledStack>
           <StyledLogoBox>
-            <StyledImg src={logo} alt="logo" />
+            <Link to="/">
+              <StyledImg src={logo} alt="logo" />
+            </Link>
           </StyledLogoBox>
           {/*  this links display on tab and laptop version */}
           <StyledLinksStack>
