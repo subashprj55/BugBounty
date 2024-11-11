@@ -9,7 +9,6 @@ const {
 const { styled } = require("styled-components");
 
 export const StyledProfilePage = styled(Stack)`
-  background-color: #f1f1f1;
   width: 100wv;
   padding-left: 100px;
 `;
@@ -25,18 +24,20 @@ export const StyledProfileHead = styled(Box)`
 `;
 
 export const StyledTypography = styled(Typography)`
-  font-family: serif;
+  font-family: Manrope;
+
   &.font {
     font-weight: normal;
     text-align: center;
   }
+  &.font-roboto {
+    font-family: Roboto;
+  }
 `;
 
 export const StyledProfileBox = styled(Box)`
-  background-color: white;
   width: 31%;
   min-width: 300px;
-  border-radius: 6px;
   padding: 30px 20px;
 `;
 
@@ -51,7 +52,11 @@ export const StyledChip = styled(Chip)`
   margin-top: 5px;
 `;
 
-export const StyledDiv = styled.div``;
+export const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const StyledDetails = styled(Stack)`
   margin-top: 20px;
@@ -64,8 +69,10 @@ export const StyledDetails = styled(Stack)`
 `;
 
 export const StyledRecentActivitySection = styled(Box)`
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
   background-color: white;
-  max-width: 49%;
+  max-width: 54%;
   width: 100%;
   border-radius: 6px;
   padding: 30px 20px;
@@ -73,6 +80,7 @@ export const StyledRecentActivitySection = styled(Box)`
 
 export const StyledStack = styled(Stack)`
   flex-direction: row !important;
+  margin-bottom: 40px;
   flex-wrap: wrap;
   gap: 40px;
   @media (max-width: 985px) {
@@ -81,10 +89,10 @@ export const StyledStack = styled(Stack)`
 `;
 
 export const StyledBadgesSection = styled(Stack)`
-  margin: 40px 0;
-  width: 76%;
-  background-color: white;
-  border-radius: 6px;
+  width: 87%;
+`;
+
+export const StyledBadgesStack = styled(Stack)`
   padding: 30px 50px;
 `;
 
@@ -103,7 +111,8 @@ export const StyledBadgesChip = styled(Chip)`
 `;
 
 export const StyledButtonBox = styled(Box)`
-  margin-bottom: 40px;
+  margin: 40px 0;
+  padding-bottom: 5px;
   width: fit-content;
 `;
 
