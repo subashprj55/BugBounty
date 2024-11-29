@@ -1,12 +1,18 @@
 import { Controller, useForm } from "react-hook-form";
 import BugBox from "Components/BugBox";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Industries, primarySkills } from "./data";
 import {
   StyledBottomBox,
   StyledBox,
+  StyledBoxModel,
+  StyledButton,
+  StyledButtonBox,
+  StyledButtonStack,
   StyledCheckBox,
+  StyledCircularProgress,
+  StyledContactMailIcon,
   StyledErrorMessage,
   StyledFooterDiv,
   StyledForm,
@@ -15,6 +21,11 @@ import {
   StyledInputField,
   StyledInputLabel,
   StyledMenuItem,
+  StyledModel,
+  StyledModelBodyBox,
+  StyledModelBox,
+  StyledOTPInput,
+  StyledOTPInputContainer,
   StyledSelect,
   StyledSignupBox,
   StyledSignupButton,
@@ -23,6 +34,9 @@ import {
   StyledToggleButton,
   StyledToggleButtonGroup,
 } from "./style";
+import useSendSignupOpt from "Hooks/useSendSignupOtp";
+import useSignup from "Hooks/useSignup";
+import BugSnackbar from "Components/BugSnackbar";
 
 const BugSignup = () => {
   const {
@@ -35,27 +49,44 @@ const BugSignup = () => {
 
   const [checked, setChecked] = React.useState(false);
   const [error, setError] = useState(false);
-  const [alignment, setAlignment] = useState("Hunter");
-  const navigate = useNavigate();
+  const [role, setRole] = useState("hunter");
+  const [popUpWindow, setPopUpWindow] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
 
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  const handleRole = (event, newRole) => {
+    if (newRole === null) return;
+    setRole(newRole);
     setChecked(false);
     setError(false);
     reset();
   };
+  // toast.success("this is noly for text");
+
+  const {
+    mutate,
+    isLoading,
+    error: signupError,
+  } = useSignup((data) => {
+    setUserEmail(data?.email);
+    setPopUpWindow(true);
+  });
 
   const onSubmit = (data) => {
     if (!checked) {
       setError(true);
     } else {
       setError(false);
-      console.log("Form Data:", data);
+
+      const finalData = {
+        ...data,
+        role,
+      };
+      mutate({ ...finalData });
     }
   };
 
-  const renderInputFields = (alignmentValue) => {
-    if (alignmentValue === "Hunter") {
+  const renderInputFields = (userRole) => {
+    if (userRole === "hunter") {
       return (
         <>
           <StyledBox>
@@ -64,9 +95,9 @@ const BugSignup = () => {
             </StyledSignupTypography>
             <StyledInputField
               id="name"
-              name="hunterName"
+              name="name"
               placeholder="Enter your Full Name"
-              {...register("hunterName", {
+              {...register("name", {
                 required: "Hunter name is required",
                 minLength: {
                   value: 3,
@@ -74,10 +105,8 @@ const BugSignup = () => {
                 },
               })}
             />
-            {errors.hunterName && (
-              <StyledErrorMessage>
-                {errors.hunterName.message}
-              </StyledErrorMessage>
+            {errors.name && (
+              <StyledErrorMessage>{errors.name.message}</StyledErrorMessage>
             )}
           </StyledBox>
 
@@ -135,13 +164,13 @@ const BugSignup = () => {
                 Select your primary skill
               </StyledInputLabel>
               <Controller
-                name="primarySkill"
+                name="skills"
                 control={control}
                 defaultValue=""
                 rules={{
                   required: "Please select one option", // Validation rule for required field
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({ field }) => (
                   <>
                     <StyledSelect
                       {...field}
@@ -159,10 +188,8 @@ const BugSignup = () => {
                 )}
               />
             </StyledFormControl>
-            {errors.primarySkill && (
-              <StyledErrorMessage>
-                {errors.primarySkill.message}
-              </StyledErrorMessage> // Display error message
+            {errors.skills && (
+              <StyledErrorMessage>{errors.skills.message}</StyledErrorMessage>
             )}
           </StyledBox>
         </>
@@ -176,9 +203,9 @@ const BugSignup = () => {
             </StyledSignupTypography>
             <StyledInputField
               id="name"
-              name="clientName"
+              name="name"
               placeholder="Enter your Company Name"
-              {...register("clientName", {
+              {...register("name", {
                 required: "Company Name is required",
                 minLength: {
                   value: 3,
@@ -186,10 +213,8 @@ const BugSignup = () => {
                 },
               })}
             />
-            {errors.clientName && (
-              <StyledErrorMessage>
-                {errors.clientName.message}
-              </StyledErrorMessage>
+            {errors.name && (
+              <StyledErrorMessage>{errors.name.message}</StyledErrorMessage>
             )}
           </StyledBox>
 
@@ -199,10 +224,10 @@ const BugSignup = () => {
             </StyledSignupTypography>
             <StyledInputField
               id="userEmail"
-              name="userEmail"
+              name="email"
               type="email"
               placeholder="Enter your email"
-              {...register("userEmail", {
+              {...register("email", {
                 required: "Email is required",
                 pattern: {
                   value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
@@ -210,10 +235,8 @@ const BugSignup = () => {
                 },
               })}
             />
-            {errors.userEmail && (
-              <StyledErrorMessage>
-                {errors.userEmail.message}
-              </StyledErrorMessage>
+            {errors.email && (
+              <StyledErrorMessage>{errors.email.message}</StyledErrorMessage>
             )}
           </StyledBox>
 
@@ -224,9 +247,9 @@ const BugSignup = () => {
             <StyledInputField
               id="password"
               type="password"
-              name="userPassword"
+              name="password"
               placeholder="Enter your Password"
-              {...register("userPassword", {
+              {...register("password", {
                 required: "Password is required",
                 minLength: {
                   value: 6,
@@ -234,10 +257,8 @@ const BugSignup = () => {
                 },
               })}
             />
-            {errors.userPassword && (
-              <StyledErrorMessage>
-                {errors.userPassword.message}
-              </StyledErrorMessage>
+            {errors.password && (
+              <StyledErrorMessage>{errors.password.message}</StyledErrorMessage>
             )}
           </StyledBox>
 
@@ -256,7 +277,7 @@ const BugSignup = () => {
                 rules={{
                   required: "Please select one option", // Validation rule for required field
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({ field }) => (
                   <>
                     <StyledSelect
                       {...field}
@@ -285,6 +306,12 @@ const BugSignup = () => {
 
   return (
     <>
+      {signupError && (
+        <BugSnackbar
+          snackbarMessage={"Something went wrong. Please try again"}
+          status="error"
+        />
+      )}
       <StyledSignupStack>
         <BugBox>
           <StyledSignupBox>
@@ -298,21 +325,21 @@ const BugSignup = () => {
 
               <StyledBottomBox>
                 <StyledToggleButtonGroup
-                  value={alignment}
+                  value={role}
                   exclusive
-                  onChange={handleAlignment}
+                  onChange={handleRole}
                   aria-label="text alignment"
                 >
-                  <StyledToggleButton value="Hunter" aria-label="left aligned">
+                  <StyledToggleButton value="hunter" aria-label="left aligned">
                     <StyledSignupTypography>Hunter</StyledSignupTypography>
                   </StyledToggleButton>
-                  <StyledToggleButton value="Client" aria-label="right aligned">
+                  <StyledToggleButton value="client" aria-label="right aligned">
                     <StyledSignupTypography>Client</StyledSignupTypography>
                   </StyledToggleButton>
                 </StyledToggleButtonGroup>
               </StyledBottomBox>
 
-              <StyledInputBox>{renderInputFields(alignment)}</StyledInputBox>
+              <StyledInputBox>{renderInputFields(role)}</StyledInputBox>
 
               <StyledBottomBox>
                 <StyledCheckBox
@@ -326,9 +353,16 @@ const BugSignup = () => {
                 </StyledSignupTypography>
               </StyledBottomBox>
 
-              <StyledSignupButton type="submit" variant="contained">
-                Sign Up as {alignment}
-              </StyledSignupButton>
+              <StyledButtonStack>
+                <StyledSignupButton
+                  disabled={isLoading ? true : false}
+                  type="submit"
+                  variant="contained"
+                >
+                  Sign Up as {role}
+                </StyledSignupButton>
+                {isLoading && <StyledCircularProgress color="success" />}
+              </StyledButtonStack>
             </StyledForm>
 
             <StyledFooterDiv>
@@ -340,8 +374,114 @@ const BugSignup = () => {
           </StyledSignupBox>
         </BugBox>
       </StyledSignupStack>
+      <BugPopupWindow
+        popUpModel={popUpWindow}
+        setPopUpModel={setPopUpWindow}
+        userEmail={userEmail}
+      />
     </>
   );
 };
 
 export default BugSignup;
+
+const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const navigate = useNavigate();
+
+  const handleChange = (e, index) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value) && value.length <= 1) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+
+      // Automatically focus on the next input field
+      if (value && index < otp.length - 1) {
+        const nextInput = document.getElementById(`otp-${index + 1}`);
+        if (nextInput) nextInput.focus();
+      }
+    }
+  };
+
+  const {
+    mutate: otpMutation,
+    isLoading,
+    error,
+  } = useSendSignupOpt(() => {
+    console.log("otp confirm success");
+    navigate("/dashboard");
+  });
+
+  const handleClose = () => {
+    setOtp(["", "", "", "", "", ""]);
+    setPopUpModel(false);
+  };
+
+  const handleSubmit = () => {
+    const newOTP = otp.join("");
+    console.log(newOTP);
+    otpMutation({ email: userEmail, otp: newOTP });
+  };
+
+  return (
+    <StyledBoxModel>
+      {error && (
+        <BugSnackbar
+          snackbarMessage={"Something went wrong. Please confirm OTP code"}
+          status="error"
+        />
+      )}
+      <StyledModel open={popUpModel}>
+        <StyledModelBox>
+          <StyledButton
+            onClick={handleClose}
+            className="closeButton"
+          ></StyledButton>
+
+          <StyledModelBodyBox>
+            <StyledContactMailIcon />
+            <StyledSignupTypography variant="h1">
+              Please check your email
+            </StyledSignupTypography>
+            <StyledSignupTypography className="color-gray" variant="h6">
+              We've send code to {userEmail}
+            </StyledSignupTypography>
+
+            <StyledOTPInputContainer>
+              {otp.map((digit, index) => (
+                <StyledOTPInput
+                  key={index}
+                  id={`otp-${index}`}
+                  value={digit}
+                  onChange={(e) => handleChange(e, index)}
+                  variant="outlined"
+                  inputProps={{
+                    maxLength: 1,
+                  }}
+                />
+              ))}
+            </StyledOTPInputContainer>
+          </StyledModelBodyBox>
+
+          <StyledButtonBox>
+            <StyledButton
+              disabled={isLoading ? true : false}
+              variant="outlined"
+              onClick={handleClose}
+            >
+              cancel
+            </StyledButton>
+            <StyledButton
+              disabled={isLoading ? true : false}
+              variant="contained"
+              onClick={handleSubmit}
+            >
+              Confirm OTP
+            </StyledButton>
+          </StyledButtonBox>
+        </StyledModelBox>
+      </StyledModel>
+    </StyledBoxModel>
+  );
+};

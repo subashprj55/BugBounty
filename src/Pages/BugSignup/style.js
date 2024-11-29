@@ -1,11 +1,15 @@
+import ContactMailIcon from "@mui/icons-material/ContactMail";
 import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
+  Modal,
   Select,
+  TextField,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -30,6 +34,9 @@ export const StyledSignupTypography = styled(Typography)`
   }
   &.space {
     margin: 5px 0;
+  }
+  &.color-gray {
+    color: gray;
   }
 `;
 
@@ -118,3 +125,85 @@ export const StyledSelect = styled(Select)``;
 export const StyledMenuItem = styled(MenuItem)``;
 
 export const StyledInputLabel = styled(InputLabel)``;
+
+export const StyledCircularProgress = styled(CircularProgress)`
+  width: 35px !important;
+  height: 35px !important;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+`;
+
+export const StyledButtonStack = styled(Stack)`
+  flex-direction: row !important;
+  position: relative;
+  padding-bottom: 5px;
+`;
+
+// styles for popup models /////////////////////////////////////////////////
+export const StyledBoxModel = styled(Box)``;
+
+export const StyledModel = styled(Modal)``;
+
+export const StyledModelBox = styled(Box)`
+  position: absolute;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  min-height: 200px;
+  background-color: white;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
+`;
+
+export const StyledButton = styled(Button)`
+  &.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  width: auto !important;
+`;
+
+export const StyledButtonBox = styled(Box)`
+  margin-top: 30px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledContactMailIcon = styled(ContactMailIcon)`
+  color: #39d2c0;
+  width: 120px !important;
+  height: 120px !important;
+`;
+
+export const StyledModelBodyBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const StyledOTPInputContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 36px 0;
+`;
+
+export const StyledOTPInput = styled(TextField)`
+  width: 60px !important;
+
+  .css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root:hover
+    .MuiOutlinedInput-notchedOutline {
+    border: 1px gray solid;
+  }
+  .css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+    .MuiOutlinedInput-notchedOutline {
+    border: 1px gray solid !important;
+  }
+  input {
+    text-align: center;
+  }
+`;
