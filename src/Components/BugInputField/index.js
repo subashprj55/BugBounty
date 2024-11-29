@@ -5,8 +5,9 @@ const BugInputField = ({
   type = "text",
   placeholder = "",
   value = "",
-  setValue,
+  setValue = () => {},
   required = false,
+  ...props
 }) => {
   return (
     <>
@@ -18,6 +19,7 @@ const BugInputField = ({
           setValue(e.target.value);
         }}
         required={required}
+        {...props}
       />
     </>
   );

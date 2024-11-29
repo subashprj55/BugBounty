@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import "@fontsource/roboto"; // Default weight
 import "@fontsource/roboto/400.css"; // For specific weight (e.g., 400)
@@ -12,14 +13,18 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "./Components/Theme";
 import { BrowserRouter } from "react-router-dom";
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
