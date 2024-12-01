@@ -1,6 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
 import BugBox from "Components/BugBox";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Industries, primarySkills } from "./data";
 import {
@@ -50,7 +50,7 @@ const BugSignup = () => {
   const [checked, setChecked] = React.useState(false);
   const [error, setError] = useState(false);
   const [role, setRole] = useState("hunter");
-  const [popUpWindow, setPopUpWindow] = useState(false);
+  const [popUpWindow, setPopUpWindow] = useState(true);
   const [userEmail, setUserEmail] = useState(null);
 
   const handleRole = (event, newRole) => {
@@ -60,7 +60,6 @@ const BugSignup = () => {
     setError(false);
     reset();
   };
-  // toast.success("this is noly for text");
 
   const {
     mutate,

@@ -1,12 +1,18 @@
 import BugBox from "Components/BugBox";
-import BugInputField from "Components/BugInputField";
-import { HomePageNav } from "Pages/BugHome";
-import React, { useState } from "react";
+import BugSnackbar from "Components/BugSnackbar";
+import useLogin from "Hooks/useLogin";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "Utils/authProvider";
 import {
   StyledBottomBox,
   StyledBox,
+  StyledButtonStack,
+  StyledCircularProgress,
+  StyledErrorMessage,
+  StyledForm,
   StyledInputBox,
+  StyledInputField,
   StyledLink,
   StyledLoginBox,
   StyledLoginButton,
@@ -15,61 +21,113 @@ import {
 } from "./style";
 
 const BugLogin = () => {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleFormSubmit = () => {
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
+  const { mutate, isLoading, error } = useLogin((data) => {
+    console.log(data.role);
+    login(data);
     navigate("/dashboard");
+  });
+
+  const onSubmit = (data) => {
+    mutate(data);
   };
 
   return (
     <>
-      <HomePageNav />
+      {error && (
+        <BugSnackbar
+          status="error"
+          snackbarMessage="Invalid email or password"
+        />
+      )}
       <StyledLoginStack>
-        <BugBox>
-          <StyledLoginBox>
-            <StyledLoginTypography variant="h1" className="center">
-              Login for Xlooop Bug Bounty
-            </StyledLoginTypography>
-            <StyledLoginTypography variant="h6" className="center">
-              Join our community as a hunter or client
-            </StyledLoginTypography>
-
-            <StyledInputBox>
-              <StyledLoginTypography variant="h3" className="space">
-                User Name
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          <BugBox>
+            <StyledLoginBox>
+              <StyledLoginTypography variant="h1" className="center">
+                Login for Xlooop Bug Bounty
               </StyledLoginTypography>
-              <BugInputField
-                placeholder="Enter your Username"
-                value={userName}
-                setValue={setUserName}
-                required={true}
-              />
+              <StyledLoginTypography variant="h6" className="center">
+                Join our community as a hunter or client
+              </StyledLoginTypography>
 
-              <StyledBox>
-                <StyledLoginTypography variant="h3" className="space">
-                  Password
-                </StyledLoginTypography>
-                <BugInputField
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  setValue={setPassword}
-                />
-              </StyledBox>
-            </StyledInputBox>
+              <StyledInputBox>
+                <StyledBox>
+                  <StyledLoginTypography variant="h3" className="space">
+                    Email
+                  </StyledLoginTypography>
+                  <StyledInputField
+                    id="userEmail"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                        message: "Invalid email format",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <StyledErrorMessage>
+                      {errors.email.message}
+                    </StyledErrorMessage>
+                  )}
+                </StyledBox>
 
-            <StyledLoginButton variant="contained" onClick={handleFormSubmit}>
-              Login
-            </StyledLoginButton>
+                <StyledBox>
+                  <StyledLoginTypography variant="h3" className="space">
+                    Password
+                  </StyledLoginTypography>
+                  <StyledInputField
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="Enter your Password"
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 6,
+                        message: "Password must be at least 6 characters",
+                      },
+                    })}
+                  />
+                  {errors.password && (
+                    <StyledErrorMessage>
+                      {errors.password.message}
+                    </StyledErrorMessage>
+                  )}
+                </StyledBox>
+              </StyledInputBox>
 
-            <StyledBottomBox>
-              <StyledLink to={"/signup"}>Don't have account?</StyledLink>
-              <StyledLink>Forgot Password?</StyledLink>
-            </StyledBottomBox>
-          </StyledLoginBox>
-        </BugBox>
+              <StyledButtonStack>
+                <StyledLoginButton
+                  disabled={isLoading ? true : false}
+                  type="submit"
+                  variant="contained"
+                >
+                  Login
+                </StyledLoginButton>
+                {isLoading && <StyledCircularProgress color="success" />}
+              </StyledButtonStack>
+
+              <StyledBottomBox>
+                <StyledLink to={"/signup"}>Don't have account?</StyledLink>
+                <StyledLink>Forgot Password?</StyledLink>
+              </StyledBottomBox>
+            </StyledLoginBox>
+          </BugBox>
+        </StyledForm>
       </StyledLoginStack>
     </>
   );
