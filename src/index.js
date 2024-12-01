@@ -12,6 +12,7 @@ import "@fontsource/roboto/700.css"; // For bold text
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./Components/Theme";
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "Utils/authProvider";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +22,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>

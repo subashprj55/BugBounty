@@ -155,6 +155,9 @@ export const StyledModelBox = styled(Box)`
   background-color: white;
   border-radius: 8px;
   transform: translate(-50%, -50%);
+  @media (max-width: 425px) {
+    width: 90%;
+  }
 `;
 
 export const StyledButton = styled(Button)`

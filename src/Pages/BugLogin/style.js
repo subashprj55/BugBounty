@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
@@ -8,6 +8,8 @@ export const StyledLoginStack = styled(Stack)`
   justify-content: center;
   align-items: center;
 `;
+
+export const StyledForm = styled.form``;
 
 export const StyledLoginBox = styled(Box)`
   width: fit-content;
@@ -24,7 +26,7 @@ export const StyledLoginTypography = styled(Typography)`
 `;
 
 export const StyledInputBox = styled(Box)`
-  margin-top: 70px;
+  margin-top: 45px;
   margin-bottom: 50px;
 `;
 
@@ -44,4 +46,36 @@ export const StyledBottomBox = styled(Box)`
     flex-direction: column;
     gap: 0.8em;
   }
+`;
+
+export const StyledInputField = styled.input`
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 13px 10px;
+  width: 93%;
+  border-radius: 8px;
+  border: 1px solid #e4e4e7;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #a1a1aa;
+  }
+`;
+
+export const StyledErrorMessage = styled.p`
+  position: absolute;
+  color: red;
+`;
+
+export const StyledButtonStack = styled(Stack)`
+  position: relative;
+  padding-bottom: 5px;
+`;
+
+export const StyledCircularProgress = styled(CircularProgress)`
+  width: 35px !important;
+  height: 35px !important;
+  position: absolute;
+  right: 5px;
+  top: 2px;
 `;
