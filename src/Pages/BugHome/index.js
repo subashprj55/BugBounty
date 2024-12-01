@@ -19,6 +19,7 @@ import {
   StyledInputBox,
   StyledItemsButton,
   StyledLinksStack,
+  StyledLinksTypography,
   StyledLogoBox,
   StyledNavLink,
   StyledPermIdentityIcon,
@@ -35,6 +36,8 @@ import bug from "Images/bug.png";
 import reward from "Images/reward.png";
 import { Link, useNavigate } from "react-router-dom";
 import BugBox from "Components/BugBox";
+import profile from "Images/profile.png";
+import { useAuth } from "Utils/authProvider";
 
 const BugHome = () => {
   return (
@@ -52,6 +55,27 @@ const BugHome = () => {
 export default BugHome;
 
 export const HomePageNav = () => {
+  const {
+    state: { isAuthenticated },
+  } = useAuth();
+
+  const render = (isAuthenticated) => {
+    if (isAuthenticated) {
+      return (
+        <StyledLinksStack>
+          <img src={profile} alt="profile" />
+          <StyledLinksTypography variant="h3">Sonik</StyledLinksTypography>
+        </StyledLinksStack>
+      );
+    } else {
+      return (
+        <StyledLinksStack>
+          <StyledNavLink to={"/signup"}>Sign Up</StyledNavLink>
+        </StyledLinksStack>
+      );
+    }
+  };
+
   return (
     <>
       <StyledAppBar>
@@ -62,9 +86,8 @@ export const HomePageNav = () => {
             </Link>
           </StyledLogoBox>
           {/*  this links display on tab and laptop version */}
-          <StyledLinksStack>
-            <StyledNavLink to={"/signup"}>Sign Up</StyledNavLink>
-          </StyledLinksStack>
+
+          {render(isAuthenticated)}
         </StyledStack>
       </StyledAppBar>
     </>

@@ -51,8 +51,19 @@ export const StyledNavLink = styled(Link)`
   }
 `;
 
-export const StyledLinksStack = styled(Stack)``;
+export const StyledLinksStack = styled(Stack)`
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px;
+  img {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+`;
 
+export const StyledLinksTypography = styled(Typography)``;
 //home page section styles
 
 export const StyledHomeStack = styled(Stack)`

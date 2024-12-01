@@ -31,7 +31,6 @@ const BugLogin = () => {
 
   const navigate = useNavigate();
   const { mutate, isLoading, error } = useLogin((data) => {
-    console.log(data.role);
     login(data);
     navigate("/dashboard");
   });

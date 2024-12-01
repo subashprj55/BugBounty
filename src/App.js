@@ -11,21 +11,54 @@ import BugSubmit from "Pages/BugSubmit";
 import BugLeaderBoard from "Pages/BugLeaderboard";
 import BugRewards from "Pages/BugRewards";
 import BugActiveBounties from "Pages/BugActiveBounties";
+import PublicRoute from "Components/PublicRoute";
+import PrivateRoute from "Components/PrivateRoute";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<BugHome />} />
-        <Route path="profile" element={<BugProfile />} />
-        <Route path="dashboard" element={<BugDashboard />} />
-        <Route path="transaction" element={<BugAboutUs />} />
-        <Route path="bugSubmit" element={<BugSubmit />} />
-        <Route path="leaderboard" element={<BugLeaderBoard />} />
-        <Route path="activeBounties" element={<BugActiveBounties />} />
-        <Route path="rewards" element={<BugRewards />} />
-        <Route path="login" element={<BugLogin />} />
-        <Route path="signup" element={<BugSignup />} />
+        <Route
+          path="/"
+          index
+          element={<PublicRoute restricted={false} component={BugHome} />}
+        />
+        <Route
+          path="login"
+          element={<PublicRoute restricted={true} component={BugLogin} />}
+        />
+        <Route
+          path="signup"
+          element={<PublicRoute restricted={true} component={BugSignup} />}
+        />
+        <Route
+          path="dashboard"
+          element={<PrivateRoute component={BugDashboard} />}
+        />
+        <Route
+          path="bugSubmit"
+          element={<PrivateRoute display={"client"} component={BugSubmit} />}
+        />
+        <Route
+          path="rewards"
+          element={<PrivateRoute display={"hunter"} component={BugRewards} />}
+        />
+        <Route
+          path="profile"
+          element={<PrivateRoute component={BugProfile} />}
+        />
+        <Route
+          path="transaction"
+          element={<PrivateRoute component={BugAboutUs} />}
+        />
+        <Route
+          path="leaderboard"
+          element={<PrivateRoute component={BugLeaderBoard} />}
+        />
+        <Route
+          path="activeBounties"
+          element={<PrivateRoute component={BugActiveBounties} />}
+        />
         <Route path="*" element={<Bug404 />} />
       </Routes>
     </>
