@@ -419,7 +419,6 @@ const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
 
   const handleSubmit = () => {
     const newOTP = otp.join("");
-    console.log(newOTP);
     otpMutation({ email: userEmail, otp: newOTP });
   };
 
