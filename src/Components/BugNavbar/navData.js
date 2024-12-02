@@ -1,9 +1,25 @@
-export const navData = [
+export const ClientNavLinks = [
+  {
+    id: 1,
+    linkAddress: "/activeBounties",
+    name: "Active Bounties",
+  },
+];
+
+export const CommonNavLinks = [
   {
     id: 0,
     linkAddress: "/dashboard",
     name: "Dashboard",
   },
+  {
+    id: 2,
+    linkAddress: "/leaderboard",
+    name: "LeaderBoard",
+  },
+];
+
+export const HunterNavLinks = [
   {
     id: 1,
     linkAddress: "/activeBounties",
@@ -18,10 +34,5 @@ export const navData = [
     id: 3,
     linkAddress: "/rewards",
     name: "Rewards",
-  },
-  {
-    id: 4,
-    linkAddress: "/leaderboard",
-    name: "LeaderBoard",
   },
 ];

@@ -37,6 +37,7 @@ import {
 import useSendSignupOpt from "Hooks/useSendSignupOtp";
 import useSignup from "Hooks/useSignup";
 import BugSnackbar from "Components/BugSnackbar";
+import { useAuth } from "Utils/authProvider";
 
 const BugSignup = () => {
   const {
@@ -387,6 +388,7 @@ export default BugSignup;
 const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e, index) => {
     const value = e.target.value;
@@ -407,8 +409,8 @@ const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
     mutate: otpMutation,
     isLoading,
     error,
-  } = useSendSignupOpt(() => {
-    console.log("otp confirm success");
+  } = useSendSignupOpt((data) => {
+    login(data);
     navigate("/dashboard");
   });
 

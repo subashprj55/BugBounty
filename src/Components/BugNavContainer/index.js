@@ -9,9 +9,7 @@ const BugNavContainer = ({ children }) => {
     <>
       <BugNavbar />
       <StyledStack>
-        <div>
-          <BugSidebar />
-        </div>
+        <div>{/* <BugSidebar /> */}</div>
         <StyledChildDiv>{children}</StyledChildDiv>
       </StyledStack>
       <BugFooter />
