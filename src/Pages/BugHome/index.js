@@ -85,8 +85,8 @@ export const HomePageNav = () => {
               <StyledImg src={logo} alt="logo" />
             </Link>
           </StyledLogoBox>
-          {/*  this links display on tab and laptop version */}
 
+          {/*  this links display on tab and laptop version */}
           {render(isAuthenticated)}
         </StyledStack>
       </StyledAppBar>
