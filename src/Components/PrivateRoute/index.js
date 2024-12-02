@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "Utils/authProvider";
 
-const PrivateRoute = ({ component: Component, display = "all", ...rest }) => {
+const PrivateRoute = ({ component: Component, display, ...rest }) => {
   const { state } = useAuth();
 
   // return state?.isAuthenticated ? (
@@ -11,7 +11,7 @@ const PrivateRoute = ({ component: Component, display = "all", ...rest }) => {
   // );
 
   if (state.isAuthenticated) {
-    if (display === "all") {
+    if (!display) {
       return <Component {...rest} />;
     }
     if (display === state.user.role) {
@@ -20,7 +20,7 @@ const PrivateRoute = ({ component: Component, display = "all", ...rest }) => {
       return <Navigate to="/dashboard" replace />;
     }
   } else {
-    <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace />;
   }
 };
 export default PrivateRoute;
