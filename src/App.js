@@ -37,7 +37,7 @@ function App() {
         />
         <Route
           path="bugSubmit"
-          element={<PrivateRoute display={"client"} component={BugSubmit} />}
+          element={<PrivateRoute display={"hunter"} component={BugSubmit} />}
         />
         <Route
           path="rewards"
