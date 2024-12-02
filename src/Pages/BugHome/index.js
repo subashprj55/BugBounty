@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyledAppBar,
+  StyledAvatar,
   StyledButton,
+  StyledDashboardIcon,
   StyledDivider,
   StyledFooterBox,
   StyledFooterContainer,
@@ -20,7 +22,12 @@ import {
   StyledItemsButton,
   StyledLinksStack,
   StyledLinksTypography,
+  StyledListItemIcon,
   StyledLogoBox,
+  StyledLogout,
+  StyledMenu,
+  StyledMenuItem,
+  StyledNavDivider,
   StyledNavLink,
   StyledPermIdentityIcon,
   StyledStack,
@@ -38,6 +45,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BugBox from "Components/BugBox";
 import profile from "Images/profile.png";
 import { useAuth } from "Utils/authProvider";
+import useLogout from "Hooks/useLogout";
 
 const BugHome = () => {
   return (
@@ -55,16 +63,63 @@ const BugHome = () => {
 export default BugHome;
 
 export const HomePageNav = () => {
-  const {
-    state: { isAuthenticated },
-  } = useAuth();
+  const { state, logout } = useAuth();
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const { mutate, isLoading, error } = useLogout((data) => {
+    logout();
+    navigate("/dashboard");
+  });
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleButtonClick = (to) => {
+    navigate(to);
+  };
 
   const render = (isAuthenticated) => {
     if (isAuthenticated) {
       return (
         <StyledLinksStack>
-          <img src={profile} alt="profile" />
-          <StyledLinksTypography variant="h3">Sonik</StyledLinksTypography>
+          <StyledAvatar
+            alt="user"
+            src={profile}
+            id="basic-button"
+            onClick={handleClick}
+          />
+          <StyledMenu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+          >
+            <StyledMenuItem onClick={() => handleButtonClick("/profile")}>
+              <StyledLinksTypography variant="h3">
+                {state.user.name}
+              </StyledLinksTypography>
+            </StyledMenuItem>
+            <StyledNavDivider />
+
+            <StyledMenuItem onClick={() => handleButtonClick("/dashboard")}>
+              <StyledListItemIcon>
+                <StyledDashboardIcon fontSize="small" />
+              </StyledListItemIcon>
+              Dashboard
+            </StyledMenuItem>
+            <StyledMenuItem onClick={mutate}>
+              <StyledListItemIcon>
+                <StyledLogout fontSize="small" />
+              </StyledListItemIcon>
+              Logout
+            </StyledMenuItem>
+          </StyledMenu>
         </StyledLinksStack>
       );
     } else {
@@ -87,7 +142,7 @@ export const HomePageNav = () => {
           </StyledLogoBox>
           {/*  this links display on tab and laptop version */}
 
-          {render(isAuthenticated)}
+          {render(state.isAuthenticated)}
         </StyledStack>
       </StyledAppBar>
     </>
