@@ -1,5 +1,17 @@
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import Logout from "@mui/icons-material/Logout";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import { AppBar, Box, Button, Divider, Typography } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 const { Stack } = require("@mui/system");
@@ -12,16 +24,38 @@ export const StyledAppBar = styled(AppBar)`
   position: fixed !important;
 `;
 
+export const StyledMenu = styled(Menu)``;
+
+export const StyledMenuItem = styled(MenuItem)``;
+
+export const StyledNavDivider = styled(Divider)``;
+
+export const StyledLogout = styled(Logout)``;
+
+export const StyledDashboardIcon = styled(DashboardIcon)``;
+
+export const StyledListItemIcon = styled(ListItemIcon)``;
+
 export const StyledStack = styled(Stack)`
   flex-direction: row !important;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 5% 10px 1%;
+  padding: 8px 5% 8px 1%;
   @media (max-width: 768px) {
   }
   @media (max-width: 425px) {
     justify-content: space-between;
     padding: 10px 2%;
+  }
+`;
+
+export const StyledAvatar = styled(Avatar)`
+  width: 45px !important;
+  height: 45px !important;
+  cursor: pointer;
+  &.small {
+    width: 35px !important;
+    height: 35px !important;
   }
 `;
 
@@ -55,15 +89,11 @@ export const StyledLinksStack = styled(Stack)`
   flex-direction: row !important;
   align-items: center;
   gap: 10px;
-  img {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    min-height: 32px;
-  }
 `;
 
-export const StyledLinksTypography = styled(Typography)``;
+export const StyledLinksTypography = styled(Typography)`
+  text-transform: capitalize !important;
+`;
 //home page section styles
 
 export const StyledHomeStack = styled(Stack)`
