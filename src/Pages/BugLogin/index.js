@@ -26,7 +26,6 @@ const BugLogin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
   const { login } = useAuth();
 
   const navigate = useNavigate();
