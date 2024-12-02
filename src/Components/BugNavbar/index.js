@@ -23,15 +23,20 @@ import logo from "Images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { navData } from "./navData";
+import { HunterNavLinks, ClientNavLinks, CommonNavLinks } from "./navData";
 import profile from "Images/profile.png";
 import { useAuth } from "Utils/authProvider";
 import useLogout from "Hooks/useLogout";
 
 const BugNavbar = () => {
+  const {
+    state: {
+      user: { role },
+    },
+  } = useAuth();
   const [isNavOpen, setIsNavOpen] = useState(true);
-
   const location = useLocation().pathname;
+  const navData = role === "hunter" ? HunterNavLinks : ClientNavLinks;
 
   return (
     <>
@@ -45,6 +50,19 @@ const BugNavbar = () => {
             </StyledLogoBox>
             {/*  this links display on tab and laptop version */}
             <StyledLinksStack>
+              {CommonNavLinks.map(({ id, linkAddress, name }) => {
+                return (
+                  <StyledNavLink
+                    key={id}
+                    className={`${
+                      location === linkAddress ? "nav-active" : ""
+                    }`}
+                    to={linkAddress}
+                  >
+                    {name}
+                  </StyledNavLink>
+                );
+              })}
               {navData.map(({ id, linkAddress, name }) => {
                 return (
                   <StyledNavLink
@@ -81,6 +99,17 @@ const BugNavbar = () => {
         <StyledNavLinksBox
           className={`${isNavOpen ? "openNavbar" : "closeNavbar"}`}
         >
+          {CommonNavLinks.map(({ id, linkAddress, name }) => {
+            return (
+              <StyledNavLink
+                key={id}
+                className={`${location === linkAddress ? "active" : ""}`}
+                to={linkAddress}
+              >
+                {name}
+              </StyledNavLink>
+            );
+          })}
           {navData.map(({ id, linkAddress, name }) => {
             return (
               <StyledNavLink
@@ -107,7 +136,7 @@ const Profile = () => {
 
   const { mutate, isLoading, error } = useLogout((data) => {
     logout();
-    navigate("/dashboard");
+    navigate("/");
   });
 
   const open = Boolean(anchorEl);

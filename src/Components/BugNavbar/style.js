@@ -102,7 +102,7 @@ export const StyledNavLinksStack = styled(Stack)`
     display: none !important;
   }
   .active {
-    background-color: yellow;
+    background-color: #39d2c0;
   }
   .closeNavbar {
     transform: translate(100%, 0);
@@ -115,10 +115,12 @@ export const StyledNavLinksStack = styled(Stack)`
 `;
 
 export const StyledNavLinksBox = styled(Box)`
+  top: 57px;
   position: fixed;
   display: flex;
   flex-direction: column;
-  background: #f1f1f1;
+  background: white;
+  z-index: 1;
   height: 100vh;
   width: 100vh;
 `;

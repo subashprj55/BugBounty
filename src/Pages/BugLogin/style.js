@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
@@ -70,12 +70,4 @@ export const StyledErrorMessage = styled.p`
 export const StyledButtonStack = styled(Stack)`
   position: relative;
   padding-bottom: 5px;
-`;
-
-export const StyledCircularProgress = styled(CircularProgress)`
-  width: 35px !important;
-  height: 35px !important;
-  position: absolute;
-  right: 5px;
-  top: 2px;
 `;

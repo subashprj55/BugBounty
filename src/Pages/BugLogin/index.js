@@ -1,4 +1,5 @@
 import BugBox from "Components/BugBox";
+import BugLoader from "Components/BugLoader";
 import BugSnackbar from "Components/BugSnackbar";
 import useLogin from "Hooks/useLogin";
 import { useForm } from "react-hook-form";
@@ -8,7 +9,6 @@ import {
   StyledBottomBox,
   StyledBox,
   StyledButtonStack,
-  StyledCircularProgress,
   StyledErrorMessage,
   StyledForm,
   StyledInputBox,
@@ -41,6 +41,7 @@ const BugLogin = () => {
 
   return (
     <>
+      {isLoading && <BugLoader />}
       {error && (
         <BugSnackbar
           status="error"
@@ -117,7 +118,6 @@ const BugLogin = () => {
                 >
                   Login
                 </StyledLoginButton>
-                {isLoading && <StyledCircularProgress color="success" />}
               </StyledButtonStack>
 
               <StyledBottomBox>

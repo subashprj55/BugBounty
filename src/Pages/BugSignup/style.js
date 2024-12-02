@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Checkbox,
-  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
@@ -125,14 +124,6 @@ export const StyledSelect = styled(Select)``;
 export const StyledMenuItem = styled(MenuItem)``;
 
 export const StyledInputLabel = styled(InputLabel)``;
-
-export const StyledCircularProgress = styled(CircularProgress)`
-  width: 35px !important;
-  height: 35px !important;
-  position: absolute;
-  right: 5px;
-  top: 2px;
-`;
 
 export const StyledButtonStack = styled(Stack)`
   flex-direction: row !important;

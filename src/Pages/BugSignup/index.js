@@ -11,7 +11,6 @@ import {
   StyledButtonBox,
   StyledButtonStack,
   StyledCheckBox,
-  StyledCircularProgress,
   StyledContactMailIcon,
   StyledErrorMessage,
   StyledFooterDiv,
@@ -37,6 +36,7 @@ import {
 import useSendSignupOpt from "Hooks/useSendSignupOtp";
 import useSignup from "Hooks/useSignup";
 import BugSnackbar from "Components/BugSnackbar";
+import BugLoader from "Components/BugLoader";
 
 const BugSignup = () => {
   const {
@@ -50,7 +50,7 @@ const BugSignup = () => {
   const [checked, setChecked] = React.useState(false);
   const [error, setError] = useState(false);
   const [role, setRole] = useState("hunter");
-  const [popUpWindow, setPopUpWindow] = useState(true);
+  const [popUpWindow, setPopUpWindow] = useState(false);
   const [userEmail, setUserEmail] = useState(null);
 
   const handleRole = (event, newRole) => {
@@ -305,6 +305,7 @@ const BugSignup = () => {
 
   return (
     <>
+      {isLoading && <BugLoader />}
       {signupError && (
         <BugSnackbar
           snackbarMessage={"Something went wrong. Please try again"}
@@ -360,7 +361,6 @@ const BugSignup = () => {
                 >
                   Sign Up as {role}
                 </StyledSignupButton>
-                {isLoading && <StyledCircularProgress color="success" />}
               </StyledButtonStack>
             </StyledForm>
 
@@ -407,9 +407,8 @@ const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
     mutate: otpMutation,
     isLoading,
     error,
-  } = useSendSignupOpt(() => {
-    console.log("otp confirm success");
-    navigate("/dashboard");
+  } = useSendSignupOpt((data) => {
+    navigate("/login");
   });
 
   const handleClose = () => {
@@ -424,6 +423,7 @@ const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
 
   return (
     <StyledBoxModel>
+      {isLoading && <BugLoader />}
       {error && (
         <BugSnackbar
           snackbarMessage={"Something went wrong. Please confirm OTP code"}
