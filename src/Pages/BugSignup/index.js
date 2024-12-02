@@ -410,8 +410,7 @@ const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
     isLoading,
     error,
   } = useSendSignupOpt((data) => {
-    login(data);
-    navigate("/dashboard");
+    navigate("/login");
   });
 
   const handleClose = () => {
