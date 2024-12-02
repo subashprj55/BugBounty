@@ -36,7 +36,6 @@ import {
 import useSendSignupOpt from "Hooks/useSendSignupOtp";
 import useSignup from "Hooks/useSignup";
 import BugSnackbar from "Components/BugSnackbar";
-import { useAuth } from "Utils/authProvider";
 import BugLoader from "Components/BugLoader";
 
 const BugSignup = () => {
@@ -388,7 +387,6 @@ export default BugSignup;
 const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const handleChange = (e, index) => {
     const value = e.target.value;

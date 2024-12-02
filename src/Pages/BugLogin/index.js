@@ -9,7 +9,6 @@ import {
   StyledBottomBox,
   StyledBox,
   StyledButtonStack,
-  StyledCircularProgress,
   StyledErrorMessage,
   StyledForm,
   StyledInputBox,
