@@ -6,10 +6,6 @@ export const StyledFooterStack = styled(Stack)`
   justify-content: space-between;
   background-color: #978fdc;
   padding: 15px 5%;
-  margin-left: 60px;
-  @media (max-width: 768px) {
-    margin-left: 150px;
-  }
 `;
 
 export const StyledFooterIconsStack = styled(Stack)`

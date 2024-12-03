@@ -17,14 +17,20 @@ import { styled } from "styled-components";
 export const StyledActiveBountiesStack = styled(Stack)`
   flex-direction: row !important;
   gap: 40px;
-  padding: 60px 40px;
+  padding: 5% 4%;
   background-color: #f1f4f8;
+  @media (max-width: 655px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const StyledFilterBox = styled(Box)`
   margin-top: 15px;
   width: 250px;
   min-width: 250px;
+  @media (max-width: 655px) {
+    width: 100%;
+  }
 `;
 
 export const StyledFilterStack = styled(Stack)`
@@ -41,7 +47,13 @@ export const StyledFilterAltIcon = styled(FilterAltOutlinedIcon)``;
 
 export const StyledTypography = styled(Typography)``;
 
-export const StyledOptionsBox = styled(Box)``;
+export const StyledOptionsBox = styled(Box)`
+  @media (max-width: 655px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+`;
 
 export const StyledBox = styled(Box)`
   margin-top: 15px;
@@ -109,9 +121,11 @@ export const StyledSelectBox = styled(Box)`
 export const StyledBugListBox = styled(Box)`
   margin-top: 30px;
   display: flex;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 2vw;
   flex-wrap: wrap;
+  @media (max-width: 971px) {
+    justify-content: center;
+  }
 `;
 
 export const StyledBottomBox = styled(Box)`

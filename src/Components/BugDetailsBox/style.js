@@ -4,7 +4,12 @@ import { styled } from "styled-components";
 export const StyledBox = styled(Box)`
   padding: 20px;
   width: 280px;
-  max-width: 300px;
+  @media (max-width: 1037px) {
+    width: 250px;
+  }
+  @media (max-width: 971px) {
+    width: 280px;
+  }
 `;
 
 export const StyledTypography = styled(Typography)`

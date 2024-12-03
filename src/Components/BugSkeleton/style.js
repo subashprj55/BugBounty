@@ -5,6 +5,9 @@ const { styled } = require("styled-components");
 export const StyledSkeletonBox = styled(Box)`
   width: 280px;
   padding: 20px;
+  @media (max-width: 1037px) {
+    width: 250px;
+  }
 `;
 
 export const StyledSkeleton = styled(Skeleton)``;
