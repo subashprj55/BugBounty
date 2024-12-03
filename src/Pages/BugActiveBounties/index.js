@@ -145,7 +145,7 @@ const FilterSection = () => {
 
 const ActiveBounties = () => {
   const { data, isLoading, error, mutate } = useBounties();
-  console.log(data);
+
   useEffect(() => {
     mutate();
   }, []);
@@ -168,7 +168,14 @@ const ActiveBounties = () => {
     return (
       <>
         {data?.map(
-          ({ id, title, description, expiry_date, rewarded_amount }) => {
+          ({
+            id,
+            title,
+            description,
+            expiry_date,
+            rewarded_amount,
+            severity,
+          }) => {
             return (
               <BugDetailsBox
                 key={id}
@@ -177,7 +184,7 @@ const ActiveBounties = () => {
                 description={description}
                 expiry_date={expiry_date}
                 rewarded_amount={rewarded_amount}
-                z
+                severity={severity}
               />
             );
           }

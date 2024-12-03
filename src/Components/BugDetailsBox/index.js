@@ -1,6 +1,7 @@
 import BugBox from "Components/BugBox";
 import BugExpiryMessage from "Components/BugExpiryMessage";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   StyledBodyBox,
   StyledBottomBox,
@@ -15,13 +16,17 @@ const BugDetailsBox = ({
   description,
   expiry_date,
   rewarded_amount,
+  severity,
 }) => {
+  const navigate = useNavigate();
   return (
     <BugBox>
       <StyledBox>
         <StyledTypography variant="h2">{title}</StyledTypography>
         <StyledBodyBox>
-          <StyledTypography className="col-red ">Critical</StyledTypography>
+          <StyledTypography className={`${severity} text`}>
+            {severity}
+          </StyledTypography>
           <StyledTypography className="col-gray ">
             <BugExpiryMessage expiryDate={expiry_date} />
           </StyledTypography>
@@ -33,7 +38,12 @@ const BugDetailsBox = ({
           <StyledTypography variant="h2">
             {Math.floor(rewarded_amount)} XLOP
           </StyledTypography>
-          <StyledButton variant="contained">View More</StyledButton>
+          <StyledButton
+            variant="contained"
+            onClick={() => navigate(`/bounty/${id}`)}
+          >
+            View More
+          </StyledButton>
         </StyledBottomBox>
       </StyledBox>
     </BugBox>
