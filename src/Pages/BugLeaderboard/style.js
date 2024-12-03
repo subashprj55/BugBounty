@@ -49,7 +49,6 @@ export const StyledProfileTypography = styled(Typography)`
   &.title {
     font-family: inherit !important;
     font-weight: 600 !important;
-    line-height: 20px !important;
   }
   &.number {
     font-family: inherit !important;

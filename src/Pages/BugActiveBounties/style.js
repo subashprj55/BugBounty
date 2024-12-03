@@ -102,7 +102,7 @@ export const StyledTitleBox = styled(Stack)`
 `;
 
 export const StyledSelectBox = styled(Box)`
-  width: 218px;
+  padding: 5px;
 `;
 
 export const StyledBugListBox = styled(Box)`

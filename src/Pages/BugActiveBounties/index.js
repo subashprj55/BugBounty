@@ -1,8 +1,10 @@
 import BugBox from "Components/BugBox";
 import BugDetailsBox from "Components/BugDetailsBox";
 import BugNavContainer from "Components/BugNavContainer";
-import BugSelectField from "Components/BugSelectFiled";
-import React from "react";
+import BugSkeleton from "Components/BugSkeleton";
+import BugSnackbar from "Components/BugSnackbar";
+import useBounties from "Hooks/useBounties";
+import React, { useEffect } from "react";
 import {
   StyledActiveBountiesStack,
   StyledBottomBox,
@@ -105,7 +107,7 @@ const FilterSection = () => {
               </StyledFormControl>
             </StyledBox>
 
-            <StyledBox>
+            {/* <StyledBox>
               <StyledTypography variant="h3">Reward Range</StyledTypography>
               <StyledSliderBox>
                 <StyledSlider aria-label="Default" valueLabelDisplay="auto" />
@@ -115,7 +117,7 @@ const FilterSection = () => {
                 <StyledButton variant="outlined">Min</StyledButton>
                 <StyledButton variant="outlined">Max</StyledButton>
               </StyledButtonBox>
-            </StyledBox>
+            </StyledBox> */}
 
             <StyledBox>
               <StyledTypography variant="h3">Category</StyledTypography>
@@ -142,23 +144,58 @@ const FilterSection = () => {
 };
 
 const ActiveBounties = () => {
+  const { data, isLoading, error, mutate } = useBounties();
+  console.log(data);
+  useEffect(() => {
+    mutate();
+  }, []);
+
+  const renderContent = () => {
+    if (isLoading) {
+      return <>{Array(6).fill(<BugSkeleton />)}</>;
+    }
+    if (error) {
+      return (
+        <>
+          <BugSnackbar
+            status="error"
+            snackbarMessage={"Something went wrong. Please try again"}
+          />
+          {Array(6).fill(<BugSkeleton loading={false} />)}
+        </>
+      );
+    }
+    return (
+      <>
+        {data?.map(
+          ({ id, title, description, expiry_date, rewarded_amount }) => {
+            return (
+              <BugDetailsBox
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                expiry_date={expiry_date}
+                rewarded_amount={rewarded_amount}
+                z
+              />
+            );
+          }
+        )}
+      </>
+    );
+  };
+
   return (
     <StyledRightBox>
       <StyledTitleBox>
         <StyledTypography variant="h1">Active Bounties </StyledTypography>
         <StyledSelectBox>
-          <BugSelectField label={"Sort by"} />
+          <StyledButton variant="contained">Create Bug</StyledButton>
         </StyledSelectBox>
       </StyledTitleBox>
 
-      <StyledBugListBox>
-        <BugDetailsBox />
-        <BugDetailsBox />
-        <BugDetailsBox />
-        <BugDetailsBox />
-        <BugDetailsBox />
-        <BugDetailsBox />
-      </StyledBugListBox>
+      <StyledBugListBox>{renderContent()}</StyledBugListBox>
 
       <StyledBottomBox>
         <StyledButton variant="outlined" className="bg-white ">

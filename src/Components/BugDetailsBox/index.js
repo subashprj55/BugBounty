@@ -1,4 +1,5 @@
 import BugBox from "Components/BugBox";
+import BugExpiryMessage from "Components/BugExpiryMessage";
 import React from "react";
 import {
   StyledBodyBox,
@@ -6,30 +7,32 @@ import {
   StyledBox,
   StyledButton,
   StyledTypography,
-} from "./styke";
+} from "./style";
 
-const BugDetailsBox = () => {
+const BugDetailsBox = ({
+  id,
+  title,
+  description,
+  expiry_date,
+  rewarded_amount,
+}) => {
   return (
     <BugBox>
       <StyledBox>
-        <StyledTypography variant="h2">
-          Critical Vulnerability in Payment Gateway
-        </StyledTypography>
+        <StyledTypography variant="h2">{title}</StyledTypography>
         <StyledBodyBox>
           <StyledTypography className="col-red ">Critical</StyledTypography>
           <StyledTypography className="col-gray ">
-            Expires in 3 days
+            <BugExpiryMessage expiryDate={expiry_date} />
           </StyledTypography>
         </StyledBodyBox>
 
-        <StyledTypography>
-          Identify and report critical vulnerabilities in our payment gateway
-          data breaches, injection flaws, and system. Focus on potential
-          authentication bypass...
-        </StyledTypography>
+        <StyledTypography>{description}</StyledTypography>
 
         <StyledBottomBox>
-          <StyledTypography variant="h2">500 XLOP</StyledTypography>
+          <StyledTypography variant="h2">
+            {Math.floor(rewarded_amount)} XLOP
+          </StyledTypography>
           <StyledButton variant="contained">View More</StyledButton>
         </StyledBottomBox>
       </StyledBox>
