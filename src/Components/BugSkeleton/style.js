@@ -8,6 +8,9 @@ export const StyledSkeletonBox = styled(Box)`
   @media (max-width: 1037px) {
     width: 250px;
   }
+  @media (max-width: 971px) {
+    width: 280px;
+  }
 `;
 
 export const StyledSkeleton = styled(Skeleton)``;
