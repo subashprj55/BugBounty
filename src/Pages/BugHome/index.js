@@ -46,6 +46,8 @@ import BugBox from "Components/BugBox";
 import profile from "Images/profile.png";
 import { useAuth } from "Utils/authProvider";
 import useLogout from "Hooks/useLogout";
+import BugLoader from "Components/BugLoader";
+import BugSnackbar from "Components/BugSnackbar";
 
 const BugHome = () => {
   return (
@@ -133,6 +135,13 @@ export const HomePageNav = () => {
 
   return (
     <>
+      {isLoading && <BugLoader />}
+      {error && (
+        <BugSnackbar
+          snackbarMessage={"Something went wrong. Please try again"}
+          status="error"
+        />
+      )}
       <StyledAppBar>
         <StyledStack>
           <StyledLogoBox>
