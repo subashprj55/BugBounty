@@ -13,6 +13,7 @@ import BugRewards from "Pages/BugRewards";
 import BugActiveBounties from "Pages/BugActiveBounties";
 import PublicRoute from "Components/PublicRoute";
 import PrivateRoute from "Components/PrivateRoute";
+import BugBounty from "Pages/BugBounty";
 
 function App() {
   return (
@@ -58,6 +59,10 @@ function App() {
         <Route
           path="activeBounties"
           element={<PrivateRoute component={BugActiveBounties} />}
+        />
+        <Route
+          path="bounty/:id"
+          element={<PrivateRoute component={BugBounty} />}
         />
         <Route path="*" element={<Bug404 />} />
       </Routes>

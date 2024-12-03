@@ -7,16 +7,19 @@ export const theme = createTheme({
       fontFamily: "Inter",
       fontSize: "25px",
       fontWeight: 700,
+      lineHeight: "normal",
     },
     h2: {
       fontFamily: "Epilogue",
       fontSize: "20px",
       fontWeight: 700,
+      lineHeight: "normal",
     },
     h3: {
       fontSize: "16px",
       fontWeight: "600",
       letterSpacing: "0.17px",
+      lineHeight: "normal",
 
       "@media (max-width: 768px)": {
         fontSize: "12px",
@@ -27,11 +30,13 @@ export const theme = createTheme({
       fontFamily: "Inter",
       fontSize: "15px",
       fontWeight: 400,
+      lineHeight: "normal",
     },
     footer: {
       fontSize: "16px",
       fontWeight: "400",
       letterSpacing: "0.17px",
+      lineHeight: "normal",
     },
   },
   components: {

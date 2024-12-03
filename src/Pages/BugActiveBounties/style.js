@@ -22,6 +22,7 @@ export const StyledActiveBountiesStack = styled(Stack)`
 `;
 
 export const StyledFilterBox = styled(Box)`
+  margin-top: 15px;
   width: 250px;
   min-width: 250px;
 `;
@@ -102,7 +103,7 @@ export const StyledTitleBox = styled(Stack)`
 `;
 
 export const StyledSelectBox = styled(Box)`
-  width: 218px;
+  padding: 5px;
 `;
 
 export const StyledBugListBox = styled(Box)`

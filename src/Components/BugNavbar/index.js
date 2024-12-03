@@ -27,6 +27,8 @@ import { HunterNavLinks, ClientNavLinks, CommonNavLinks } from "./navData";
 import profile from "Images/profile.png";
 import { useAuth } from "Utils/authProvider";
 import useLogout from "Hooks/useLogout";
+import BugLoader from "Components/BugLoader";
+import BugSnackbar from "Components/BugSnackbar";
 
 const BugNavbar = () => {
   const {
@@ -153,6 +155,13 @@ const Profile = () => {
 
   return (
     <>
+      {isLoading && <BugLoader />}
+      {error && (
+        <BugSnackbar
+          snackbarMessage={"Something went wrong. Please try again"}
+          status="error"
+        />
+      )}
       <StyledAvatar
         alt="user"
         src={profile}

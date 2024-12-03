@@ -8,8 +8,17 @@ export const StyledBox = styled(Box)`
 `;
 
 export const StyledTypography = styled(Typography)`
-  &.col-red {
+  &.text {
+    text-transform: capitalize;
+  }
+  &.critical {
     color: #dc2626;
+  }
+  &.medium {
+    color: #c4c10c;
+  }
+  &.low {
+    color: blue;
   }
   &.col-gray {
     color: #6b7280;
