@@ -36,7 +36,7 @@ const BugNavbar = () => {
       user: { role },
     },
   } = useAuth();
-  const [isNavOpen, setIsNavOpen] = useState(true);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation().pathname;
   const navData = role === "hunter" ? HunterNavLinks : ClientNavLinks;
 
