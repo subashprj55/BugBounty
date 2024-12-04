@@ -7,8 +7,6 @@ export const StyledBugBountyPage = styled(Stack)`
   padding: 0 5% 40px;
 `;
 
-//back button section
-
 //title section
 
 export const StyledTitleSection = styled(Box)`
@@ -42,7 +40,26 @@ export const StyledDetailsBox = styled(Box)`
   padding: 30px 30px;
 `;
 
-export const StyledGrid = styled(Grid)``;
+export const StyledContainerBox = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
+
+export const StyledDetailsItems = styled(Box)`
+  width: 350px;
+  min-width: 200px;
+  @media (max-width: 870px) {
+    width: 250px;
+  }
+  @media (max-width: 650px) {
+    width: 200px;
+  }
+  @media (max-width: 532px) {
+    width: 350px;
+  }
+`;
 
 export const StyledDetailRow = styled(Box)`
   display: flex;

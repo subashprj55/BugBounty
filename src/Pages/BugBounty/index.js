@@ -6,10 +6,12 @@ import {
   StyledBugBountyPage,
   StyledButton,
   StyledButtonSection,
+  StyledContainerBox,
   StyledDescriptionBox,
   StyledDescriptionStack,
   StyledDetailRow,
   StyledDetailsBox,
+  StyledDetailsItems,
   StyledDetailsTypography,
   StyledGrid,
   StyledItemsBox,
@@ -67,9 +69,9 @@ const DetailsSection = () => {
           <StyledTypography variant="h2">Details</StyledTypography>
 
           <StyledBox>
-            <StyledGrid container spacing={80}>
+            <StyledContainerBox>
               {/* First Column */}
-              <StyledGrid item xs={6}>
+              <StyledDetailsItems>
                 <StyledDetailRow>
                   <StyledDetailsTypography variant="footer">
                     Type :
@@ -94,9 +96,9 @@ const DetailsSection = () => {
                     <span>2024/12/20 </span>
                   </StyledTypography>
                 </StyledDetailRow>
-              </StyledGrid>
+              </StyledDetailsItems>
               {/* Second Column */}
-              <StyledGrid item xs={6}>
+              <StyledDetailsItems>
                 <StyledDetailRow>
                   <StyledDetailsTypography variant="footer">
                     Status :
@@ -113,8 +115,8 @@ const DetailsSection = () => {
                     Unresolved
                   </StyledDetailsTypography>
                 </StyledDetailRow>
-              </StyledGrid>
-            </StyledGrid>
+              </StyledDetailsItems>
+            </StyledContainerBox>
           </StyledBox>
         </StyledDetailsBox>
       </BugBox>
