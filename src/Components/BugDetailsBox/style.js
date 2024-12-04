@@ -20,10 +20,10 @@ export const StyledTypography = styled(Typography)`
     color: #dc2626;
   }
   &.medium {
-    color: #c4c10c;
+    color: #42c0d6;
   }
   &.low {
-    color: blue;
+    color: #4287d6;
   }
   &.col-gray {
     color: #6b7280;
