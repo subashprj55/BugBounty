@@ -17,6 +17,11 @@ export const CommonNavLinks = [
     linkAddress: "/leaderboard",
     name: "LeaderBoard",
   },
+  {
+    id: 3,
+    linkAddress: "/createBounty",
+    name: "Create Bounty",
+  },
 ];
 
 export const HunterNavLinks = [

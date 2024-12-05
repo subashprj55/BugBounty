@@ -4,7 +4,7 @@ import { Stack } from "@mui/system";
 import { styled } from "styled-components";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
-export const StyledBugSubmitPage = styled(Box)`
+export const StyledBugCreatePage = styled(Box)`
   display: flex;
   justify-content: center;
   margin: 60px 0;
