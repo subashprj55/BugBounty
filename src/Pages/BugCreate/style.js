@@ -1,10 +1,9 @@
-import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import { Box, Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { styled } from "styled-components";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
-export const StyledBugSubmitPage = styled(Box)`
+export const StyledBugCreatePage = styled(Box)`
   display: flex;
   justify-content: center;
   margin: 60px 0;
@@ -58,7 +57,7 @@ export const StyledButton = styled(Button)`
 
 export const StyledButtonBox = styled(Box)`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   padding-top: 50px;
   padding-bottom: 5px;
 `;
@@ -69,10 +68,6 @@ export const StyledFormControlLabel = styled(FormControlLabel)``;
 
 export const StyledRadio = styled(Radio)`
   color: black !important;
-`;
-
-export const StyledFileInput = styled.input`
-  display: none;
 `;
 
 export const StyledLabel = styled.label`
@@ -88,5 +83,3 @@ export const StyledLabel = styled.label`
     border-color: gray;
   }
 `;
-
-export const StyledUploadIcon = styled(DriveFolderUploadIcon)``;

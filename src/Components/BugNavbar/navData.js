@@ -4,6 +4,11 @@ export const ClientNavLinks = [
     linkAddress: "/activeBounties",
     name: "Active Bounties",
   },
+  {
+    id: 2,
+    linkAddress: "/createBounty",
+    name: "Create Bounty",
+  },
 ];
 
 export const CommonNavLinks = [
