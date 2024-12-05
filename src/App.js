@@ -67,7 +67,7 @@ function App() {
         />
         <Route
           path="createBounty"
-          element={<PrivateRoute component={BugCreate} />}
+          element={<PrivateRoute display={"client"} component={BugCreate} />}
         />
         <Route path="*" element={<Bug404 />} />
       </Routes>

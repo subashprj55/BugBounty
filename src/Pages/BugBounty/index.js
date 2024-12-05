@@ -13,7 +13,6 @@ import {
   StyledDetailsBox,
   StyledDetailsItems,
   StyledDetailsTypography,
-  StyledGrid,
   StyledItemsBox,
   StyledPriorityTypography,
   StyledReproduceBox,

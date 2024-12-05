@@ -1,27 +1,24 @@
 import BugBox from "Components/BugBox";
 import BugInputField from "Components/BugInputField";
 import BugNavContainer from "Components/BugNavContainer";
-import BugSelectField from "Components/BugSelectFiled";
 import BugTextArea from "Components/BugTextArea";
-import React from "react";
+import React, { useState } from "react";
+
 import {
   StyledBugCreatePage,
-  StyledBugSubmitPage,
   StyledButton,
   StyledButtonBox,
-  StyledFileInput,
   StyledFormControlLabel,
   StyledHeaderBox,
   StyledInputBox,
-  StyledLabel,
   StyledRadio,
   StyledRadioGroup,
   StyledSubmitForm,
   StyledSubmitFormBox,
   StyledTitleTypography,
   StyledTypography,
-  StyledUploadIcon,
 } from "./style";
+import BugDatePicker from "Components/BugDatePicker";
 
 const BugCreate = () => {
   return (
@@ -36,6 +33,8 @@ const BugCreate = () => {
 export default BugCreate;
 
 const CreateBugForm = () => {
+  const [startDate, setStartDate] = useState(new Date());
+
   return (
     <StyledBugCreatePage>
       <StyledSubmitForm>
@@ -68,11 +67,6 @@ const CreateBugForm = () => {
                   label="Critical"
                 />
                 <StyledFormControlLabel
-                  value="high"
-                  control={<StyledRadio />}
-                  label="High"
-                />
-                <StyledFormControlLabel
                   value="medium"
                   control={<StyledRadio />}
                   label="Medium"
@@ -87,46 +81,32 @@ const CreateBugForm = () => {
 
             <StyledInputBox>
               <StyledTypography variant="h3">Expire In</StyledTypography>
-              <BugTextArea placeholder="Describe the bug in detail…" />
+              <BugDatePicker
+                startDate={startDate}
+                setStartDate={setStartDate}
+              />
             </StyledInputBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">Expected Result</StyledTypography>
-              <BugTextArea placeholder="Describe the behavior observed when the bug occurs." />
+              <BugTextArea
+                rows={4}
+                placeholder="Describe the behavior observed when the bug occurs."
+              />
             </StyledInputBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">
                 Steps to Reproduce
               </StyledTypography>
-              <StyledTypography variant="h6" className="color">
-                1. Navigate to the home page
-              </StyledTypography>
-              <StyledTypography variant="h6" className="color">
-                2. Click on checkout button
-              </StyledTypography>
-              <StyledTypography variant="h6" className="color">
-                3. etc...
-              </StyledTypography>
+              <BugTextArea
+                placeholder={`Example:
+1. Navigate to the home page
+2. Click on checkout button
+3. etc...`}
+              />
             </StyledInputBox>
-
-            <StyledInputBox>
-              <StyledTypography variant="h3">Attachments</StyledTypography>
-              <StyledLabel for="fileUpload">
-                <StyledUploadIcon /> Upload Files
-              </StyledLabel>
-              <StyledFileInput type="file" id="fileUpload" />
-            </StyledInputBox>
-
-            <StyledInputBox>
-              <StyledTypography variant="h3">Related Bounty</StyledTypography>
-              <BugSelectField />
-            </StyledInputBox>
-
             <StyledButtonBox>
-              <StyledButton variant="outlined" className="cancel-button">
-                Cancel
-              </StyledButton>
               <StyledButton variant="contained">Submit Bug</StyledButton>
             </StyledButtonBox>
           </StyledSubmitFormBox>

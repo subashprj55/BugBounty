@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 const { Box, Stack } = require("@mui/system");
 const { styled } = require("styled-components");

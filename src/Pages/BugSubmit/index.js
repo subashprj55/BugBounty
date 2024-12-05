@@ -95,11 +95,6 @@ const SubmitBugForm = () => {
                   label="Critical"
                 />
                 <StyledFormControlLabel
-                  value="high"
-                  control={<StyledRadio />}
-                  label="High"
-                />
-                <StyledFormControlLabel
                   value="medium"
                   control={<StyledRadio />}
                   label="Medium"
