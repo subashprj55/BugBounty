@@ -4,16 +4,18 @@ import { Stack } from "@mui/system";
 import { styled } from "styled-components";
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
-export const StyledBugSubmitPage = styled(Stack)`
-  background-color: #f1f4f8;
-  padding: 50px;
+export const StyledBugSubmitPage = styled(Box)`
+  display: flex;
+  justify-content: center;
+  margin: 60px 0;
 `;
 
 export const StyledSubmitForm = styled(Stack)`
-  background-color: white;
-  border-radius: 6px;
-  padding: 30px;
   width: 700px;
+`;
+
+export const StyledSubmitFormBox = styled(Box)`
+  padding: 30px;
 `;
 
 export const StyledHeaderBox = styled(Box)`
