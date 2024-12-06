@@ -1,6 +1,6 @@
 import BugBox from "Components/BugBox";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   StyledBox,
   StyledBugBountyPage,
@@ -25,10 +25,10 @@ import {
 } from "./style";
 import PestControlOutlinedIcon from "@mui/icons-material/PestControlOutlined";
 import BugBackButton from "Components/BugBackButton";
+import { useAuth } from "Utils/authProvider";
 
 const BugBounty = () => {
   const { id } = useParams();
-  console.log(id);
 
   return (
     <StyledBugBountyPage>
@@ -37,7 +37,7 @@ const BugBounty = () => {
       <DetailsSection />
       <DescriptionSection />
       <StepsReproduceSection />
-      <ButtonSection />
+      <ButtonSection id={id} />
     </StyledBugBountyPage>
   );
 };
@@ -184,11 +184,27 @@ const StepsReproduceSection = () => {
   );
 };
 
-const ButtonSection = () => {
+const ButtonSection = ({ id }) => {
+  const navigator = useNavigate();
+  const {
+    state: {
+      user: { role },
+    },
+  } = useAuth();
+
+  if (role === "client") {
+    return <></>;
+  }
+
   return (
     <StyledStack>
       <StyledButtonSection>
-        <StyledButton variant="contained">apply now</StyledButton>
+        <StyledButton
+          variant="contained"
+          onClick={() => navigator(`/bugSubmit/${id}`)}
+        >
+          apply now
+        </StyledButton>
       </StyledButtonSection>
     </StyledStack>
   );

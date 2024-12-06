@@ -32,11 +32,6 @@ export const HunterNavLinks = [
   },
   {
     id: 2,
-    linkAddress: "/bugSubmit",
-    name: "Submit Bug",
-  },
-  {
-    id: 3,
     linkAddress: "/rewards",
     name: "Rewards",
   },

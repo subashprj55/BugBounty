@@ -3,7 +3,9 @@ import BugInputField from "Components/BugInputField";
 import BugNavContainer from "Components/BugNavContainer";
 import BugSelectField from "Components/BugSelectFiled";
 import BugTextArea from "Components/BugTextArea";
-import React from "react";
+import useBounties from "Hooks/useBounties";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   StyledBugSubmitPage,
   StyledButton,
@@ -25,9 +27,7 @@ import {
 const BugSubmit = () => {
   return (
     <>
-      <BugNavContainer>
-        <SubmitBugForm />
-      </BugNavContainer>
+      <SubmitBugForm />
     </>
   );
 };
@@ -35,6 +35,17 @@ const BugSubmit = () => {
 export default BugSubmit;
 
 const SubmitBugForm = () => {
+  const { id } = useParams();
+  const [title, setTitle] = useState(id);
+  const navigate = useNavigate();
+
+  let BugTitles;
+  const { data, error } = useBounties();
+
+  if (data) {
+    BugTitles = data.map(({ id, title }) => ({ id, title }));
+  }
+
   return (
     <StyledBugSubmitPage>
       <StyledSubmitForm>
@@ -78,7 +89,7 @@ const SubmitBugForm = () => {
 
             <StyledInputBox>
               <StyledTypography variant="h3">Attachments</StyledTypography>
-              <StyledLabel for="fileUpload">
+              <StyledLabel htmlFor="fileUpload">
                 <StyledUploadIcon /> Upload Files
               </StyledLabel>
               <StyledFileInput type="file" id="fileUpload" />
@@ -109,11 +120,20 @@ const SubmitBugForm = () => {
 
             <StyledInputBox>
               <StyledTypography variant="h3">Related Bounty</StyledTypography>
-              <BugSelectField />
+              <BugSelectField
+                options={BugTitles}
+                selectValue={title}
+                setSelectValue={setTitle}
+                label="Select one Bug"
+              />
             </StyledInputBox>
 
             <StyledButtonBox>
-              <StyledButton variant="outlined" className="cancel-button">
+              <StyledButton
+                onClick={() => navigate(-1)}
+                variant="outlined"
+                className="cancel-button"
+              >
                 Cancel
               </StyledButton>
               <StyledButton variant="contained">Submit Bug</StyledButton>

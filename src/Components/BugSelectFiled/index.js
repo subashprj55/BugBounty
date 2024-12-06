@@ -8,10 +8,10 @@ import {
 } from "./style";
 
 const BugSelectField = ({
-  label,
+  label = "",
   options = [],
-  selectValue,
-  setSelectValue,
+  selectValue = "",
+  setSelectValue = () => {},
 }) => {
   const handleChange = (event) => {
     setSelectValue(event.target.value);
@@ -28,10 +28,10 @@ const BugSelectField = ({
           label={label}
           onChange={handleChange}
         >
-          {options?.map(({ id, name, value }) => {
+          {options?.map(({ id, title }) => {
             return (
-              <StyledMenuItem key={id} value={value}>
-                {name}
+              <StyledMenuItem key={id} value={id}>
+                {title}
               </StyledMenuItem>
             );
           })}
