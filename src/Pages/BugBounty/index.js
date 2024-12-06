@@ -29,7 +29,6 @@ import { useAuth } from "Utils/authProvider";
 
 const BugBounty = () => {
   const { id } = useParams();
-  console.log(id);
 
   return (
     <StyledBugBountyPage>
@@ -38,7 +37,7 @@ const BugBounty = () => {
       <DetailsSection />
       <DescriptionSection />
       <StepsReproduceSection />
-      <ButtonSection />
+      <ButtonSection id={id} />
     </StyledBugBountyPage>
   );
 };
@@ -185,7 +184,7 @@ const StepsReproduceSection = () => {
   );
 };
 
-const ButtonSection = () => {
+const ButtonSection = ({ id }) => {
   const navigator = useNavigate();
   const {
     state: {
@@ -202,7 +201,7 @@ const ButtonSection = () => {
       <StyledButtonSection>
         <StyledButton
           variant="contained"
-          onClick={() => navigator("/bugSubmit")}
+          onClick={() => navigator(`/bugSubmit/${id}`)}
         >
           apply now
         </StyledButton>

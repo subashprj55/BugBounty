@@ -10,6 +10,7 @@ const useBounties = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["bounties"],
     queryFn: getBounties,
+    refetchOnWindowFocus: false,
   });
 
   return { data, error, isLoading };

@@ -38,7 +38,7 @@ function App() {
           element={<PrivateRoute component={BugDashboard} />}
         />
         <Route
-          path="bugSubmit"
+          path="bugSubmit/:id"
           element={<PrivateRoute display={"hunter"} component={BugSubmit} />}
         />
         <Route
