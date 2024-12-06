@@ -4,7 +4,6 @@ import BugNavContainer from "Components/BugNavContainer";
 import BugSkeleton from "Components/BugSkeleton";
 import BugSnackbar from "Components/BugSnackbar";
 import useBounties from "Hooks/useBounties";
-import React, { useEffect } from "react";
 import {
   StyledActiveBountiesStack,
   StyledBottomBox,
@@ -144,11 +143,7 @@ const FilterSection = () => {
 };
 
 const ActiveBounties = () => {
-  const { data, isLoading, error, mutate } = useBounties();
-
-  useEffect(() => {
-    mutate();
-  }, []);
+  const { data, isLoading, error } = useBounties();
 
   const renderContent = () => {
     if (isLoading) {

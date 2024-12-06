@@ -1,19 +1,18 @@
-import { useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { axiosAuth } from "Utils/axios";
 
 const useBounties = () => {
-  const { mutate, data, error, isLoading } = useMutation({
-    mutationFn: (values) => {
-      return getBounties(values);
-    },
-  });
-
   const getBounties = async () => {
     const { data } = await axiosAuth.get("/bounties/");
     return data;
   };
 
-  return { mutate, data, error, isLoading };
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["bounties"],
+    queryFn: getBounties,
+  });
+
+  return { data, error, isLoading };
 };
 
 export default useBounties;
