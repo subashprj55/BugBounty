@@ -165,6 +165,9 @@ export const StyledHowItWorksSection = styled(Stack)`
   justify-content: center;
   flex-wrap: wrap;
   gap: 2%;
+  @media (max-width: 1120px) {
+    gap: 20px;
+  }
 `;
 
 export const StyledHowItWorksBox = styled(Box)`
@@ -203,8 +206,9 @@ export const StyledSuccessSection = styled(Stack)`
   flex-direction: row !important;
   justify-content: center;
   gap: 2%;
-  @media (max-width: 425px) {
+  @media (max-width: 750px) {
     flex-wrap: wrap;
+    gap: 20px;
   }
 `;
 
