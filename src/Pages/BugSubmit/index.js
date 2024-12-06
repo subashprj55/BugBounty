@@ -43,7 +43,11 @@ const SubmitBugForm = () => {
   const { data, error } = useBounties();
 
   if (data) {
-    BugTitles = data.map(({ id, title }) => ({ id, title }));
+    BugTitles = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      name: item.created_by.name,
+    }));
   }
 
   return (

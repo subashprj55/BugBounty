@@ -229,6 +229,8 @@ export const StyledFooterContainer = styled(Stack)`
   flex-direction: row !important;
   justify-content: space-between;
   padding-bottom: 30px;
+  gap: 20px;
+  flex-wrap: wrap;
 `;
 
 export const StyledFooterBox = styled(Box)`
