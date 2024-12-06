@@ -28,10 +28,10 @@ const BugSelectField = ({
           label={label}
           onChange={handleChange}
         >
-          {options?.map(({ id, title }) => {
+          {options?.map(({ id, title, name }) => {
             return (
               <StyledMenuItem key={id} value={id}>
-                {title}
+                {`${title} (${name})`}
               </StyledMenuItem>
             );
           })}
