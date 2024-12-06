@@ -165,6 +165,9 @@ export const StyledHowItWorksSection = styled(Stack)`
   justify-content: center;
   flex-wrap: wrap;
   gap: 2%;
+  @media (max-width: 1120px) {
+    gap: 20px;
+  }
 `;
 
 export const StyledHowItWorksBox = styled(Box)`

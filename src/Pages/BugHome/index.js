@@ -185,6 +185,8 @@ const HomePageSection = () => {
 };
 
 const HowItWorksSection = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <StyledHowItWorksTypography variant="h1" className="title">
@@ -205,7 +207,10 @@ const HowItWorksSection = () => {
             </StyledHowItWorksTypography>
             <br />
 
-            <StyledItemsButton variant="contained">
+            <StyledItemsButton
+              onClick={() => navigate("/activeBounties")}
+              variant="contained"
+            >
               Explore Bounties
             </StyledItemsButton>
           </StyledHowItWorksBox>
@@ -225,7 +230,10 @@ const HowItWorksSection = () => {
             </StyledHowItWorksTypography>
             <br />
 
-            <StyledItemsButton variant="contained">
+            <StyledItemsButton
+              onClick={() => navigate("/bugSubmit/1")}
+              variant="contained"
+            >
               Submit Bugs
             </StyledItemsButton>
           </StyledHowItWorksBox>
@@ -245,7 +253,10 @@ const HowItWorksSection = () => {
             </StyledHomeTypography>
             <br />
 
-            <StyledItemsButton variant="contained">
+            <StyledItemsButton
+              onClick={() => navigate("/rewards")}
+              variant="contained"
+            >
               View Reward
             </StyledItemsButton>
           </StyledHowItWorksBox>
