@@ -204,9 +204,7 @@ const ActiveBounties = () => {
           </StyledSelectBox>
         )}
       </StyledTitleBox>
-
       <StyledBugListBox>{renderContent()}</StyledBugListBox>
-
       <StyledBottomBox>
         <StyledButton variant="outlined" className="bg-white ">
           Previous
