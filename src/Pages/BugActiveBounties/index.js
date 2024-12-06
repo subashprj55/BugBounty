@@ -4,6 +4,7 @@ import BugNavContainer from "Components/BugNavContainer";
 import BugSkeleton from "Components/BugSkeleton";
 import BugSnackbar from "Components/BugSnackbar";
 import useBounties from "Hooks/useBounties";
+import { useAuth } from "Utils/authProvider";
 import {
   StyledActiveBountiesStack,
   StyledBottomBox,
@@ -144,6 +145,11 @@ const FilterSection = () => {
 
 const ActiveBounties = () => {
   const { data, isLoading, error } = useBounties();
+  const {
+    state: {
+      user: { role },
+    },
+  } = useAuth();
 
   const renderContent = () => {
     if (isLoading) {
@@ -192,13 +198,13 @@ const ActiveBounties = () => {
     <StyledRightBox>
       <StyledTitleBox>
         <StyledTypography variant="h1">Active Bounties </StyledTypography>
-        <StyledSelectBox>
-          <StyledButton variant="contained">Create Bug</StyledButton>
-        </StyledSelectBox>
+        {role === "client" && (
+          <StyledSelectBox>
+            <StyledButton variant="contained">Create Bug</StyledButton>
+          </StyledSelectBox>
+        )}
       </StyledTitleBox>
-
       <StyledBugListBox>{renderContent()}</StyledBugListBox>
-
       <StyledBottomBox>
         <StyledButton variant="outlined" className="bg-white ">
           Previous
