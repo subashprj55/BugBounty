@@ -1,10 +1,4 @@
-export const ClientNavLinks = [
-  {
-    id: 1,
-    linkAddress: "/bounties",
-    name: "Active Bounties",
-  },
-];
+export const ClientNavLinks = [];
 
 export const CommonNavLinks = [
   {
@@ -17,16 +11,16 @@ export const CommonNavLinks = [
     linkAddress: "/leaderboard",
     name: "LeaderBoard",
   },
+  {
+    id: 1,
+    linkAddress: "/bounties",
+    name: "Active Bounties",
+  },
 ];
 
 export const HunterNavLinks = [
   {
     id: 1,
-    linkAddress: "/activeBounties",
-    name: "Active Bounties",
-  },
-  {
-    id: 2,
     linkAddress: "/rewards",
     name: "Rewards",
   },
