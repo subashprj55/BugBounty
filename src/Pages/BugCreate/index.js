@@ -5,6 +5,7 @@ import BugTextArea from "Components/BugTextArea";
 import React, { useState } from "react";
 
 import {
+  StyledBackButtonBox,
   StyledBugCreatePage,
   StyledButton,
   StyledButtonBox,
@@ -19,13 +20,12 @@ import {
   StyledTypography,
 } from "./style";
 import BugDatePicker from "Components/BugDatePicker";
+import BugBackButton from "Components/BugBackButton";
 
 const BugCreate = () => {
   return (
     <>
-      <BugNavContainer>
-        <CreateBugForm />
-      </BugNavContainer>
+      <CreateBugForm />
     </>
   );
 };
@@ -39,6 +39,9 @@ const CreateBugForm = () => {
     <StyledBugCreatePage>
       <StyledSubmitForm>
         <BugBox>
+          <StyledBackButtonBox>
+            <BugBackButton />
+          </StyledBackButtonBox>
           <StyledSubmitFormBox>
             <StyledHeaderBox>
               <StyledTitleTypography variant="h1">

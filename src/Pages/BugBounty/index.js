@@ -201,7 +201,7 @@ const ButtonSection = ({ id }) => {
       <StyledButtonSection>
         <StyledButton
           variant="contained"
-          onClick={() => navigator(`/bugSubmit/${id}`)}
+          onClick={() => navigator(`/bug/submit/${id}`)}
         >
           apply now
         </StyledButton>
