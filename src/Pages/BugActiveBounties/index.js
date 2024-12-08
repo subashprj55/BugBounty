@@ -4,14 +4,13 @@ import BugNavContainer from "Components/BugNavContainer";
 import BugSkeleton from "Components/BugSkeleton";
 import BugSnackbar from "Components/BugSnackbar";
 import useBounties from "Hooks/useBounties";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "Utils/authProvider";
 import {
   StyledActiveBountiesStack,
-  StyledBottomBox,
   StyledBox,
   StyledBugListBox,
   StyledButton,
-  StyledButtonBox,
   StyledCheckbox,
   StyledFilterAltIcon,
   StyledFilterBox,
@@ -151,6 +150,8 @@ const ActiveBounties = () => {
     },
   } = useAuth();
 
+  const navigate = useNavigate();
+
   const renderContent = () => {
     if (isLoading) {
       return <>{Array(6).fill(<BugSkeleton />)}</>;
@@ -200,19 +201,16 @@ const ActiveBounties = () => {
         <StyledTypography variant="h1">Active Bounties </StyledTypography>
         {role === "client" && (
           <StyledSelectBox>
-            <StyledButton variant="contained">Create Bug</StyledButton>
+            <StyledButton
+              variant="contained"
+              onClick={() => navigate("/bounty/create")}
+            >
+              Create Bounty
+            </StyledButton>
           </StyledSelectBox>
         )}
       </StyledTitleBox>
       <StyledBugListBox>{renderContent()}</StyledBugListBox>
-      <StyledBottomBox>
-        <StyledButton variant="outlined" className="bg-white ">
-          Previous
-        </StyledButton>
-        <StyledButton variant="outlined" className="bg-white ">
-          Next
-        </StyledButton>
-      </StyledBottomBox>
     </StyledRightBox>
   );
 };

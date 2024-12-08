@@ -6,10 +6,14 @@ import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 export const StyledBugCreatePage = styled(Box)`
   display: flex;
   justify-content: center;
-  margin: 60px 0;
+  margin: 30px 0;
   @media (max-width: 600px) {
     margin: 0;
   }
+`;
+
+export const StyledBackButtonBox = styled(Box)`
+  padding-left: 30px;
 `;
 
 export const StyledSubmitForm = styled(Stack)`

@@ -91,11 +91,6 @@ export const StyledSlider = styled(Slider)`
   }
 `;
 
-export const StyledButtonBox = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const StyledButton = styled(Button)`
   width: auto !important;
   &.bg-white {
@@ -126,11 +121,4 @@ export const StyledBugListBox = styled(Box)`
   @media (max-width: 971px) {
     justify-content: center;
   }
-`;
-
-export const StyledBottomBox = styled(Box)`
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
 `;

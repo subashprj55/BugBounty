@@ -38,10 +38,6 @@ function App() {
           element={<PrivateRoute component={BugDashboard} />}
         />
         <Route
-          path="bugSubmit/:id"
-          element={<PrivateRoute display={"hunter"} component={BugSubmit} />}
-        />
-        <Route
           path="rewards"
           element={<PrivateRoute display={"hunter"} component={BugRewards} />}
         />
@@ -58,16 +54,20 @@ function App() {
           element={<PrivateRoute component={BugLeaderBoard} />}
         />
         <Route
-          path="activeBounties"
+          path="bounties"
           element={<PrivateRoute component={BugActiveBounties} />}
         />
         <Route
-          path="bounty/:id"
+          path="bounty/details/:id"
           element={<PrivateRoute component={BugBounty} />}
         />
         <Route
-          path="createBounty"
+          path="/bounty/create"
           element={<PrivateRoute display={"client"} component={BugCreate} />}
+        />
+        <Route
+          path="bug/submit/:id"
+          element={<PrivateRoute display={"hunter"} component={BugSubmit} />}
         />
         <Route path="*" element={<Bug404 />} />
       </Routes>
