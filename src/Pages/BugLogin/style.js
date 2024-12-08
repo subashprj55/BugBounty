@@ -41,7 +41,6 @@ export const StyledLink = styled(Link)``;
 export const StyledBottomBox = styled(Box)`
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
   @media (max-width: 400px) {
     flex-direction: column;
     gap: 0.8em;
