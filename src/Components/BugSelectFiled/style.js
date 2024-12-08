@@ -20,6 +20,8 @@ export const StyledFormControl = styled(FormControl)`
   .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 12px 10px;
   }
+  label {
+    margin-top: 5px;
 `;
 
 export const StyledSelect = styled(Select)``;
