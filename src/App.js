@@ -14,7 +14,7 @@ import BugActiveBounties from "Pages/BugActiveBounties";
 import PublicRoute from "Components/PublicRoute";
 import PrivateRoute from "Components/PrivateRoute";
 import BugBounty from "Pages/BugBounty";
-import BugCreate from "Pages/BugCreate";
+import BugCreate from "Pages/BugCreateBounty";
 
 function App() {
   return (
