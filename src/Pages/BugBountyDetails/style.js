@@ -3,6 +3,14 @@ import { Button, Typography } from "@mui/material";
 const { Box, Stack } = require("@mui/system");
 const { styled } = require("styled-components");
 
+//loading
+export const StyledLoadingBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
 export const StyledBugBountyPage = styled(Stack)`
   padding: 0 5% 40px;
 `;
@@ -28,6 +36,9 @@ export const StyledTypography = styled(Typography)`
     color: gray;
     font-style: italic;
     padding-right: 1px;
+  }
+  &.capitalize {
+    text-transform: capitalize;
   }
 `;
 
