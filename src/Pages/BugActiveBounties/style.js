@@ -91,6 +91,14 @@ export const StyledSlider = styled(Slider)`
   }
 `;
 
+export const StyledErrorBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40vh;
+`;
+
 export const StyledButton = styled(Button)`
   width: auto !important;
   &.bg-white {
