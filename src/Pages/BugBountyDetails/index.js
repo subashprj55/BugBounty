@@ -14,6 +14,7 @@ import {
   StyledDetailsItems,
   StyledDetailsTypography,
   StyledItemsBox,
+  StyledLoadingBox,
   StyledPriorityTypography,
   StyledReproduceBox,
   StyledReproduceStack,
@@ -26,17 +27,48 @@ import {
 import PestControlOutlinedIcon from "@mui/icons-material/PestControlOutlined";
 import BugBackButton from "Components/BugBackButton";
 import { useAuth } from "Utils/authProvider";
+import useBountyDetails from "Hooks/useBountyDetails";
+import { format } from "date-fns";
 
 const BugBounty = () => {
   const { id } = useParams();
+  const { data, isLoading, error } = useBountyDetails(id);
+
+  if (isLoading) {
+    return (
+      <StyledLoadingBox>
+        <StyledTypography variant="h1">Loading....</StyledTypography>
+      </StyledLoadingBox>
+    );
+  }
+
+  if (error) {
+    return (
+      <StyledBugBountyPage>
+        <BugBackButton />
+        <StyledLoadingBox>
+          <StyledTypography variant="h1">
+            Something is going wrong. Please try again
+          </StyledTypography>
+        </StyledLoadingBox>
+      </StyledBugBountyPage>
+    );
+  }
 
   return (
     <StyledBugBountyPage>
       <BugBackButton />
-      <TitleSection />
-      <DetailsSection />
-      <DescriptionSection />
-      <StepsReproduceSection />
+      <TitleSection title={data?.title} created_by={data?.created_by?.name} />
+      <DetailsSection
+        priority={data?.severity}
+        createdAt={data?.created_at}
+        expireDate={data?.expiry_date}
+      />
+      <DescriptionSection
+        summary={data?.description}
+        expectedResult={data?.acceptance_criteria}
+      />
+      <StepsReproduceSection step_to_reproduce={data?.step_to_reproduce} />
       <ButtonSection id={id} />
     </StyledBugBountyPage>
   );
@@ -44,23 +76,23 @@ const BugBounty = () => {
 
 export default BugBounty;
 
-const TitleSection = () => {
+const TitleSection = ({ title, created_by }) => {
   return (
     <StyledTitleSection>
       <PestControlOutlinedIcon />
       <StyledTitleBox>
-        <StyledTypography variant="h1">
-          Chat - The creator of the group conversation can't rename it
+        <StyledTypography className="capitalize" variant="h1">
+          {title}
         </StyledTypography>
-        <StyledTypography variant="h3" className="date">
-          Created At : <span>2024-11-30 </span>
+        <StyledTypography variant="h3" className="capitalize">
+          Created By : {created_by}
         </StyledTypography>
       </StyledTitleBox>
     </StyledTitleSection>
   );
 };
 
-const DetailsSection = () => {
+const DetailsSection = ({ priority, expireDate, createdAt }) => {
   return (
     <StyledStack>
       <BugBox>
@@ -83,8 +115,11 @@ const DetailsSection = () => {
                   <StyledDetailsTypography variant="footer">
                     Priority :
                   </StyledDetailsTypography>
-                  <StyledPriorityTypography variant="h3" className="critical">
-                    Critical
+                  <StyledPriorityTypography
+                    variant="h3"
+                    className={`${priority}`}
+                  >
+                    {priority}
                   </StyledPriorityTypography>
                 </StyledDetailRow>
                 <StyledDetailRow>
@@ -92,7 +127,9 @@ const DetailsSection = () => {
                     Expire In :
                   </StyledTypography>
                   <StyledTypography variant="h3">
-                    <span>2024/12/20 </span>
+                    <span>
+                      {format(new Date(expireDate), "yyyy-MM-dd HH:mm")}
+                    </span>
                   </StyledTypography>
                 </StyledDetailRow>
               </StyledDetailsItems>
@@ -114,6 +151,16 @@ const DetailsSection = () => {
                     Unresolved
                   </StyledDetailsTypography>
                 </StyledDetailRow>
+                <StyledDetailRow>
+                  <StyledTypography variant="footer">
+                    Created At :
+                  </StyledTypography>
+                  <StyledTypography variant="h3">
+                    <span>
+                      {format(new Date(createdAt), "yyyy-MM-dd HH:mm")}
+                    </span>
+                  </StyledTypography>
+                </StyledDetailRow>
               </StyledDetailsItems>
             </StyledContainerBox>
           </StyledBox>
@@ -123,7 +170,7 @@ const DetailsSection = () => {
   );
 };
 
-const DescriptionSection = () => {
+const DescriptionSection = ({ summary, expectedResult }) => {
   return (
     <StyledStack>
       <BugBox>
@@ -132,11 +179,7 @@ const DescriptionSection = () => {
           <StyledBox>
             <StyledTypography variant="h3">Summary :</StyledTypography>
             <StyledDescriptionStack>
-              <StyledTypography variant="footer">
-                The creator of a group conversation is unable to rename the
-                group despite having the necessary permissions. The issue is
-                reproducible across different devices and browsers.
-              </StyledTypography>
+              <StyledTypography variant="footer">{summary}</StyledTypography>
             </StyledDescriptionStack>
           </StyledBox>
 
@@ -144,8 +187,7 @@ const DescriptionSection = () => {
             <StyledTypography variant="h3">Expected Result :</StyledTypography>
             <StyledDescriptionStack>
               <StyledTypography variant="footer">
-                The group name should be updated successfully, and the changes
-                should reflect for all group members.
+                {expectedResult}
               </StyledTypography>
             </StyledDescriptionStack>
           </StyledBox>
@@ -155,7 +197,11 @@ const DescriptionSection = () => {
   );
 };
 
-const StepsReproduceSection = () => {
+const StepsReproduceSection = ({ step_to_reproduce }) => {
+  const formattedSteps = step_to_reproduce
+    .split("\n")
+    .map((step) => step.charAt(0).toUpperCase() + step.slice(1));
+
   return (
     <StyledStack>
       <BugBox>
@@ -163,19 +209,13 @@ const StepsReproduceSection = () => {
           <StyledTypography variant="h2">Steps to Reproduce :</StyledTypography>
           <StyledItemsBox>
             <StyledReproduceStack>
-              <StyledTypography variant="footer">
-                1. Log in to the application as the creator of a group
-                conversation.
-              </StyledTypography>
-              <StyledTypography variant="footer">
-                2. Navigate to the group conversation.
-              </StyledTypography>
-              <StyledTypography variant="footer">
-                3. Click on the "Edit" or "Rename" option in the group settings.
-              </StyledTypography>
-              <StyledTypography variant="footer">
-                4. Attempt to change the group name and save the changes.
-              </StyledTypography>
+              {formattedSteps?.map((item) => {
+                return (
+                  <StyledTypography variant="footer" key={item}>
+                    {item}
+                  </StyledTypography>
+                );
+              })}
             </StyledReproduceStack>
           </StyledItemsBox>
         </StyledReproduceBox>

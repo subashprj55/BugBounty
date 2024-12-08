@@ -12,6 +12,7 @@ import {
   StyledBugListBox,
   StyledButton,
   StyledCheckbox,
+  StyledErrorBox,
   StyledFilterAltIcon,
   StyledFilterBox,
   StyledFilterHeaderBox,
@@ -167,6 +168,16 @@ const ActiveBounties = () => {
         </>
       );
     }
+    if (!data) {
+      return (
+        <StyledErrorBox>
+          <StyledTypography variant="h1">
+            No any Bounty found. Please try again....
+          </StyledTypography>
+        </StyledErrorBox>
+      );
+    }
+
     return (
       <>
         {data?.map(

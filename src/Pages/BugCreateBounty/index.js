@@ -54,7 +54,7 @@ const CreateBugForm = () => {
   } = useForm();
   const navigate = useNavigate();
 
-  const { mutate, data, isLoading, error } = useCreateBounty((data) => {
+  const { mutate, data, isLoading, error } = useCreateBounty(() => {
     setTimeout(() => {
       reset();
       navigate("/bounties");
