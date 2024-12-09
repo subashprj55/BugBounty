@@ -40,6 +40,7 @@ import { useAuth } from "Utils/authProvider";
 import useBountyDetails from "Hooks/useBountyDetails";
 import { format } from "date-fns";
 import profile from "Images/profile.png";
+import { getVisibleBugs } from "Utils/getVisibleBug";
 
 const BugBounty = () => {
   const { id } = useParams();
@@ -82,7 +83,7 @@ const BugBounty = () => {
       />
       <StepsReproduceSection step_to_reproduce={data?.step_to_reproduce} />
       <ButtonSection id={id} />
-      <BugSection />
+      <BugSection authorEmail={data?.created_by?.email} bugs={data?.bugs} />
     </StyledBugBountyPage>
   );
 };
@@ -225,8 +226,8 @@ const DescriptionSection = ({ summary, expectedResult }) => {
 
 const StepsReproduceSection = ({ step_to_reproduce }) => {
   const formattedSteps = step_to_reproduce
-    .split("\n")
-    .map((step) => step.charAt(0).toUpperCase() + step.slice(1));
+    ?.split("\n")
+    ?.map((step) => step.charAt(0).toUpperCase() + step.slice(1));
 
   return (
     <StyledStack>
@@ -276,7 +277,10 @@ const ButtonSection = ({ id }) => {
   );
 };
 
-const BugSection = () => {
+const BugSection = ({ authorEmail, bugs }) => {
+  const { state } = useAuth();
+  const newBugs = getVisibleBugs(authorEmail, bugs, state.user.email);
+
   return (
     <StyledStack>
       <StyledBugSection>
@@ -284,123 +288,77 @@ const BugSection = () => {
           Bug Details
         </StyledTypography>
 
-        <StyledBugStack>
-          <StyledBugTitleSection>
-            <StyledAvatar alt="hunter profile" src={profile} />
-            <StyledTitleBox>
-              <StyledTypography className="capitalize" variant="h2">
-                Login page crash
-              </StyledTypography>
-              <StyledTypography variant="footer" className="capitalize">
-                Submitted By : HunterA
-              </StyledTypography>
-            </StyledTitleBox>
-          </StyledBugTitleSection>
+        {newBugs.map(
+          ({ id, title, description, submitted_by, submitted_at }) => {
+            return (
+              <StyledBugStack key={id}>
+                <StyledBugTitleSection>
+                  <StyledAvatar alt="hunter profile" src={profile} />
+                  <StyledTitleBox>
+                    <StyledTypography className="capitalize" variant="h2">
+                      {title}
+                    </StyledTypography>
+                    <StyledTypography variant="footer" className="capitalize">
+                      Submitted By : {submitted_by?.name}
+                    </StyledTypography>
+                  </StyledTitleBox>
+                </StyledBugTitleSection>
 
-          <StyledBugBox>
-            <StyledBugSummerySection>
-              <StyledTypography variant="h3">Bug Details :</StyledTypography>
-              <StyledBugItemsBox>
-                <StyledTypography variant="footer">
-                  Login page crashes when submitting invalid credentials.
-                </StyledTypography>
-              </StyledBugItemsBox>
-            </StyledBugSummerySection>
+                <StyledBugBox>
+                  <StyledBugSummerySection>
+                    <StyledTypography variant="h3">
+                      Bug Details :
+                    </StyledTypography>
+                    <StyledBugItemsBox>
+                      <StyledTypography variant="footer">
+                        {description}
+                      </StyledTypography>
+                    </StyledBugItemsBox>
+                  </StyledBugSummerySection>
 
-            <StyledBugSummerySection>
-              <StyledBugPendingBox>
-                <StyledDetailsTypography variant="h3">
-                  Status :
-                </StyledDetailsTypography>
-                <StyledBugItemsBox>
-                  <StyledStatusTypography variant="h3" className="pending">
-                    Pending
-                  </StyledStatusTypography>
-                </StyledBugItemsBox>
-              </StyledBugPendingBox>
-            </StyledBugSummerySection>
+                  <StyledBugSummerySection>
+                    <StyledBugPendingBox>
+                      <StyledDetailsTypography variant="h3">
+                        Status :
+                      </StyledDetailsTypography>
+                      <StyledBugItemsBox>
+                        <StyledStatusTypography
+                          variant="h3"
+                          className="pending"
+                        >
+                          Pending
+                        </StyledStatusTypography>
+                      </StyledBugItemsBox>
+                    </StyledBugPendingBox>
+                  </StyledBugSummerySection>
 
-            <StyledBugSummerySection>
-              <StyledBugPendingBox>
-                <StyledTypography variant="h3">
-                  Submission Date :
-                </StyledTypography>
-                <StyledTypography variant="h3">
-                  <span>2024-12-08 13:00</span>
-                </StyledTypography>
-              </StyledBugPendingBox>
-            </StyledBugSummerySection>
-          </StyledBugBox>
+                  <StyledBugSummerySection>
+                    <StyledBugPendingBox>
+                      <StyledTypography variant="h3">
+                        Submission Date :
+                      </StyledTypography>
+                      <StyledTypography variant="h3">
+                        <span>
+                          {format(new Date(submitted_at), "yyyy-MM-dd HH:mm")}
+                        </span>
+                      </StyledTypography>
+                    </StyledBugPendingBox>
+                  </StyledBugSummerySection>
+                </StyledBugBox>
 
-          <StyledBugSummerySection>
-            <StyledBugPendingBox className="end">
-              <StyledLink to={"/bug/details/1"}>
-                <StyledBugTypography variant="footer">
-                  More Details-&gt;
-                </StyledBugTypography>
-              </StyledLink>
-            </StyledBugPendingBox>
-          </StyledBugSummerySection>
-        </StyledBugStack>
-
-        <StyledBugStack>
-          <StyledBugTitleSection>
-            <StyledAvatar alt="hunter profile" src={profile} />
-            <StyledTitleBox>
-              <StyledTypography className="capitalize" variant="h2">
-                Login page crash
-              </StyledTypography>
-              <StyledTypography variant="footer" className="capitalize">
-                Submitted By : HunterA
-              </StyledTypography>
-            </StyledTitleBox>
-          </StyledBugTitleSection>
-
-          <StyledBugBox>
-            <StyledBugSummerySection>
-              <StyledTypography variant="h3">Bug Details :</StyledTypography>
-              <StyledBugItemsBox>
-                <StyledTypography variant="footer">
-                  Login page crashes when submitting invalid credentials.
-                </StyledTypography>
-              </StyledBugItemsBox>
-            </StyledBugSummerySection>
-
-            <StyledBugSummerySection>
-              <StyledBugPendingBox>
-                <StyledDetailsTypography variant="h3">
-                  Status :
-                </StyledDetailsTypography>
-                <StyledBugItemsBox>
-                  <StyledStatusTypography variant="h3" className="pending">
-                    Pending
-                  </StyledStatusTypography>
-                </StyledBugItemsBox>
-              </StyledBugPendingBox>
-            </StyledBugSummerySection>
-
-            <StyledBugSummerySection>
-              <StyledBugPendingBox>
-                <StyledTypography variant="h3">
-                  Submission Date :
-                </StyledTypography>
-                <StyledTypography variant="h3">
-                  <span>2024-12-08 13:00</span>
-                </StyledTypography>
-              </StyledBugPendingBox>
-            </StyledBugSummerySection>
-          </StyledBugBox>
-
-          <StyledBugSummerySection>
-            <StyledBugPendingBox className="end">
-              <StyledLink to={"/bug/details/1"}>
-                <StyledBugTypography variant="footer">
-                  More Details-&gt;
-                </StyledBugTypography>
-              </StyledLink>
-            </StyledBugPendingBox>
-          </StyledBugSummerySection>
-        </StyledBugStack>
+                <StyledBugSummerySection>
+                  <StyledBugPendingBox className="end">
+                    <StyledLink to={`/bug/details/${id}`}>
+                      <StyledBugTypography variant="footer">
+                        More Details-&gt;
+                      </StyledBugTypography>
+                    </StyledLink>
+                  </StyledBugPendingBox>
+                </StyledBugSummerySection>
+              </StyledBugStack>
+            );
+          }
+        )}
       </StyledBugSection>
     </StyledStack>
   );
