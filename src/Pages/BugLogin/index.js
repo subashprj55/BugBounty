@@ -122,7 +122,6 @@ const BugLogin = () => {
 
               <StyledBottomBox>
                 <StyledLink to={"/signup"}>Don't have account?</StyledLink>
-                <StyledLink>Forgot Password?</StyledLink>
               </StyledBottomBox>
             </StyledLoginBox>
           </BugBox>
