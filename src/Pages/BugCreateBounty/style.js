@@ -22,7 +22,7 @@ export const StyledSubmitForm = styled.form`
   width: 700px;
 `;
 
-//inputs filed
+//inputs fields
 
 export const StyledInputField = styled.input`
   font-size: 14px;
@@ -129,6 +129,30 @@ export const StyledDatePicker = styled(DatePicker)`
 
 export const StyledIconButton = styled(IconButton)``;
 
+export const StyledFilePreview = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+export const StyledFileName = styled.span`
+  font-size: 14px;
+  color: #333;
+`;
+
+export const StyledCancelButton = styled.button`
+  border: none;
+  background: transparent;
+  color: gray;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
+
+  &:hover {
+    color: red;
+  }
+`;
 ////////////////////////////////
 
 export const StyledSubmitFormBox = styled(Box)`

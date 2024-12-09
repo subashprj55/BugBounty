@@ -1,28 +1,21 @@
 import { useMutation } from "react-query";
 import { axiosAuth } from "Utils/axios";
 
-const useCreateBounty = (onSuccess) => {
+const useCreateBug = (onSuccess) => {
   const crateBounty = async ({
     bugTitle,
     description,
     expectedResult,
     uploadedFile,
+    title,
     reproduceSteps,
-    rewarded_amount,
-    security,
-    selectedDate,
   }) => {
-    const date = new Date(selectedDate).toISOString();
-
-    const { data } = await axiosAuth.post("/bounties/", {
+    const { data } = await axiosAuth.post("/bugs/", {
       title: bugTitle,
-      description,
-      step_to_reproduce: reproduceSteps,
-      acceptance_criteria: expectedResult,
-      expiry_date: date,
-      attachments: uploadedFile,
-      severity: security,
-      rewarded_amount,
+      description: description,
+      guide: reproduceSteps,
+      attachment: uploadedFile,
+      related_bounty: title,
     });
     return data;
   };
@@ -39,4 +32,4 @@ const useCreateBounty = (onSuccess) => {
   return { mutate, data, error, isLoading };
 };
 
-export default useCreateBounty;
+export default useCreateBug;

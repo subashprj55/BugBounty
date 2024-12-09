@@ -1,5 +1,4 @@
 import BugBox from "Components/BugBox";
-import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
@@ -9,10 +8,13 @@ import {
   StyledBugCreatePage,
   StyledButton,
   StyledButtonBox,
+  StyledCancelButton,
   StyledDatePicker,
   StyledDatePickerBox,
   StyledErrorMessage,
   StyledFileInput,
+  StyledFileName,
+  StyledFilePreview,
   StyledFormControlLabel,
   StyledHeaderBox,
   StyledIconButton,
@@ -33,16 +35,20 @@ import useCreateBounty from "Hooks/useCreateBounty";
 import BugLoader from "Components/BugLoader";
 import BugSnackbar from "Components/BugSnackbar";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import BugNavContainer from "Components/BugNavContainer";
 
-const BugCreate = () => {
+const BugCreateBounty = () => {
   return (
     <>
-      <CreateBugForm />
+      <BugNavContainer>
+        <CreateBugForm />
+      </BugNavContainer>
     </>
   );
 };
 
-export default BugCreate;
+export default BugCreateBounty;
 
 const CreateBugForm = () => {
   const {
@@ -53,6 +59,7 @@ const CreateBugForm = () => {
     reset,
   } = useForm();
   const navigate = useNavigate();
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   const { mutate, data, isLoading, error } = useCreateBounty(() => {
     setTimeout(() => {
@@ -62,7 +69,18 @@ const CreateBugForm = () => {
   });
 
   const onSubmit = (data) => {
-    mutate(data);
+    mutate({ ...data, uploadedFile });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setUploadedFile(file);
+    }
+  };
+
+  const handleCancelFile = () => {
+    setUploadedFile(null);
   };
 
   return (
@@ -71,7 +89,7 @@ const CreateBugForm = () => {
       {error && (
         <BugSnackbar
           status="error"
-          snackbarMessage="Invalid email or password"
+          snackbarMessage="There are some error. Please try again"
         />
       )}
       {data && (
@@ -93,7 +111,7 @@ const CreateBugForm = () => {
               <StyledTypography variant="h3">Bounty Title</StyledTypography>
               <StyledInputField
                 name="bugTitle"
-                placeholder="Enter a concise title for the bug"
+                placeholder="Enter a concise title for the bounty"
                 {...register("bugTitle", {
                   required: "Bounty title is required",
                 })}
@@ -263,14 +281,24 @@ const CreateBugForm = () => {
 
             <StyledInputBox>
               <StyledTypography variant="h3">Attachments</StyledTypography>
-              <StyledLabel htmlFor="fileUpload">
-                <StyledUploadIcon /> Upload Files
-              </StyledLabel>
-              <StyledFileInput
-                type="file"
-                id="fileUpload"
-                {...register("fileUpload")}
-              />
+              <StyledFilePreview>
+                <StyledLabel htmlFor="fileUpload">
+                  <StyledUploadIcon /> Upload Files
+                </StyledLabel>
+                <StyledFileInput
+                  type="file"
+                  id="fileUpload"
+                  onChange={handleFileChange}
+                />
+                {uploadedFile && (
+                  <>
+                    <StyledFileName>{uploadedFile.name}</StyledFileName>
+                    <StyledCancelButton onClick={handleCancelFile}>
+                      ✖
+                    </StyledCancelButton>
+                  </>
+                )}
+              </StyledFilePreview>
             </StyledInputBox>
 
             <StyledInputBox>

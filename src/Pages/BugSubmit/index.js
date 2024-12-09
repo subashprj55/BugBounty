@@ -1,24 +1,31 @@
 import BugBox from "Components/BugBox";
-import BugInputField from "Components/BugInputField";
-import BugNavContainer from "Components/BugNavContainer";
+import BugLoader from "Components/BugLoader";
 import BugSelectField from "Components/BugSelectFiled";
-import BugTextArea from "Components/BugTextArea";
+import BugSnackbar from "Components/BugSnackbar";
 import useBounties from "Hooks/useBounties";
+import useCreateBug from "Hooks/useCreateBug";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   StyledBugSubmitPage,
   StyledButton,
   StyledButtonBox,
+  StyledCancelButton,
+  StyledErrorMessage,
   StyledFileInput,
+  StyledFileName,
+  StyledFilePreview,
   StyledFormControlLabel,
   StyledHeaderBox,
   StyledInputBox,
+  StyledInputField,
   StyledLabel,
   StyledRadio,
   StyledRadioGroup,
   StyledSubmitForm,
   StyledSubmitFormBox,
+  StyledTextarea,
   StyledTitleTypography,
   StyledTypography,
   StyledUploadIcon,
@@ -38,7 +45,14 @@ const SubmitBugForm = () => {
   const { id } = useParams();
   const [title, setTitle] = useState(id);
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
+  const [uploadedFile, setUploadedFile] = useState(null);
   let BugTitles;
   const { data, error } = useBounties();
 
@@ -50,76 +64,144 @@ const SubmitBugForm = () => {
     }));
   }
 
+  const {
+    mutate,
+    data: bugData,
+    isLoading,
+    error: bugError,
+  } = useCreateBug(() => {
+    setTimeout(() => {
+      reset();
+      navigate(`/bounty/details/${title}`);
+    }, 2000);
+  });
+
+  const onSubmit = (data) => {
+    mutate({ ...data, title, uploadedFile });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setUploadedFile(file);
+    }
+  };
+
+  const handleCancelFile = () => {
+    setUploadedFile(null);
+  };
+
   return (
     <StyledBugSubmitPage>
-      <StyledSubmitForm>
+      {isLoading && <BugLoader />}
+      {bugError && (
+        <BugSnackbar
+          status="error"
+          snackbarMessage="There are some error. Please try again"
+        />
+      )}
+      {bugData && (
+        <BugSnackbar snackbarMessage="New bug is created successfully" />
+      )}
+      <StyledSubmitForm onSubmit={handleSubmit(onSubmit)}>
         <BugBox>
           <StyledSubmitFormBox>
             <StyledHeaderBox>
               <StyledTitleTypography variant="h1">
-                Submit Form
+                Create Bug
               </StyledTitleTypography>
             </StyledHeaderBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">Bug Title</StyledTypography>
-              <BugInputField placeholder="Enter a concise title for the bug" />
+              <StyledInputField
+                name="bugTitle"
+                placeholder="Enter a concise title for the bug"
+                {...register("bugTitle", {
+                  required: "Bounty title is required",
+                })}
+              />
+              {errors.bugTitle && (
+                <StyledErrorMessage>
+                  {errors.bugTitle.message}
+                </StyledErrorMessage>
+              )}
             </StyledInputBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">Description</StyledTypography>
-              <BugTextArea placeholder="Describe the bug in detail…" />
+              <StyledTextarea
+                placeholder="Describe the bug in detail…"
+                rows="5"
+                name="description"
+                {...register("description", {
+                  required: "Description is required",
+                })}
+              />
+              {errors.description && (
+                <StyledErrorMessage>
+                  {errors.description.message}
+                </StyledErrorMessage>
+              )}
             </StyledInputBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">Actual Result</StyledTypography>
-              <BugTextArea placeholder="Describe the behavior observed when the bug occurs." />
+              <StyledTextarea
+                placeholder="Describe the behavior observed when the bug occurs."
+                rows="4"
+                name="expectedResult"
+                {...register("expectedResult")}
+              />
+              {errors.expectedResult && (
+                <StyledErrorMessage>
+                  {errors.expectedResult.message}
+                </StyledErrorMessage>
+              )}
             </StyledInputBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">
                 Steps to Reproduce
               </StyledTypography>
-              <StyledTypography variant="h6" className="color">
-                1. Navigate to the home page
-              </StyledTypography>
-              <StyledTypography variant="h6" className="color">
-                2. Click on checkout button
-              </StyledTypography>
-              <StyledTypography variant="h6" className="color">
-                3. etc...
-              </StyledTypography>
+              <StyledTextarea
+                placeholder={`Example:
+1. Navigate to the home page
+2. Click on checkout button
+3. etc...`}
+                rows="5"
+                name="reproduceSteps"
+                {...register("reproduceSteps", {
+                  required: "Reproduce Steps is required",
+                })}
+              />
+              {errors.reproduceSteps && (
+                <StyledErrorMessage>
+                  {errors.reproduceSteps.message}
+                </StyledErrorMessage>
+              )}
             </StyledInputBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">Attachments</StyledTypography>
-              <StyledLabel htmlFor="fileUpload">
-                <StyledUploadIcon /> Upload Files
-              </StyledLabel>
-              <StyledFileInput type="file" id="fileUpload" />
-            </StyledInputBox>
-
-            <StyledInputBox>
-              <StyledTypography variant="h3" className="remove-padding">
-                Security Level
-              </StyledTypography>
-              <StyledRadioGroup row name="row-radio-buttons-group">
-                <StyledFormControlLabel
-                  value="critical"
-                  control={<StyledRadio />}
-                  label="Critical"
+              <StyledFilePreview>
+                <StyledLabel htmlFor="fileUpload">
+                  <StyledUploadIcon /> Upload Files
+                </StyledLabel>
+                <StyledFileInput
+                  type="file"
+                  id="fileUpload"
+                  onChange={handleFileChange}
                 />
-                <StyledFormControlLabel
-                  value="medium"
-                  control={<StyledRadio />}
-                  label="Medium"
-                />
-                <StyledFormControlLabel
-                  value="low"
-                  control={<StyledRadio />}
-                  label="Low"
-                />
-              </StyledRadioGroup>
+                {uploadedFile && (
+                  <>
+                    <StyledFileName>{uploadedFile.name}</StyledFileName>
+                    <StyledCancelButton onClick={handleCancelFile}>
+                      ✖
+                    </StyledCancelButton>
+                  </>
+                )}
+              </StyledFilePreview>
             </StyledInputBox>
 
             <StyledInputBox>
@@ -140,7 +222,9 @@ const SubmitBugForm = () => {
               >
                 Cancel
               </StyledButton>
-              <StyledButton variant="contained">Submit Bug</StyledButton>
+              <StyledButton type="submit" variant="contained">
+                Submit Bug
+              </StyledButton>
             </StyledButtonBox>
           </StyledSubmitFormBox>
         </BugBox>

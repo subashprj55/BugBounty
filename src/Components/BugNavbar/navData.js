@@ -1,4 +1,10 @@
-export const ClientNavLinks = [];
+export const ClientNavLinks = [
+  {
+    id: 0,
+    linkAddress: "/bounty/create",
+    name: "Create Bounty",
+  },
+];
 
 export const CommonNavLinks = [
   {

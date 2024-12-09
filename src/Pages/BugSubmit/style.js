@@ -13,9 +13,99 @@ export const StyledBugSubmitPage = styled(Box)`
   }
 `;
 
-export const StyledSubmitForm = styled(Stack)`
+export const StyledSubmitForm = styled.form`
   width: 700px;
 `;
+
+//input fields
+
+export const StyledInputField = styled.input`
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 13px 10px;
+  width: 93%;
+  border-radius: 8px;
+  border: 1px solid #e4e4e7;
+  &:focus {
+    outline: none;
+    border: 1px solid #a1a1aa;
+  }
+  &.width {
+    width: 200px;
+  }
+  /* Remove spinner buttons for Chrome, Edge, and Safari */
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Remove spinner buttons for Firefox */
+  -moz-appearance: textfield;
+`;
+
+export const StyledErrorMessage = styled.p`
+  position: absolute;
+  color: red;
+`;
+
+export const StyledTextarea = styled.textarea`
+  font-size: 14px;
+  padding: 13px 10px;
+  width: 93%;
+  border-radius: 8px;
+  border: 1px solid #e4e4e7;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #a1a1aa;
+  }
+`;
+
+export const StyledLabel = styled.label`
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  &:hover {
+    border-color: gray;
+  }
+`;
+
+export const StyledUploadIcon = styled(DriveFolderUploadIcon)``;
+
+export const StyledFileInput = styled.input`
+  display: none;
+`;
+
+export const StyledFilePreview = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+export const StyledFileName = styled.span`
+  font-size: 14px;
+  color: #333;
+`;
+
+export const StyledCancelButton = styled.button`
+  border: none;
+  background: transparent;
+  color: gray;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
+
+  &:hover {
+    color: red;
+  }
+`;
+////////////////////////////////
 
 export const StyledSubmitFormBox = styled(Box)`
   padding: 30px;
@@ -70,23 +160,3 @@ export const StyledFormControlLabel = styled(FormControlLabel)``;
 export const StyledRadio = styled(Radio)`
   color: black !important;
 `;
-
-export const StyledFileInput = styled.input`
-  display: none;
-`;
-
-export const StyledLabel = styled.label`
-  border-radius: 6px;
-  border: 1px solid #e4e4e7;
-  padding: 10px 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: max-content;
-  &:hover {
-    border-color: gray;
-  }
-`;
-
-export const StyledUploadIcon = styled(DriveFolderUploadIcon)``;
