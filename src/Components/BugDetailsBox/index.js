@@ -1,7 +1,7 @@
 import BugBox from "Components/BugBox";
-import BugExpiryMessage from "Components/BugExpiryMessage";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { getTimeLeftMessage } from "Utils/dateMessage";
 import {
   StyledBodyBox,
   StyledBottomBox,
@@ -28,7 +28,8 @@ const BugDetailsBox = ({
             {severity}
           </StyledTypography>
           <StyledTypography className="col-gray ">
-            <BugExpiryMessage expiryDate={expiry_date} />
+            {/* <BugExpiryMessage expiryDate={expiry_date} /> */}
+            <>{getTimeLeftMessage(expiry_date)}</>
           </StyledTypography>
         </StyledBodyBox>
 

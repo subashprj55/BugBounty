@@ -281,6 +281,10 @@ const BugSection = ({ authorEmail, bugs }) => {
   const { state } = useAuth();
   const newBugs = getVisibleBugs(authorEmail, bugs, state.user.email);
 
+  if (newBugs.length === 0) {
+    return <></>;
+  }
+
   return (
     <StyledStack>
       <StyledBugSection>

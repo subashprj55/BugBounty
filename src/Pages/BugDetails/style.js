@@ -1,3 +1,4 @@
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import {
   Avatar,
   Box,
@@ -11,6 +12,19 @@ import {
 import { styled } from "styled-components";
 
 export const StyledBugDetailsPage = styled(Stack)`
+  padding: 0 5% 40px;
+`;
+
+//loading
+
+export const StyledLoadingBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+export const StyledBugBountyPage = styled(Stack)`
   padding: 0 5% 40px;
 `;
 
@@ -181,4 +195,15 @@ export const StyledAuthorName = styled(Typography)`
 
 export const StyledCommentsBox = styled(Box)`
   padding: 0px 30px 20px;
+`;
+
+export const StyledPublishIcon = styled(FileUploadIcon)`
+  margin-top: 3px;
+  color: #39d2c0;
+  width: 40px !important;
+  height: 40px !important;
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f4f8;
+  }
 `;
