@@ -1,4 +1,5 @@
-import { Button, Typography } from "@mui/material";
+import { Avatar, Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const { Box, Stack } = require("@mui/system");
 const { styled } = require("styled-components");
@@ -106,6 +107,9 @@ export const StyledStatusTypography = styled(Typography)`
   &.open {
     background-color: #39d2c0;
   }
+  &.pending {
+    background-color: #ff4162;
+  }
   &.closed {
     background-color: red;
   }
@@ -148,3 +152,59 @@ export const StyledButtonSection = styled(Box)`
 export const StyledButton = styled(Button)`
   width: auto !important;
 `;
+
+//bug section
+
+export const StyledBugStack = styled(Stack)`
+  margin-top: 20px;
+  padding: 20px;
+  padding-bottom: 20px;
+  box-shadow: 1px 5px 10px #d7d9db;
+  border-radius: 5px;
+`;
+
+export const StyledBugSection = styled(Box)`
+  background-color: white;
+  padding: 30px;
+`;
+
+export const StyledBugTitleSection = styled(Box)`
+  display: flex;
+  gap: 10px;
+  align-item: center;
+  svg {
+    width: 50px;
+    height: 50px;
+    color: #3dc4b4;
+  }
+`;
+
+export const StyledAvatar = styled(Avatar)``;
+
+export const StyledBugBox = styled(Box)`
+  margin-top: 10px;
+`;
+
+export const StyledBugSummerySection = styled(Box)`
+  margin-top: 10px;
+`;
+
+export const StyledBugItemsBox = styled(Box)`
+  padding-top: 5px;
+  width: fit-content;
+`;
+
+export const StyledBugPendingBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  &.end {
+    justify-content: end;
+  }
+`;
+
+export const StyledBugTypography = styled(Typography)`
+  color: black !important;
+`;
+
+export const StyledLink = styled(Link)``;

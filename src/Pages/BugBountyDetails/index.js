@@ -2,8 +2,17 @@ import BugBox from "Components/BugBox";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  StyledAvatar,
   StyledBox,
   StyledBugBountyPage,
+  StyledBugBox,
+  StyledBugItemsBox,
+  StyledBugPendingBox,
+  StyledBugSection,
+  StyledBugStack,
+  StyledBugSummerySection,
+  StyledBugTitleSection,
+  StyledBugTypography,
   StyledButton,
   StyledButtonSection,
   StyledContainerBox,
@@ -14,6 +23,7 @@ import {
   StyledDetailsItems,
   StyledDetailsTypography,
   StyledItemsBox,
+  StyledLink,
   StyledLoadingBox,
   StyledPriorityTypography,
   StyledReproduceBox,
@@ -29,6 +39,7 @@ import BugBackButton from "Components/BugBackButton";
 import { useAuth } from "Utils/authProvider";
 import useBountyDetails from "Hooks/useBountyDetails";
 import { format } from "date-fns";
+import profile from "Images/profile.png";
 
 const BugBounty = () => {
   const { id } = useParams();
@@ -63,6 +74,7 @@ const BugBounty = () => {
         priority={data?.severity}
         createdAt={data?.created_at}
         expireDate={data?.expiry_date}
+        rewarded_amount={data?.rewarded_amount}
       />
       <DescriptionSection
         summary={data?.description}
@@ -70,6 +82,7 @@ const BugBounty = () => {
       />
       <StepsReproduceSection step_to_reproduce={data?.step_to_reproduce} />
       <ButtonSection id={id} />
+      <BugSection />
     </StyledBugBountyPage>
   );
 };
@@ -92,7 +105,12 @@ const TitleSection = ({ title, created_by }) => {
   );
 };
 
-const DetailsSection = ({ priority, expireDate, createdAt }) => {
+const DetailsSection = ({
+  priority,
+  expireDate,
+  createdAt,
+  rewarded_amount,
+}) => {
   return (
     <StyledStack>
       <BugBox>
@@ -131,6 +149,14 @@ const DetailsSection = ({ priority, expireDate, createdAt }) => {
                       {format(new Date(expireDate), "yyyy-MM-dd HH:mm")}
                     </span>
                   </StyledTypography>
+                </StyledDetailRow>
+                <StyledDetailRow>
+                  <StyledDetailsTypography variant="footer">
+                    Reward Amount :
+                  </StyledDetailsTypography>
+                  <StyledPriorityTypography variant="h3">
+                    ${Math.floor(rewarded_amount)}
+                  </StyledPriorityTypography>
                 </StyledDetailRow>
               </StyledDetailsItems>
               {/* Second Column */}
@@ -246,6 +272,136 @@ const ButtonSection = ({ id }) => {
           apply now
         </StyledButton>
       </StyledButtonSection>
+    </StyledStack>
+  );
+};
+
+const BugSection = () => {
+  return (
+    <StyledStack>
+      <StyledBugSection>
+        <StyledTypography variant="h1" className="capitalize">
+          Bug Details
+        </StyledTypography>
+
+        <StyledBugStack>
+          <StyledBugTitleSection>
+            <StyledAvatar alt="hunter profile" src={profile} />
+            <StyledTitleBox>
+              <StyledTypography className="capitalize" variant="h2">
+                Login page crash
+              </StyledTypography>
+              <StyledTypography variant="footer" className="capitalize">
+                Submitted By : HunterA
+              </StyledTypography>
+            </StyledTitleBox>
+          </StyledBugTitleSection>
+
+          <StyledBugBox>
+            <StyledBugSummerySection>
+              <StyledTypography variant="h3">Bug Details :</StyledTypography>
+              <StyledBugItemsBox>
+                <StyledTypography variant="footer">
+                  Login page crashes when submitting invalid credentials.
+                </StyledTypography>
+              </StyledBugItemsBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledDetailsTypography variant="h3">
+                  Status :
+                </StyledDetailsTypography>
+                <StyledBugItemsBox>
+                  <StyledStatusTypography variant="h3" className="pending">
+                    Pending
+                  </StyledStatusTypography>
+                </StyledBugItemsBox>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">
+                  Submission Date :
+                </StyledTypography>
+                <StyledTypography variant="h3">
+                  <span>2024-12-08 13:00</span>
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+          </StyledBugBox>
+
+          <StyledBugSummerySection>
+            <StyledBugPendingBox className="end">
+              <StyledLink to={"/bug/details/1"}>
+                <StyledBugTypography variant="footer">
+                  More Details-&gt;
+                </StyledBugTypography>
+              </StyledLink>
+            </StyledBugPendingBox>
+          </StyledBugSummerySection>
+        </StyledBugStack>
+
+        <StyledBugStack>
+          <StyledBugTitleSection>
+            <StyledAvatar alt="hunter profile" src={profile} />
+            <StyledTitleBox>
+              <StyledTypography className="capitalize" variant="h2">
+                Login page crash
+              </StyledTypography>
+              <StyledTypography variant="footer" className="capitalize">
+                Submitted By : HunterA
+              </StyledTypography>
+            </StyledTitleBox>
+          </StyledBugTitleSection>
+
+          <StyledBugBox>
+            <StyledBugSummerySection>
+              <StyledTypography variant="h3">Bug Details :</StyledTypography>
+              <StyledBugItemsBox>
+                <StyledTypography variant="footer">
+                  Login page crashes when submitting invalid credentials.
+                </StyledTypography>
+              </StyledBugItemsBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledDetailsTypography variant="h3">
+                  Status :
+                </StyledDetailsTypography>
+                <StyledBugItemsBox>
+                  <StyledStatusTypography variant="h3" className="pending">
+                    Pending
+                  </StyledStatusTypography>
+                </StyledBugItemsBox>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">
+                  Submission Date :
+                </StyledTypography>
+                <StyledTypography variant="h3">
+                  <span>2024-12-08 13:00</span>
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+          </StyledBugBox>
+
+          <StyledBugSummerySection>
+            <StyledBugPendingBox className="end">
+              <StyledLink to={"/bug/details/1"}>
+                <StyledBugTypography variant="footer">
+                  More Details-&gt;
+                </StyledBugTypography>
+              </StyledLink>
+            </StyledBugPendingBox>
+          </StyledBugSummerySection>
+        </StyledBugStack>
+      </StyledBugSection>
     </StyledStack>
   );
 };

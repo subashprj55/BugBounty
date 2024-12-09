@@ -15,6 +15,7 @@ import PublicRoute from "Components/PublicRoute";
 import PrivateRoute from "Components/PrivateRoute";
 import BugBounty from "Pages/BugBountyDetails";
 import BugCreateBounty from "Pages/BugCreateBounty";
+import BugDetails from "Pages/BugDetails";
 
 function App() {
   return (
@@ -70,6 +71,10 @@ function App() {
         <Route
           path="bug/submit/:id"
           element={<PrivateRoute display={"hunter"} component={BugSubmit} />}
+        />
+        <Route
+          path="bug/details/:id"
+          element={<PrivateRoute component={BugDetails} />}
         />
         <Route path="*" element={<Bug404 />} />
       </Routes>
