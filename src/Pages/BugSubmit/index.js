@@ -1,6 +1,6 @@
 import BugBox from "Components/BugBox";
 import BugLoader from "Components/BugLoader";
-import BugSelectField from "Components/BugSelectFiled";
+import BugNavContainer from "Components/BugNavContainer";
 import BugSnackbar from "Components/BugSnackbar";
 import useBounties from "Hooks/useBounties";
 import useCreateBug from "Hooks/useCreateBug";
@@ -16,13 +16,10 @@ import {
   StyledFileInput,
   StyledFileName,
   StyledFilePreview,
-  StyledFormControlLabel,
   StyledHeaderBox,
   StyledInputBox,
   StyledInputField,
   StyledLabel,
-  StyledRadio,
-  StyledRadioGroup,
   StyledSubmitForm,
   StyledSubmitFormBox,
   StyledTextarea,
@@ -34,7 +31,9 @@ import {
 const BugSubmit = () => {
   return (
     <>
-      <SubmitBugForm />
+      <BugNavContainer>
+        <SubmitBugForm />
+      </BugNavContainer>
     </>
   );
 };
@@ -43,7 +42,6 @@ export default BugSubmit;
 
 const SubmitBugForm = () => {
   const { id } = useParams();
-  const [title, setTitle] = useState(id);
   const navigate = useNavigate();
   const {
     register,
@@ -53,31 +51,23 @@ const SubmitBugForm = () => {
   } = useForm();
 
   const [uploadedFile, setUploadedFile] = useState(null);
-  let BugTitles;
-  const { data, error } = useBounties();
+  const { data, error, isLoading } = useBounties();
 
-  if (data) {
-    BugTitles = data.map((item) => ({
-      id: item.id,
-      title: item.title,
-      name: item.created_by.name,
-    }));
-  }
-
+  const bounty = data?.find((item) => item.id === id * 1);
   const {
     mutate,
     data: bugData,
-    isLoading,
+    isLoading: bugLoading,
     error: bugError,
   } = useCreateBug(() => {
     setTimeout(() => {
       reset();
-      navigate(`/bounty/details/${title}`);
+      navigate(`/bounty/details/${id}`);
     }, 2000);
   });
 
   const onSubmit = (data) => {
-    mutate({ ...data, title, uploadedFile });
+    mutate({ ...data, id, uploadedFile });
   };
 
   const handleFileChange = (event) => {
@@ -93,12 +83,14 @@ const SubmitBugForm = () => {
 
   return (
     <StyledBugSubmitPage>
-      {isLoading && <BugLoader />}
-      {bugError && (
+      {isLoading || bugLoading ? <BugLoader /> : ""}
+      {bugError || error ? (
         <BugSnackbar
           status="error"
           snackbarMessage="There are some error. Please try again"
         />
+      ) : (
+        ""
       )}
       {bugData && (
         <BugSnackbar snackbarMessage="New bug is created successfully" />
@@ -108,50 +100,28 @@ const SubmitBugForm = () => {
           <StyledSubmitFormBox>
             <StyledHeaderBox>
               <StyledTitleTypography variant="h1">
-                Create Bug
+                Bug Solution
               </StyledTitleTypography>
             </StyledHeaderBox>
 
             <StyledInputBox>
               <StyledTypography variant="h3">Bug Title</StyledTypography>
               <StyledInputField
-                name="bugTitle"
+                value={bounty?.title ? bounty.title : ""}
+                disabled
                 placeholder="Enter a concise title for the bug"
-                {...register("bugTitle", {
-                  required: "Bounty title is required",
-                })}
               />
-              {errors.bugTitle && (
-                <StyledErrorMessage>
-                  {errors.bugTitle.message}
-                </StyledErrorMessage>
-              )}
             </StyledInputBox>
 
             <StyledInputBox>
-              <StyledTypography variant="h3">Description</StyledTypography>
-              <StyledTextarea
-                placeholder="Describe the bug in detail…"
-                rows="5"
-                name="description"
-                {...register("description", {
-                  required: "Description is required",
-                })}
-              />
-              {errors.description && (
-                <StyledErrorMessage>
-                  {errors.description.message}
-                </StyledErrorMessage>
-              )}
-            </StyledInputBox>
-
-            <StyledInputBox>
-              <StyledTypography variant="h3">Actual Result</StyledTypography>
+              <StyledTypography variant="h3">Solution</StyledTypography>
               <StyledTextarea
                 placeholder="Describe the behavior observed when the bug occurs."
                 rows="4"
                 name="expectedResult"
-                {...register("expectedResult")}
+                {...register("expectedResult", {
+                  required: "Solution is required",
+                })}
               />
               {errors.expectedResult && (
                 <StyledErrorMessage>
@@ -202,16 +172,6 @@ const SubmitBugForm = () => {
                   </>
                 )}
               </StyledFilePreview>
-            </StyledInputBox>
-
-            <StyledInputBox>
-              <StyledTypography variant="h3">Related Bounty</StyledTypography>
-              <BugSelectField
-                options={BugTitles}
-                selectValue={title}
-                setSelectValue={setTitle}
-                label="Select one Bug"
-              />
             </StyledInputBox>
 
             <StyledButtonBox>

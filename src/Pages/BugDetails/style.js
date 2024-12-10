@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  CircularProgress,
   Menu,
   MenuItem,
   Stack,
@@ -12,7 +13,7 @@ import {
 import { styled } from "styled-components";
 
 export const StyledBugDetailsPage = styled(Stack)`
-  padding: 0 5% 40px;
+  padding: 20px 5% 40px;
 `;
 
 //loading
@@ -60,7 +61,7 @@ export const StyledTypography = styled(Typography)`
 //details section
 
 export const StyledStack = styled(Stack)`
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 export const StyledDetailsBox = styled(Box)`
@@ -84,6 +85,7 @@ export const StyledDetailsTypography = styled(Typography)`
 export const StyledStatusTypography = styled(Typography)`
   padding: 2px 4px;
   border-radius: 6px;
+  text-transform: capitalize;
   color: white;
   &.open {
     background-color: #39d2c0;
@@ -159,11 +161,19 @@ export const StyledMenuItem = styled(MenuItem)``;
 
 //comment section
 
+export const StyledCommentButton = styled(Button)`
+  width: auto !important;
+  padding: 0 !important;
+  border: none !important;
+`;
+
 export const StyledCommentBox = styled(Box)`
   padding-top: 20px;
   display: flex;
   gap: 10px;
 `;
+
+export const StyledForm = styled.form``;
 
 export const StyledComment = styled(Box)`
   display: flex;
@@ -203,7 +213,10 @@ export const StyledPublishIcon = styled(FileUploadIcon)`
   width: 40px !important;
   height: 40px !important;
   cursor: pointer;
-  &:hover {
-    background-color: #f1f4f8;
-  }
+`;
+
+export const StyledCircularProgress = styled(CircularProgress)`
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 12 px;
 `;
