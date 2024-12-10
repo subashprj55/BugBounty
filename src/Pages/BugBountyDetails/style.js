@@ -13,7 +13,7 @@ export const StyledLoadingBox = styled(Box)`
 `;
 
 export const StyledBugBountyPage = styled(Stack)`
-  padding: 0 5% 40px;
+  padding: 20px 5% 40px;
 `;
 
 //title section
@@ -44,7 +44,7 @@ export const StyledTypography = styled(Typography)`
 `;
 
 export const StyledStack = styled(Stack)`
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 // details section
@@ -102,6 +102,7 @@ export const StyledPriorityTypography = styled(Typography)`
 
 export const StyledStatusTypography = styled(Typography)`
   padding: 2px 4px;
+  text-transform: capitalize;
   border-radius: 6px;
   color: white;
   &.open {

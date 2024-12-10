@@ -10,8 +10,10 @@ import {
   StyledBugSummerySection,
   StyledButton,
   StyledButtonGroup,
+  StyledCircularProgress,
   StyledComment,
   StyledCommentBox,
+  StyledCommentButton,
   StyledCommentContent,
   StyledCommentInfoBox,
   StyledCommentsBox,
@@ -19,8 +21,10 @@ import {
   StyledDescriptionStack,
   StyledDetailsBox,
   StyledDetailsTypography,
+  StyledForm,
   StyledGroupButtonBox,
   StyledIconButton,
+  StyledInputBox,
   StyledItemsBox,
   StyledLoadingBox,
   StyledMenu,
@@ -49,6 +53,7 @@ import useComment from "Hooks/useComment";
 import BugLoader from "Components/BugLoader";
 import BugSnackbar from "Components/BugSnackbar";
 import { getTimeAgoMessage } from "Utils/dateMessage";
+import BugNavContainer from "Components/BugNavContainer";
 
 const BugDetails = () => {
   const { id } = useParams();
@@ -56,42 +61,52 @@ const BugDetails = () => {
 
   if (isLoading) {
     return (
-      <StyledLoadingBox>
-        <StyledTypography variant="h1">Loading....</StyledTypography>
-      </StyledLoadingBox>
+      <BugNavContainer>
+        <StyledLoadingBox>
+          <BugLoader />
+        </StyledLoadingBox>
+      </BugNavContainer>
     );
   }
 
   if (error) {
     return (
-      <StyledBugBountyPage>
-        <BugBackButton />
-        <StyledLoadingBox>
-          <StyledTypography variant="h1">
-            Something is going wrong. Please try again
-          </StyledTypography>
-        </StyledLoadingBox>
-      </StyledBugBountyPage>
+      <BugNavContainer>
+        <StyledBugBountyPage>
+          <BugBackButton />
+          <StyledLoadingBox>
+            <StyledTypography variant="h1">
+              Something is going wrong. Please try again
+            </StyledTypography>
+          </StyledLoadingBox>
+        </StyledBugBountyPage>
+      </BugNavContainer>
     );
   }
   return (
-    <StyledBugDetailsPage>
-      <TitleSection title={data?.title} created_by={data?.submitted_by?.name} />
-      <DetailsSection
-        submitted_at={data.submitted_at}
-        created_by={data?.related_bounty?.created_by}
-      />
-      <DescriptionSection
-        summary={data?.description}
-        expectedResult={data?.related_bounty?.acceptance_criteria}
-        actualResult={data?.expected_result}
-      />
-      <StepsReproduceSection step_to_reproduce={data?.guide} />
-      <ButtonGroupDropdown
-        bountyOwnerEmail={data?.related_bounty?.created_by?.email}
-      />
-      <CommentSection comments={data?.comments} />
-    </StyledBugDetailsPage>
+    <BugNavContainer>
+      <StyledBugDetailsPage>
+        <TitleSection
+          title={data?.title}
+          created_by={data?.submitted_by?.name}
+        />
+        <DetailsSection
+          status={data?.status}
+          submitted_at={data.submitted_at}
+          created_by={data?.related_bounty?.created_by}
+        />
+        <DescriptionSection
+          summary={data?.description}
+          expectedResult={data?.related_bounty?.acceptance_criteria}
+          actualResult={data?.expected_result}
+        />
+        <StepsReproduceSection step_to_reproduce={data?.guide} />
+        <ButtonGroupDropdown
+          bountyOwnerEmail={data?.related_bounty?.created_by?.email}
+        />
+        <CommentSection comments={data?.comments} />
+      </StyledBugDetailsPage>
+    </BugNavContainer>
   );
 };
 
@@ -113,7 +128,7 @@ const TitleSection = ({ title, created_by }) => {
   );
 };
 
-const DetailsSection = ({ submitted_at, created_by }) => {
+const DetailsSection = ({ submitted_at, created_by, status }) => {
   return (
     <StyledStack>
       <BugBox>
@@ -126,8 +141,8 @@ const DetailsSection = ({ submitted_at, created_by }) => {
                 Status :
               </StyledDetailsTypography>
               <StyledBugItemsBox>
-                <StyledStatusTypography variant="h3" className="pending">
-                  Pending
+                <StyledStatusTypography variant="h3" className={`${status}`}>
+                  {status}
                 </StyledStatusTypography>
               </StyledBugItemsBox>
             </StyledBugPendingBox>
@@ -231,7 +246,7 @@ const StepsReproduceSection = ({ step_to_reproduce }) => {
   );
 };
 
-const options = ["Pending Bug", "Approve Bug", "Cancel Bug"];
+const options = ["Approve Bug", "Cancel Bug"];
 
 const ButtonGroupDropdown = ({ bountyOwnerEmail }) => {
   const { state } = useAuth();
@@ -301,13 +316,17 @@ const CommentSection = ({ comments }) => {
 
   const { mutate, data, isLoading, error } = useComment(id);
 
-  const handleClick = () => {
+  if (data) {
+    window.location.reload();
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault();
     mutate(comment);
   };
 
   return (
     <StyledStack>
-      {isLoading && <BugLoader />}
       {error && (
         <BugSnackbar
           status="error"
@@ -317,41 +336,31 @@ const CommentSection = ({ comments }) => {
       <BugBox>
         <StyledDescriptionBox>
           <StyledTypography variant="h2">Comments</StyledTypography>
-          <StyledCommentBox>
-            <StyledAvatar />
-            <BugInputField
-              placeholder="Add a comment..."
-              value={comment}
-              setValue={setComment}
-            />
-            <StyledPublishIcon onClick={handleClick} />
-          </StyledCommentBox>
+          <StyledForm onSubmit={handleClick}>
+            <StyledCommentBox>
+              <StyledAvatar />
+
+              <BugInputField
+                placeholder="Add a comment..."
+                value={comment}
+                setValue={setComment}
+              />
+
+              {isLoading ? (
+                <StyledCircularProgress color="success" />
+              ) : (
+                <StyledCommentButton type="submit" variant="outlined">
+                  <StyledPublishIcon />
+                </StyledCommentButton>
+              )}
+            </StyledCommentBox>
+          </StyledForm>
         </StyledDescriptionBox>
 
         <StyledCommentsBox>
-          {data && (
-            <StyledComment>
-              <StyledAvatar
-                alt="clientProfile"
-                src={data?.user?.role === "hunter" ? clientProfile : profile}
-              />
-              <StyledCommentContent>
-                <StyledCommentInfoBox>
-                  <StyledAuthorName>{data?.user?.name}</StyledAuthorName>
-                  <StyledTimestamp>
-                    {format(new Date(data?.created_at), "yyyy-MM-dd HH:mm")}
-                  </StyledTimestamp>
-                </StyledCommentInfoBox>
-                <StyledTypography variant="body2">
-                  {data?.text}
-                </StyledTypography>
-              </StyledCommentContent>
-            </StyledComment>
-          )}
-
           {comments?.length > 0 && (
             <>
-              {comments.map(({ id, user, created_at, text }) => {
+              {[...comments].reverse().map(({ id, user, created_at, text }) => {
                 return (
                   <StyledComment key={id}>
                     <StyledAvatar

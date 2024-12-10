@@ -3,19 +3,17 @@ import { axiosAuth } from "Utils/axios";
 
 const useCreateBug = (onSuccess) => {
   const crateBounty = async ({
-    bugTitle,
-    description,
     expectedResult,
-    uploadedFile,
-    title,
+    id,
     reproduceSteps,
+    uploadedFile,
   }) => {
     const { data } = await axiosAuth.post("/bugs/", {
-      title: bugTitle,
-      description: description,
-      guide: reproduceSteps,
+      related_bounty: id,
+      is_accepted: true,
       attachment: uploadedFile,
-      related_bounty: title,
+      guide: reproduceSteps,
+      expected_result: expectedResult,
     });
     return data;
   };

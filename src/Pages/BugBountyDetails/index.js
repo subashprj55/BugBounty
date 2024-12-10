@@ -41,6 +41,8 @@ import useBountyDetails from "Hooks/useBountyDetails";
 import { format } from "date-fns";
 import profile from "Images/profile.png";
 import { getVisibleBugs } from "Utils/getVisibleBug";
+import BugNavContainer from "Components/BugNavContainer";
+import BugLoader from "Components/BugLoader";
 
 const BugBounty = () => {
   const { id } = useParams();
@@ -48,43 +50,49 @@ const BugBounty = () => {
 
   if (isLoading) {
     return (
-      <StyledLoadingBox>
-        <StyledTypography variant="h1">Loading....</StyledTypography>
-      </StyledLoadingBox>
+      <BugNavContainer>
+        <StyledLoadingBox>
+          <BugLoader />
+        </StyledLoadingBox>
+      </BugNavContainer>
     );
   }
 
   if (error) {
     return (
-      <StyledBugBountyPage>
-        <BugBackButton />
-        <StyledLoadingBox>
-          <StyledTypography variant="h1">
-            Something is going wrong. Please try again
-          </StyledTypography>
-        </StyledLoadingBox>
-      </StyledBugBountyPage>
+      <BugNavContainer>
+        <StyledBugBountyPage>
+          <BugBackButton />
+          <StyledLoadingBox>
+            <StyledTypography variant="h1">
+              Something is going wrong. Please try again
+            </StyledTypography>
+          </StyledLoadingBox>
+        </StyledBugBountyPage>
+      </BugNavContainer>
     );
   }
 
   return (
-    <StyledBugBountyPage>
-      <BugBackButton />
-      <TitleSection title={data?.title} created_by={data?.created_by?.name} />
-      <DetailsSection
-        priority={data?.severity}
-        createdAt={data?.created_at}
-        expireDate={data?.expiry_date}
-        rewarded_amount={data?.rewarded_amount}
-      />
-      <DescriptionSection
-        summary={data?.description}
-        expectedResult={data?.acceptance_criteria}
-      />
-      <StepsReproduceSection step_to_reproduce={data?.step_to_reproduce} />
-      <ButtonSection id={id} />
-      <BugSection authorEmail={data?.created_by?.email} bugs={data?.bugs} />
-    </StyledBugBountyPage>
+    <BugNavContainer>
+      <StyledBugBountyPage>
+        <BugBackButton />
+        <TitleSection title={data?.title} created_by={data?.created_by?.name} />
+        <DetailsSection
+          priority={data?.severity}
+          createdAt={data?.created_at}
+          expireDate={data?.expiry_date}
+          rewarded_amount={data?.rewarded_amount}
+        />
+        <DescriptionSection
+          summary={data?.description}
+          expectedResult={data?.acceptance_criteria}
+        />
+        <StepsReproduceSection step_to_reproduce={data?.step_to_reproduce} />
+        <ButtonSection id={id} />
+        <BugSection authorEmail={data?.created_by?.email} bugs={data?.bugs} />
+      </StyledBugBountyPage>
+    </BugNavContainer>
   );
 };
 
@@ -293,7 +301,14 @@ const BugSection = ({ authorEmail, bugs }) => {
         </StyledTypography>
 
         {newBugs.map(
-          ({ id, title, description, submitted_by, submitted_at }) => {
+          ({
+            id,
+            title,
+            expected_result,
+            submitted_by,
+            submitted_at,
+            status,
+          }) => {
             return (
               <StyledBugStack key={id}>
                 <StyledBugTitleSection>
@@ -311,11 +326,11 @@ const BugSection = ({ authorEmail, bugs }) => {
                 <StyledBugBox>
                   <StyledBugSummerySection>
                     <StyledTypography variant="h3">
-                      Bug Details :
+                      Bug Solution :
                     </StyledTypography>
                     <StyledBugItemsBox>
                       <StyledTypography variant="footer">
-                        {description}
+                        {expected_result}
                       </StyledTypography>
                     </StyledBugItemsBox>
                   </StyledBugSummerySection>
@@ -328,9 +343,9 @@ const BugSection = ({ authorEmail, bugs }) => {
                       <StyledBugItemsBox>
                         <StyledStatusTypography
                           variant="h3"
-                          className="pending"
+                          className={`${status}`}
                         >
-                          Pending
+                          {status}
                         </StyledStatusTypography>
                       </StyledBugItemsBox>
                     </StyledBugPendingBox>
