@@ -4,6 +4,7 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 
 import {
+  StyleAmountBox,
   StyledBackButtonBox,
   StyledBugCreatePage,
   StyledButton,
@@ -29,6 +30,7 @@ import {
   StyledTitleTypography,
   StyledTypography,
   StyledUploadIcon,
+  StyleSpan,
 } from "./style";
 import BugBackButton from "Components/BugBackButton";
 import useCreateBounty from "Hooks/useCreateBounty";
@@ -204,6 +206,8 @@ const CreateBugForm = () => {
                         date,
                         decreaseYear,
                         increaseYear,
+                        decreaseMonth,
+                        increaseMonth,
                       }) => (
                         <div
                           style={{
@@ -213,17 +217,32 @@ const CreateBugForm = () => {
                             padding: "0.5rem",
                           }}
                         >
+                          {/* Decrease Year Button */}
                           <StyledIconButton onClick={decreaseYear}>
                             <ChevronLeft />
                           </StyledIconButton>
 
-                          <span>
-                            {date.toLocaleString("default", {
-                              month: "long",
-                              year: "numeric",
-                            })}
-                          </span>
+                          {/* Month and Year Display */}
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <StyledIconButton onClick={decreaseMonth}>
+                              <ChevronLeft />
+                            </StyledIconButton>
 
+                            <span style={{ margin: "0 10px" }}>
+                              {date.toLocaleString("default", {
+                                month: "long",
+                                year: "numeric",
+                              })}
+                            </span>
+
+                            <StyledIconButton onClick={increaseMonth}>
+                              <ChevronRight />
+                            </StyledIconButton>
+                          </div>
+
+                          {/* Increase Year Button */}
                           <StyledIconButton onClick={increaseYear}>
                             <ChevronRight />
                           </StyledIconButton>
@@ -303,20 +322,23 @@ const CreateBugForm = () => {
 
             <StyledInputBox>
               <StyledTypography variant="h3">Reward Amount</StyledTypography>
-              <StyledInputField
-                className="width"
-                type={"number"}
-                name="rewarded_amount"
-                placeholder="Enter reward amount"
-                {...register("rewarded_amount", {
-                  required: "Bounty title is required",
-                })}
-              />
-              {errors.rewarded_amount && (
-                <StyledErrorMessage>
-                  {errors.rewarded_amount.message}
-                </StyledErrorMessage>
-              )}
+              <StyleAmountBox>
+                <StyledInputField
+                  className="width"
+                  type={"number"}
+                  name="rewarded_amount"
+                  placeholder="Enter reward amount"
+                  {...register("rewarded_amount", {
+                    required: "Bounty title is required",
+                  })}
+                />
+                {errors.rewarded_amount && (
+                  <StyledErrorMessage>
+                    {errors.rewarded_amount.message}
+                  </StyledErrorMessage>
+                )}
+                <StyleSpan>$</StyleSpan>
+              </StyleAmountBox>
             </StyledInputBox>
 
             <StyledButtonBox>

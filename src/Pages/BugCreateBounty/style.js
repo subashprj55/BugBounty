@@ -48,6 +48,20 @@ export const StyledInputField = styled.input`
   -moz-appearance: textfield;
 `;
 
+export const StyleAmountBox = styled(Box)`
+  position: relative;
+  display: inline-block;
+`;
+
+export const StyleSpan = styled.span`
+  color: gray;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+`;
+
 export const StyledErrorMessage = styled.p`
   position: absolute;
   color: red;
@@ -117,7 +131,7 @@ export const StyledDatePicker = styled(DatePicker)`
   font-size: 14px;
   letter-spacing: 1px;
   padding: 13px 10px;
-  width: -webkit-fill-available;
+  width: 210px;
   border-radius: 8px;
   border: 1px solid #e4e4e7;
 
