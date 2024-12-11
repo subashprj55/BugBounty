@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   StyledAuthorName,
   StyledAvatar,
-  StyledBottom,
   StyledBottomBox,
   StyledBox,
   StyledBugBountyPage,
@@ -27,7 +26,6 @@ import {
   StyledForm,
   StyledGroupButtonBox,
   StyledIconButton,
-  StyledInputBox,
   StyledItemsBox,
   StyledLoadingBox,
   StyledMenu,
