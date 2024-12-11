@@ -4,10 +4,10 @@ export const getVisibleBugs = (authorEmail, bugs, userEmail) => {
     return bugs;
   }
   // Otherwise, check if the user is one of the bug submitters
-  const visibleBug = bugs.find((bug) => bug.submitted_by.email === userEmail);
+  const visibleBug = bugs.filter((bug) => bug.submitted_by.email === userEmail);
   // If a match is found, return the single bug as an array
   if (visibleBug) {
-    return [visibleBug];
+    return visibleBug;
   }
 
   // If no match, return an empty array
