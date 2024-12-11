@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import {
   StyledAuthorName,
   StyledAvatar,
+  StyledBottom,
+  StyledBottomBox,
   StyledBox,
   StyledBugBountyPage,
   StyledBugDetailsPage,
@@ -29,11 +31,18 @@ import {
   StyledLoadingBox,
   StyledMenu,
   StyledMenuItem,
+  StyledMessageBox,
+  StyledModal,
+  StyledModelBox,
+  StyledPopUpBox,
+  StyledPopUpButton,
+  StyledPopUpTypography,
   StyledPublishIcon,
   StyledReproduceBox,
   StyledReproduceStack,
   StyledStack,
   StyledStatusTypography,
+  StyledSuccessIcon,
   StyledTimestamp,
   StyledTitleBox,
   StyledTitleSection,
@@ -44,7 +53,7 @@ import BugBox from "Components/BugBox";
 import BugInputField from "Components/BugInputField";
 import clientProfile from "Images/profileAvatar.png";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useBugDetails from "Hooks/useBugDetails";
 import BugBackButton from "Components/BugBackButton";
 import { format } from "date-fns";
@@ -54,6 +63,7 @@ import BugLoader from "Components/BugLoader";
 import BugSnackbar from "Components/BugSnackbar";
 import { getTimeAgoMessage } from "Utils/dateMessage";
 import BugNavContainer from "Components/BugNavContainer";
+import useBugSubmit from "Hooks/useBugSubmit";
 
 const BugDetails = () => {
   const { id } = useParams();
@@ -103,6 +113,7 @@ const BugDetails = () => {
         <StepsReproduceSection step_to_reproduce={data?.guide} />
         <ButtonGroupDropdown
           bountyOwnerEmail={data?.related_bounty?.created_by?.email}
+          data={data}
         />
         <CommentSection comments={data?.comments} />
       </StyledBugDetailsPage>
@@ -246,12 +257,14 @@ const StepsReproduceSection = ({ step_to_reproduce }) => {
   );
 };
 
-const options = ["Approve Bug", "Cancel Bug"];
+const options = ["Approve Bug", "Reject Bug"];
 
-const ButtonGroupDropdown = ({ bountyOwnerEmail }) => {
+const ButtonGroupDropdown = ({ bountyOwnerEmail, data }) => {
   const { state } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isPopUpModalOpen, setIsPopUpModalOpen] = useState(false);
+  const [buttonTitle, setButtonTitle] = useState("");
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -267,9 +280,24 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail }) => {
   };
 
   const handlePrimaryClick = () => {
-    // Action based on the selected option
-    alert(`Action executed for: ${options[selectedIndex]}`);
+    setButtonTitle(options[selectedIndex]);
+    setIsPopUpModalOpen(true);
   };
+
+  if (data?.is_accepted) {
+    return (
+      <>
+        <StyledGroupButtonBox>
+          <StyledMessageBox>
+            <StyledSuccessIcon />
+            <StyledTypography variant="h2">
+              This bug is already approved
+            </StyledTypography>
+          </StyledMessageBox>
+        </StyledGroupButtonBox>
+      </>
+    );
+  }
 
   if (bountyOwnerEmail !== state.user.email) {
     return <></>;
@@ -306,6 +334,13 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail }) => {
           </StyledMenuItem>
         ))}
       </StyledMenu>
+
+      <PopUpModal
+        data={data}
+        isPopUpModalOpen={isPopUpModalOpen}
+        setIsPopUpModalOpen={setIsPopUpModalOpen}
+        buttonTitle={buttonTitle}
+      />
     </StyledGroupButtonBox>
   );
 };
@@ -387,5 +422,119 @@ const CommentSection = ({ comments }) => {
         </StyledCommentsBox>
       </BugBox>
     </StyledStack>
+  );
+};
+
+const PopUpModal = ({
+  data,
+  isPopUpModalOpen,
+  setIsPopUpModalOpen,
+  buttonTitle,
+}) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const {
+    isLoading,
+    data: success,
+    error,
+    mutate,
+  } = useBugSubmit(id, (data) => {
+    setTimeout(() => {
+      navigate(`/bounty/details/${data.related_bounty.id}`);
+    }, [2000]);
+  });
+
+  const handleClose = () => {
+    setIsPopUpModalOpen(false);
+  };
+
+  const action = buttonTitle.split(" ")[0];
+  const handleClick = () => {
+    let newAction;
+    if (action === "Approve") {
+      newAction = "Accepted";
+    } else {
+      newAction = "Rejected";
+    }
+    mutate(newAction);
+  };
+
+  return (
+    <>
+      {isLoading && <BugLoader />}
+      {error && (
+        <BugSnackbar
+          status="error"
+          snackbarMessage={"Something is wrong. Please try again."}
+        />
+      )}
+      {success && (
+        <BugSnackbar snackbarMessage={"Statue updated successfully"} />
+      )}
+
+      <StyledModal open={isPopUpModalOpen}>
+        <StyledModelBox>
+          <StyledTypography variant="h2">
+            {`
+            Are you sure you want to ${action} this bug report? This action cannot
+            be undone.`}
+          </StyledTypography>
+
+          <StyledPopUpBox>
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Bug Title :</StyledTypography>
+                <StyledPopUpTypography className="capitalize" variant="h3">
+                  {data?.title}
+                </StyledPopUpTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">
+                  Submission Date :
+                </StyledTypography>
+                <StyledTypography variant="h3">
+                  <span>
+                    {format(new Date(data?.submitted_at), "yyyy-MM-dd HH:mm")}
+                  </span>
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">
+                  Bug Created By :
+                </StyledTypography>
+                <StyledPopUpTypography className="capitalize" variant="h3">
+                  {data?.submitted_by?.name}
+                </StyledPopUpTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBottomBox>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                onClick={handleClose}
+                variant="outlined"
+              >
+                Cancel
+              </StyledPopUpButton>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                onClick={handleClick}
+                variant="contained"
+                className={`${action}`}
+              >
+                {action} Bug
+              </StyledPopUpButton>
+            </StyledBottomBox>
+          </StyledPopUpBox>
+        </StyledModelBox>
+      </StyledModal>
+    </>
   );
 };

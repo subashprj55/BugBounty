@@ -1,3 +1,4 @@
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import {
   Avatar,
@@ -7,6 +8,7 @@ import {
   CircularProgress,
   Menu,
   MenuItem,
+  Modal,
   Stack,
   Typography,
 } from "@mui/material";
@@ -96,6 +98,9 @@ export const StyledStatusTypography = styled(Typography)`
   &.closed {
     background-color: red;
   }
+  &.accepted {
+    background-color: #39d2c0;
+  }
 `;
 
 export const StyledBugItemsBox = styled(Box)`
@@ -159,6 +164,18 @@ export const StyledMenu = styled(Menu)``;
 
 export const StyledMenuItem = styled(MenuItem)``;
 
+export const StyledMessageBox = styled(Box)`
+  display: flex;
+  gap: 10px;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid #e4e4e7;
+`;
+
+export const StyledSuccessIcon = styled(CheckCircleIcon)`
+  color: #3dc4b4;
+`;
 //comment section
 
 export const StyledCommentButton = styled(Button)`
@@ -219,4 +236,49 @@ export const StyledCircularProgress = styled(CircularProgress)`
   width: 40px !important;
   height: 40px !important;
   margin: 0 12 px;
+`;
+
+//popUp Modal
+
+export const StyledModal = styled(Modal)``;
+
+export const StyledModelBox = styled(Box)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 20px;
+  width: 600px;
+  background-color: white;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
+  @media (max-width: 425px) {
+    width: 90%;
+  }
+`;
+
+export const StyledPopUpBox = styled(Box)`
+  margin: 15px 0;
+`;
+
+export const StyledBottomBox = styled(Box)`
+  padding: 5px 0;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledPopUpTypography = styled(Typography)`
+  font-weight: 500 !important;
+  text-transform: capitalize;
+`;
+
+export const StyledPopUpButton = styled(Button)`
+  width: auto !important;
+  &.Cancel {
+    background-color: #ff4162; !important;
+    color: white !important;
+    &:hover{
+      background-color: red; !important;
+    }
+  }
 `;
