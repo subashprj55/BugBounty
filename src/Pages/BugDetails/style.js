@@ -1,4 +1,5 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import {
   Avatar,
@@ -58,6 +59,12 @@ export const StyledTypography = styled(Typography)`
   &.capitalize {
     text-transform: capitalize;
   }
+  &.reject {
+    color: red;
+  }
+  &.accept {
+    color: #3dc4b4;
+  }
 `;
 
 //details section
@@ -95,7 +102,7 @@ export const StyledStatusTypography = styled(Typography)`
   &.pending {
     background-color: #ff4162;
   }
-  &.closed {
+  &.rejected {
     background-color: red;
   }
   &.accepted {
@@ -175,6 +182,10 @@ export const StyledMessageBox = styled(Box)`
 
 export const StyledSuccessIcon = styled(CheckCircleIcon)`
   color: #3dc4b4;
+`;
+
+export const StyledCancelIcon = styled(CancelIcon)`
+  color: red;
 `;
 //comment section
 
@@ -274,7 +285,7 @@ export const StyledPopUpTypography = styled(Typography)`
 
 export const StyledPopUpButton = styled(Button)`
   width: auto !important;
-  &.Cancel {
+  &.Reject {
     background-color: #ff4162; !important;
     color: white !important;
     &:hover{

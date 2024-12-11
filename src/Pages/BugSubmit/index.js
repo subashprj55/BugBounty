@@ -62,7 +62,7 @@ const SubmitBugForm = () => {
   } = useCreateBug(() => {
     setTimeout(() => {
       reset();
-      navigate(`/bounty/details/${id}`);
+      navigate(`/bounty/${id}`);
     }, 2000);
   });
 

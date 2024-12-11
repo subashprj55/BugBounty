@@ -114,6 +114,9 @@ export const StyledStatusTypography = styled(Typography)`
   &.accepted {
     background-color: #39d2c0;
   }
+  &.rejected {
+    background-color: red;
+  }
 `;
 
 //description
