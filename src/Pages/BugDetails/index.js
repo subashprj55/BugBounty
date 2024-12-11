@@ -12,6 +12,7 @@ import {
   StyledBugSummerySection,
   StyledButton,
   StyledButtonGroup,
+  StyledCancelIcon,
   StyledCircularProgress,
   StyledComment,
   StyledCommentBox,
@@ -64,12 +65,18 @@ import BugSnackbar from "Components/BugSnackbar";
 import { getTimeAgoMessage } from "Utils/dateMessage";
 import BugNavContainer from "Components/BugNavContainer";
 import useBugSubmit from "Hooks/useBugSubmit";
+import useBountyDetails from "Hooks/useBountyDetails";
 
 const BugDetails = () => {
-  const { id } = useParams();
+  const { id, bountyId } = useParams();
   const { data, isLoading, error } = useBugDetails(id);
+  const {
+    data: bountyData,
+    isLoading: bountyLoading,
+    error: bountyError,
+  } = useBountyDetails(bountyId);
 
-  if (isLoading) {
+  if (isLoading || bountyLoading) {
     return (
       <BugNavContainer>
         <StyledLoadingBox>
@@ -79,7 +86,7 @@ const BugDetails = () => {
     );
   }
 
-  if (error) {
+  if (error || bountyError) {
     return (
       <BugNavContainer>
         <StyledBugBountyPage>
@@ -111,9 +118,19 @@ const BugDetails = () => {
           actualResult={data?.expected_result}
         />
         <StepsReproduceSection step_to_reproduce={data?.guide} />
+
+        {data?.status === "accepted" && (
+          <BalanceSection
+            amount={bountyData?.rewarded_amount}
+            sender={bountyData?.created_by?.name}
+            receiver={data?.submitted_by?.name}
+          />
+        )}
+
         <ButtonGroupDropdown
           bountyOwnerEmail={data?.related_bounty?.created_by?.email}
           data={data}
+          amount={bountyData?.rewarded_amount}
         />
         <CommentSection comments={data?.comments} />
       </StyledBugDetailsPage>
@@ -257,9 +274,53 @@ const StepsReproduceSection = ({ step_to_reproduce }) => {
   );
 };
 
-const options = ["Approve Bug", "Reject Bug"];
+const BalanceSection = ({ sender, receiver, amount }) => {
+  return (
+    <>
+      <StyledStack>
+        <BugBox>
+          <StyledDetailsBox>
+            <StyledTypography variant="h2">
+              Transaction History
+            </StyledTypography>
 
-const ButtonGroupDropdown = ({ bountyOwnerEmail, data }) => {
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledDetailsTypography variant="h3">
+                  Send By :
+                </StyledDetailsTypography>
+                <StyledBugItemsBox>
+                  <StyledTypography className="capitalize" variant="footer">
+                    {sender}
+                  </StyledTypography>
+                </StyledBugItemsBox>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Receive By:</StyledTypography>
+                <StyledTypography className="capitalize" variant="footer">
+                  {receiver}
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Amount</StyledTypography>
+                <StyledTypography variant="h3">${amount}</StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+          </StyledDetailsBox>
+        </BugBox>
+      </StyledStack>
+    </>
+  );
+};
+
+const options = ["Approve Bug", "Reject Bug"];
+const ButtonGroupDropdown = ({ bountyOwnerEmail, data, amount }) => {
   const { state } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -290,8 +351,23 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail, data }) => {
         <StyledGroupButtonBox>
           <StyledMessageBox>
             <StyledSuccessIcon />
-            <StyledTypography variant="h2">
+            <StyledTypography className="accept" variant="h2">
               This bug is already approved
+            </StyledTypography>
+          </StyledMessageBox>
+        </StyledGroupButtonBox>
+      </>
+    );
+  }
+
+  if (data?.status === "rejected") {
+    return (
+      <>
+        <StyledGroupButtonBox>
+          <StyledMessageBox>
+            <StyledCancelIcon />
+            <StyledTypography className="reject" variant="h2">
+              This bug is Rejected
             </StyledTypography>
           </StyledMessageBox>
         </StyledGroupButtonBox>
@@ -340,6 +416,7 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail, data }) => {
         isPopUpModalOpen={isPopUpModalOpen}
         setIsPopUpModalOpen={setIsPopUpModalOpen}
         buttonTitle={buttonTitle}
+        amount={amount}
       />
     </StyledGroupButtonBox>
   );
@@ -430,9 +507,10 @@ const PopUpModal = ({
   isPopUpModalOpen,
   setIsPopUpModalOpen,
   buttonTitle,
+  amount,
 }) => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, bountyId } = useParams();
 
   const {
     isLoading,
@@ -441,7 +519,7 @@ const PopUpModal = ({
     mutate,
   } = useBugSubmit(id, (data) => {
     setTimeout(() => {
-      navigate(`/bounty/details/${data.related_bounty.id}`);
+      navigate(`/bounty/details/${bountyId}`);
     }, [2000]);
   });
 
@@ -506,8 +584,17 @@ const PopUpModal = ({
 
             <StyledBugSummerySection>
               <StyledBugPendingBox>
+                <StyledTypography variant="h3">Amount :</StyledTypography>
+                <StyledPopUpTypography className="capitalize" variant="h3">
+                  ${amount}
+                </StyledPopUpTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
                 <StyledTypography variant="h3">
-                  Bug Created By :
+                  Amount send to :
                 </StyledTypography>
                 <StyledPopUpTypography className="capitalize" variant="h3">
                   {data?.submitted_by?.name}

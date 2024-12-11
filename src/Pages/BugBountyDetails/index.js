@@ -276,7 +276,7 @@ const ButtonSection = ({ id }) => {
       <StyledButtonSection>
         <StyledButton
           variant="contained"
-          onClick={() => navigator(`/bug/submit/${id}`)}
+          onClick={() => navigator(`/bounty/${id}/bug/create`)}
         >
           Create Solution
         </StyledButton>
@@ -286,6 +286,7 @@ const ButtonSection = ({ id }) => {
 };
 
 const BugSection = ({ authorEmail, bugs }) => {
+  const { id: bountyId } = useParams();
   const { state } = useAuth();
   const newBugs = getVisibleBugs(authorEmail, bugs, state.user.email);
 
@@ -297,7 +298,7 @@ const BugSection = ({ authorEmail, bugs }) => {
     <StyledStack>
       <StyledBugSection>
         <StyledTypography variant="h1" className="capitalize">
-          Bug Details
+          Bug Solutions
         </StyledTypography>
 
         {newBugs.map(
@@ -369,7 +370,7 @@ const BugSection = ({ authorEmail, bugs }) => {
 
                 <StyledBugSummerySection>
                   <StyledBugPendingBox className="end">
-                    <StyledLink to={`/bug/details/${id}`}>
+                    <StyledLink to={`/bounty/${bountyId}/bug/${id}`}>
                       <StyledBugTypography variant="footer">
                         More Details-&gt;
                       </StyledBugTypography>

@@ -41,7 +41,7 @@ const BugDetailsBox = ({
           </StyledTypography>
           <StyledButton
             variant="contained"
-            onClick={() => navigate(`/bounty/details/${id}`)}
+            onClick={() => navigate(`/bounty/${id}`)}
           >
             View More
           </StyledButton>
