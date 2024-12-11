@@ -111,8 +111,8 @@ export const StyledStatusTypography = styled(Typography)`
   &.pending {
     background-color: #ff4162;
   }
-  &.closed {
-    background-color: red;
+  &.accepted {
+    background-color: #39d2c0;
   }
 `;
 

@@ -278,7 +278,7 @@ const ButtonSection = ({ id }) => {
           variant="contained"
           onClick={() => navigator(`/bug/submit/${id}`)}
         >
-          apply now
+          Create Solution
         </StyledButton>
       </StyledButtonSection>
     </StyledStack>
@@ -324,16 +324,18 @@ const BugSection = ({ authorEmail, bugs }) => {
                 </StyledBugTitleSection>
 
                 <StyledBugBox>
-                  <StyledBugSummerySection>
-                    <StyledTypography variant="h3">
-                      Bug Solution :
-                    </StyledTypography>
-                    <StyledBugItemsBox>
-                      <StyledTypography variant="footer">
-                        {expected_result}
+                  {expected_result && (
+                    <StyledBugSummerySection>
+                      <StyledTypography variant="h3">
+                        Bug Solution :
                       </StyledTypography>
-                    </StyledBugItemsBox>
-                  </StyledBugSummerySection>
+                      <StyledBugItemsBox>
+                        <StyledTypography variant="footer">
+                          {expected_result}
+                        </StyledTypography>
+                      </StyledBugItemsBox>
+                    </StyledBugSummerySection>
+                  )}
 
                   <StyledBugSummerySection>
                     <StyledBugPendingBox>
