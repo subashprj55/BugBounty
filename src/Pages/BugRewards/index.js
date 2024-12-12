@@ -13,6 +13,7 @@ import {
   StyledBoxTop,
   StyledButtonBox,
   StyledCircularProgress,
+  StyledForm,
   StyledHeaderBox,
   StyledInputBox,
   StyledModal,
@@ -71,8 +72,8 @@ const HeadingSection = ({ isLoading, error, current_reward, total_reward }) => {
     if (isLoading) {
       return (
         <>
-          <StyledSkeletonBox />
-          <StyledSkeletonBox />
+          <StyledSkeletonBox variant="rounded" />
+          <StyledSkeletonBox variant="rounded" />
         </>
       );
     }
@@ -84,8 +85,8 @@ const HeadingSection = ({ isLoading, error, current_reward, total_reward }) => {
             status="error"
             snackbarMessage={"Something going wrong. Please try again"}
           />
-          <StyledSkeletonBox animation={false} />
-          <StyledSkeletonBox animation={false} />
+          <StyledSkeletonBox variant="rounded" animation={false} />
+          <StyledSkeletonBox variant="rounded" animation={false} />
         </>
       );
     }
@@ -144,11 +145,13 @@ const TransactionHistorySection = ({ transactionsData, isLoading, error }) => {
 
   const renderContent = () => {
     if (isLoading) {
-      return <StyledTableSkeleton />;
+      return <StyledTableSkeleton height={200} variant="rounded" />;
     }
 
     if (error) {
-      return <StyledTableSkeleton animation={false} />;
+      return (
+        <StyledTableSkeleton animation={false} height={200} variant="rounded" />
+      );
     }
 
     return (
@@ -231,6 +234,7 @@ const ButtonsSection = ({ isLoading, error }) => {
 
 const PopUpModal = ({ open, setOpen }) => {
   const [amount, setAmount] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { mutate, data, isLoading, error } = useWithdrawAmount(() => {
     setOpen(false);
@@ -243,10 +247,18 @@ const PopUpModal = ({ open, setOpen }) => {
     setOpen(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!amount) {
+      setErrorMessage("Please enter a amount");
+      return;
+    }
+    if (amount < 0) {
+      setErrorMessage("Amount must be positive number");
+      return;
+    }
     mutate(amount);
   };
-  console.log(error);
 
   return (
     <>
@@ -260,41 +272,55 @@ const PopUpModal = ({ open, setOpen }) => {
         <BugSnackbar snackbarMessage={"Withdrawal processed successfully"} />
       )}
       <StyledModal open={open}>
-        <StyledModelBox>
-          <StyledTypography variant="h2">Withdraw XLOP Tokens</StyledTypography>
-          <StyledPopUpTypography variant="h6">
-            Enter the amount and address to withdraw your tokens
-          </StyledPopUpTypography>
+        <StyledForm onSubmit={handleSubmit}>
+          <StyledModelBox>
+            <StyledTypography variant="h2">
+              Withdraw XLOP Tokens
+            </StyledTypography>
+            <StyledPopUpTypography variant="h6">
+              Enter the amount and address to withdraw your tokens
+            </StyledPopUpTypography>
 
-          <StyledPopUpBox>
-            <StyledTypography variant="footer">Amount (XLOP)</StyledTypography>
-            <StyledInputBox>
-              <BugInputField
-                placeholder="Enter amount"
-                type="number"
-                value={amount}
-                setValue={setAmount}
-              />
-              {isLoading && <StyledCircularProgress color="success" />}
-            </StyledInputBox>
-          </StyledPopUpBox>
-          <StyledBottomBox>
-            <StyledPopUpButton
-              disabled={isLoading ? true : false}
-              onClick={handleClose}
-              variant="outlined"
-            >
-              Cancel
-            </StyledPopUpButton>
-            <StyledPopUpButton
-              disabled={isLoading ? true : false}
-              onClick={handleSubmit}
-              variant="contained"
-            >
-              Withdraw Tokens
-            </StyledPopUpButton>
-          </StyledBottomBox>
-        </StyledModelBox>
+            <StyledPopUpBox>
+              <StyledTypography variant="footer">
+                Amount (XLOP)
+              </StyledTypography>
+              <StyledInputBox>
+                <BugInputField
+                  placeholder="Enter amount"
+                  type="number"
+                  value={amount}
+                  setValue={setAmount}
+                />
+                <br />
+                <StyledTypography className="error" variant="footer">
+                  {errorMessage}
+                </StyledTypography>
+              </StyledInputBox>
+            </StyledPopUpBox>
+            <StyledBottomBox>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                onClick={handleClose}
+                variant="outlined"
+              >
+                Cancel
+              </StyledPopUpButton>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                variant="contained"
+                className="submit-button"
+                type="submit"
+              >
+                {isLoading ? (
+                  <StyledCircularProgress color="success" />
+                ) : (
+                  "Withdraw Tokens"
+                )}
+              </StyledPopUpButton>
+            </StyledBottomBox>
+          </StyledModelBox>
+        </StyledForm>
       </StyledModal>
     </>
   );

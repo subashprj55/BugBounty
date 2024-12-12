@@ -26,7 +26,11 @@ export const StyledHeaderBox = styled(Box)`
   margin-bottom: 30px;
 `;
 
-export const StyledTypography = styled(Typography)``;
+export const StyledTypography = styled(Typography)`
+  &.error {
+    color: red;
+  }
+`;
 
 export const StyledStack = styled(Stack)`
   flex-direction: row !important;
@@ -73,8 +77,7 @@ export const StyledPriceCheckOutlinedIcon = styled(PaidOutlinedIcon)`
 
 export const StyledSkeletonBox = styled(Skeleton)`
   width: 45%;
-  height: 150px !important;
-  padding: 15px;
+  height: 130px !important;
   @media (max-width: 585px) {
     width: 100%;
   }
@@ -137,7 +140,6 @@ export const StyledBottom = styled(Button)`
 
 export const StyledTableSkeleton = styled(Skeleton)`
   width: 100%;
-  height: 300px !important;
 `;
 
 export const StyledNoDataBox = styled(Box)`
@@ -146,7 +148,6 @@ export const StyledNoDataBox = styled(Box)`
 `;
 
 //popUp section
-
 export const StyledModal = styled(Modal)``;
 
 export const StyledModelBox = styled(Box)`
@@ -163,6 +164,8 @@ export const StyledModelBox = styled(Box)`
   }
 `;
 
+export const StyledForm = styled.form``;
+
 export const StyledBottomBox = styled(Box)`
   padding: 5px 0;
   margin-top: 20px;
@@ -172,6 +175,9 @@ export const StyledBottomBox = styled(Box)`
 
 export const StyledPopUpButton = styled(Button)`
   width: auto !important;
+  &.submit-button {
+    width: 160px !important;
+  }
 `;
 
 export const StyledPopUpTypography = styled(Typography)`
@@ -184,7 +190,6 @@ export const StyledPopUpBox = styled(Box)`
 `;
 
 export const StyledInputBox = styled(Box)`
-  display: flex;
   margin-top: 5px;
 `;
 
