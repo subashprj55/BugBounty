@@ -1,5 +1,7 @@
+import BugBox from "Components/BugBox";
 import BugNavContainer from "Components/BugNavContainer";
 import BugSelectField from "Components/BugSelectFiled";
+import useLeaderBoard from "Hooks/useLeaderBoard";
 import React from "react";
 import { leaderboardData } from "./data";
 import {
@@ -19,19 +21,29 @@ import {
   StyledProfileBox,
   StyledProfileInfoBox,
   StyledProfileTypography,
+  StyledRankBox,
   StyledRightBox,
+  StyledTopHunterBox,
   StyledTopHunterSectionBox,
+  StyledTopHunterSkeleton,
   StyledTypography,
 } from "./style";
+import hunter from "Images/profileAvatar.png";
+import BugSnackbar from "Components/BugSnackbar";
 
 const BugLeaderBoard = () => {
+  const { data, isLoading, error } = useLeaderBoard();
   return (
     <>
       <BugNavContainer>
         <StyledLeaderboardPage>
           <HeaderSection />
-          <TopHunterSection />
-          <DashboardSection />
+          <TopHunterSection
+            topHunter={data?.[0]}
+            isLoading={isLoading}
+            error={error}
+          />
+          <DashboardSection data={data} isLoading={isLoading} error={error} />
         </StyledLeaderboardPage>
       </BugNavContainer>
     </>
@@ -45,87 +57,135 @@ const HeaderSection = () => {
     <>
       <StyledHeaderSection>
         <StyledTypography variant="h1">Top Hunters</StyledTypography>
-        <StyledHeaderBox>
-          <StyledHeaderFieldsBox>
-            <BugSelectField label={"Filter by"} />
-          </StyledHeaderFieldsBox>
-
-          <StyledHeaderFieldsBox>
-            <BugSelectField label={"Sort by"} />
-          </StyledHeaderFieldsBox>
-        </StyledHeaderBox>
       </StyledHeaderSection>
     </>
   );
 };
 
-const TopHunterSection = () => {
+const TopHunterSection = ({ topHunter, isLoading, error }) => {
+  if (isLoading) {
+    return (
+      <StyledTopHunterSectionBox>
+        <StyledTopHunterSkeleton height={150} variant="rounded" />
+      </StyledTopHunterSectionBox>
+    );
+  }
+
+  if (error) {
+    return (
+      <StyledTopHunterSectionBox>
+        <BugSnackbar
+          status="error"
+          snackbarMessage={"Unable to withdraw your token. Please try again"}
+        />
+        <StyledTopHunterSkeleton
+          height={150}
+          animation={false}
+          variant="rounded"
+        />
+      </StyledTopHunterSectionBox>
+    );
+  }
+
   return (
     <>
       <StyledTopHunterSectionBox>
-        <StyledTypography variant="h2">Current Top Hunter</StyledTypography>
-        <StyledProfileBox>
-          <StyledAvatar />
-          <StyledProfileInfoBox>
-            <StyledProfileTypography variant="h2">
-              Alice Wonderland
-            </StyledProfileTypography>
-            <StyledProfileTypography className="color">
-              @alice_w
-            </StyledProfileTypography>
-            <StyledProfileTypography>
-              15,000 tokens earned
-            </StyledProfileTypography>
-          </StyledProfileInfoBox>
-        </StyledProfileBox>
+        <BugBox>
+          <StyledTopHunterBox>
+            <StyledTypography variant="h2">Current Top Hunter</StyledTypography>
+            <StyledProfileBox>
+              <StyledAvatar alt="profile" src={hunter} />
+              <StyledProfileInfoBox>
+                <StyledProfileTypography variant="h2">
+                  {topHunter?.name}
+                </StyledProfileTypography>
+                <StyledProfileTypography className="color">
+                  {topHunter?.email}
+                </StyledProfileTypography>
+                <StyledProfileTypography variant="h2">
+                  {Math.floor(topHunter?.net_reward)} Tokens
+                </StyledProfileTypography>
+              </StyledProfileInfoBox>
+            </StyledProfileBox>
+          </StyledTopHunterBox>
+        </BugBox>
       </StyledTopHunterSectionBox>
     </>
   );
 };
 
-const DashboardSection = () => {
+const DashboardSection = ({ data, isLoading, error }) => {
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <StyledLeaderboardItems>
+          <StyledTopHunterSkeleton height={40} variant="rounded" />
+          <StyledTopHunterSkeleton height={40} variant="rounded" />
+          <StyledTopHunterSkeleton height={40} variant="rounded" />
+        </StyledLeaderboardItems>
+      );
+    }
+
+    if (error) {
+      return (
+        <StyledLeaderboardItems>
+          <StyledTopHunterSkeleton
+            animation={false}
+            height={40}
+            variant="rounded"
+          />
+          <StyledTopHunterSkeleton
+            animation={false}
+            height={40}
+            variant="rounded"
+          />
+          <StyledTopHunterSkeleton
+            animation={false}
+            height={40}
+            variant="rounded"
+          />
+        </StyledLeaderboardItems>
+      );
+    }
+
+    return (
+      <StyledLeaderboardItems>
+        {data?.map(({ id, name, net_reward }, i) => {
+          return (
+            <StyledItem key={id}>
+              <StyledLeftBox>
+                <StyledRankBox>
+                  <StyledTypography variant="h2">{i + 1}</StyledTypography>
+                </StyledRankBox>
+                <StyledBoardProfileBox>
+                  <StyledBoardAvatar>{name.trim()[0]}</StyledBoardAvatar>
+                  <StyledProfileInfoBox>
+                    <StyledProfileTypography variant="h2">
+                      {name}
+                    </StyledProfileTypography>
+                  </StyledProfileInfoBox>
+                </StyledBoardProfileBox>
+              </StyledLeftBox>
+              <StyledRightBox>
+                <StyledProfileTypography variant="footer" className="number">
+                  {Math.floor(net_reward)} tokens
+                </StyledProfileTypography>
+                <StyledButton variant="contained">View Profile</StyledButton>
+              </StyledRightBox>
+            </StyledItem>
+          );
+        })}
+      </StyledLeaderboardItems>
+    );
+  };
+
   return (
     <>
       <StyledDashboardSection>
         <StyledDashboardHeaderBox>
           <StyledTypography variant="h2">Leaderboard</StyledTypography>
         </StyledDashboardHeaderBox>
-
-        <StyledLeaderboardItems>
-          {leaderboardData.map(
-            ({ id, ranking, name, user_id, tokens, link }) => {
-              return (
-                <StyledItem key={id}>
-                  <StyledLeftBox>
-                    <StyledTypography variant="h2">{ranking}</StyledTypography>
-                    <StyledBoardProfileBox>
-                      <StyledBoardAvatar />
-                      <StyledProfileInfoBox>
-                        <StyledProfileTypography className="title">
-                          {name}
-                        </StyledProfileTypography>
-                        <StyledProfileTypography className="color">
-                          {user_id}
-                        </StyledProfileTypography>
-                      </StyledProfileInfoBox>
-                    </StyledBoardProfileBox>
-                  </StyledLeftBox>
-                  <StyledRightBox>
-                    <StyledProfileTypography
-                      variant="footer"
-                      className="number"
-                    >
-                      {tokens} tokens
-                    </StyledProfileTypography>
-                    <StyledButton variant="contained">
-                      View Profile
-                    </StyledButton>
-                  </StyledRightBox>
-                </StyledItem>
-              );
-            }
-          )}
-        </StyledLeaderboardItems>
+        {renderContent()}
       </StyledDashboardSection>
     </>
   );
