@@ -233,6 +233,9 @@ const DescriptionSection = ({ summary, expectedResult }) => {
 };
 
 const StepsReproduceSection = ({ step_to_reproduce }) => {
+  if (!step_to_reproduce) {
+    return <></>;
+  }
   const formattedSteps = step_to_reproduce
     ?.split("\n")
     ?.map((step) => step.charAt(0).toUpperCase() + step.slice(1));

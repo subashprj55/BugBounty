@@ -140,6 +140,11 @@ export const StyledTableSkeleton = styled(Skeleton)`
   height: 300px !important;
 `;
 
+export const StyledNoDataBox = styled(Box)`
+  padding: 40px;
+  text-align: center;
+`;
+
 //popUp section
 
 export const StyledModal = styled(Modal)``;

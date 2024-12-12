@@ -17,6 +17,7 @@ import {
   StyledInputBox,
   StyledModal,
   StyledModelBox,
+  StyledNoDataBox,
   StyledPopUpBox,
   StyledPopUpButton,
   StyledPopUpTypography,
@@ -125,6 +126,22 @@ const HeadingSection = ({ isLoading, error, current_reward, total_reward }) => {
 };
 
 const TransactionHistorySection = ({ transactionsData, isLoading, error }) => {
+  if (transactionsData?.length === 0) {
+    return (
+      <StyledTransactionBox>
+        <BugBox>
+          <StyledTransactionStack>
+            <StyledNoDataBox>
+              <StyledTypography variant="h2">
+                No transaction records available yet
+              </StyledTypography>
+            </StyledNoDataBox>
+          </StyledTransactionStack>
+        </BugBox>
+      </StyledTransactionBox>
+    );
+  }
+
   const renderContent = () => {
     if (isLoading) {
       return <StyledTableSkeleton />;

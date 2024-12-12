@@ -517,7 +517,7 @@ const PopUpModal = ({
     mutate,
   } = useBugSubmit(id, (data) => {
     setTimeout(() => {
-      navigate(`/bounty/details/${bountyId}`);
+      navigate(`/bounty/${bountyId}`);
     }, [2000]);
   });
 
