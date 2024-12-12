@@ -88,7 +88,6 @@ const BugBounty = () => {
           summary={data?.description}
           expectedResult={data?.acceptance_criteria}
         />
-        <StepsReproduceSection step_to_reproduce={data?.step_to_reproduce} />
         <ButtonSection id={id} />
         <BugSection authorEmail={data?.created_by?.email} bugs={data?.bugs} />
       </StyledBugBountyPage>
@@ -227,36 +226,6 @@ const DescriptionSection = ({ summary, expectedResult }) => {
             </StyledDescriptionStack>
           </StyledBox>
         </StyledDescriptionBox>
-      </BugBox>
-    </StyledStack>
-  );
-};
-
-const StepsReproduceSection = ({ step_to_reproduce }) => {
-  if (!step_to_reproduce) {
-    return <></>;
-  }
-  const formattedSteps = step_to_reproduce
-    ?.split("\n")
-    ?.map((step) => step.charAt(0).toUpperCase() + step.slice(1));
-
-  return (
-    <StyledStack>
-      <BugBox>
-        <StyledReproduceBox>
-          <StyledTypography variant="h2">Steps to Reproduce :</StyledTypography>
-          <StyledItemsBox>
-            <StyledReproduceStack>
-              {formattedSteps?.map((item) => {
-                return (
-                  <StyledTypography variant="footer" key={item}>
-                    {item}
-                  </StyledTypography>
-                );
-              })}
-            </StyledReproduceStack>
-          </StyledItemsBox>
-        </StyledReproduceBox>
       </BugBox>
     </StyledStack>
   );

@@ -277,28 +277,6 @@ const CreateBugForm = () => {
             </StyledInputBox>
 
             <StyledInputBox>
-              <StyledTypography variant="h3">
-                Steps to Reproduce
-              </StyledTypography>
-              <StyledTextarea
-                placeholder={`Example:
-1. Navigate to the home page
-2. Click on checkout button
-3. etc...`}
-                rows="5"
-                name="reproduceSteps"
-                {...register("reproduceSteps", {
-                  required: "Reproduce Steps is required",
-                })}
-              />
-              {errors.reproduceSteps && (
-                <StyledErrorMessage>
-                  {errors.reproduceSteps.message}
-                </StyledErrorMessage>
-              )}
-            </StyledInputBox>
-
-            <StyledInputBox>
               <StyledTypography variant="h3">Attachments</StyledTypography>
               <StyledFilePreview>
                 <StyledLabel htmlFor="fileUpload">

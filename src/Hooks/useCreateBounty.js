@@ -7,7 +7,6 @@ const useCreateBounty = (onSuccess) => {
     description,
     expectedResult,
     uploadedFile,
-    reproduceSteps,
     rewarded_amount,
     security,
     selectedDate,
@@ -17,7 +16,6 @@ const useCreateBounty = (onSuccess) => {
     const { data } = await axiosAuth.post("/bounties/", {
       title: bugTitle,
       description,
-      step_to_reproduce: reproduceSteps,
       acceptance_criteria: expectedResult,
       expiry_date: date,
       attachments: uploadedFile,
