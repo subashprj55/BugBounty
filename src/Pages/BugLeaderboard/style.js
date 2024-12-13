@@ -85,6 +85,8 @@ export const StyledDashboardHeaderBox = styled(Box)``;
 
 export const StyledLeaderboardItems = styled(Box)`
   margin-top: 30px;
+  max-height: 500px;
+  overflow-y: auto;
 `;
 
 export const StyledItem = styled(Stack)`
