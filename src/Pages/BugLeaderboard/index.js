@@ -30,6 +30,7 @@ import {
 } from "./style";
 import hunter from "Images/profileAvatar.png";
 import BugSnackbar from "Components/BugSnackbar";
+import { useNavigate } from "react-router-dom";
 
 const BugLeaderBoard = () => {
   const { data, isLoading, error } = useLeaderBoard();
@@ -115,6 +116,7 @@ const TopHunterSection = ({ topHunter, isLoading, error }) => {
 };
 
 const DashboardSection = ({ data, isLoading, error }) => {
+  const navigate = useNavigate();
   const renderContent = () => {
     if (isLoading) {
       return (
@@ -170,7 +172,12 @@ const DashboardSection = ({ data, isLoading, error }) => {
                 <StyledProfileTypography variant="footer" className="number">
                   {Math.floor(net_reward)} tokens
                 </StyledProfileTypography>
-                <StyledButton variant="contained">View Profile</StyledButton>
+                <StyledButton
+                  onClick={() => navigate(`/hunter/profile/${id}`)}
+                  variant="contained"
+                >
+                  View Profile
+                </StyledButton>
               </StyledRightBox>
             </StyledItem>
           );

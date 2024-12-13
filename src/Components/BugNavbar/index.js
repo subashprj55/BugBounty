@@ -137,7 +137,6 @@ const Profile = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const { mutate, isLoading, error } = useLogout((data) => {
-    logout();
     navigate("/");
   });
 
@@ -147,6 +146,11 @@ const Profile = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    mutate();
   };
 
   return (
@@ -170,12 +174,12 @@ const Profile = () => {
         open={open}
         onClose={handleClose}
       >
-        <StyledMenuItem onClick={() => navigate("/profile")}>
+        <StyledMenuItem>
           <StyledTypography variant="h3">{state.user.name}</StyledTypography>
         </StyledMenuItem>
         <StyledNavDivider />
 
-        <StyledMenuItem onClick={mutate}>
+        <StyledMenuItem onClick={handleLogout}>
           <StyledListItemIcon>
             <StyledLogout fontSize="small" />
           </StyledListItemIcon>

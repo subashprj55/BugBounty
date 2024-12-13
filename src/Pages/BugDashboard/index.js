@@ -1,29 +1,49 @@
+import BugBox from "Components/BugBox";
 import BugNavContainer from "Components/BugNavContainer";
+import useDashboard from "Hooks/usedashboard";
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   StyledActivityBox,
   StyledBox,
   StyledBoxSection,
+  StyledBugIcon,
   StyledButton,
   StyledChip,
-  StyledDashboardPage,
   StyledDiv,
   StyledDollarIcon,
   StyledFlexBox,
+  StyledLink,
   StyledRecentActivity,
+  StyledRepeatOneIcon,
+  StyledSkeleton,
   StyledTypography,
   StylePerformanceBox,
 } from "./style";
 
 const BugDashboard = () => {
+  const { data, isLoading, error } = useDashboard();
+
   return (
     <>
       <BugNavContainer>
-        <StyledDashboardPage>
-          <BoxSection />
-          <RecentActivity />
-          <PerformanceInsightsSection />
-        </StyledDashboardPage>
+        <BoxSection
+          activeBounties={data?.active_bounties}
+          token={data?.my_token}
+          topHunter={data?.top_hunter_of_the_month}
+          isLoading={isLoading}
+          error={error}
+        />
+        <RecentActivity
+          recent_activities={data?.recent_activities}
+          isLoading={isLoading}
+          error={error}
+        />
+        <PerformanceInsightsSection
+          performance_insight={data?.performance_insight}
+          isLoading={isLoading}
+          error={error}
+        />
       </BugNavContainer>
     </>
   );
@@ -31,17 +51,55 @@ const BugDashboard = () => {
 
 export default BugDashboard;
 
-const BoxSection = () => {
+const BoxSection = ({ activeBounties, token, topHunter, isLoading, error }) => {
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <StyledBoxSection>
+        <StyledBox>
+          <StyledSkeleton variant="rounded" height={100} />
+        </StyledBox>
+        <StyledBox>
+          <StyledSkeleton variant="rounded" height={100} />
+        </StyledBox>
+        <StyledBox>
+          <StyledSkeleton variant="rounded" height={100} />
+        </StyledBox>
+      </StyledBoxSection>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <StyledBoxSection>
+        <StyledBox>
+          <StyledSkeleton animation={false} variant="rounded" height={100} />
+        </StyledBox>
+        <StyledBox>
+          <StyledSkeleton animation={false} variant="rounded" height={100} />
+        </StyledBox>
+        <StyledBox>
+          <StyledSkeleton animation={false} variant="rounded" height={100} />
+        </StyledBox>
+      </StyledBoxSection>
+    );
+  }
+
   return (
     <>
       <StyledBoxSection>
         <StyledBox>
           <StyledFlexBox>
             <StyledTypography variant="h3">Active Bounties</StyledTypography>
-            <StyledDollarIcon />
+            <StyledBugIcon />
           </StyledFlexBox>
-          <StyledTypography variant="h1">25</StyledTypography>
-          <StyledTypography>View All</StyledTypography>
+          <StyledFlexBox className="space">
+            <StyledTypography variant="h1">{activeBounties}</StyledTypography>
+            <StyledLink to={"/bounties"}>
+              <StyledTypography>View All -&gt;</StyledTypography>
+            </StyledLink>
+          </StyledFlexBox>
         </StyledBox>
 
         <StyledBox>
@@ -49,8 +107,15 @@ const BoxSection = () => {
             <StyledTypography variant="h3">My Tokens</StyledTypography>
             <StyledDollarIcon />
           </StyledFlexBox>
-          <StyledTypography variant="h1">1,234 XLOP</StyledTypography>
-          <StyledButton variant="contained">Withdraw</StyledButton>
+          <StyledFlexBox className="space">
+            <StyledTypography variant="h1">{token} XLOP</StyledTypography>
+            <StyledButton
+              onClick={() => navigate("/rewards")}
+              variant="contained"
+            >
+              Withdraw
+            </StyledButton>
+          </StyledFlexBox>
         </StyledBox>
 
         <StyledBox>
@@ -58,67 +123,128 @@ const BoxSection = () => {
             <StyledTypography variant="h3">
               Top Hunter of the Month
             </StyledTypography>
-            <StyledDollarIcon />
+            <StyledRepeatOneIcon />
           </StyledFlexBox>
-          <StyledTypography variant="h1">John Doe</StyledTypography>
-          <StyledTypography>View profile</StyledTypography>
+          <StyledFlexBox className="space">
+            <StyledTypography variant="h1">
+              {topHunter?.hunter_name}
+            </StyledTypography>
+            <StyledLink to={`/hunter/profile/${topHunter?.id}`}>
+              <StyledTypography>View Profile</StyledTypography>
+            </StyledLink>
+          </StyledFlexBox>
         </StyledBox>
       </StyledBoxSection>
     </>
   );
 };
 
-const RecentActivity = () => {
+const RecentActivity = ({ recent_activities, isLoading, error }) => {
+  if (isLoading) {
+    return (
+      <StyledRecentActivity>
+        <StyledSkeleton variant="rectangular" height={100} />
+      </StyledRecentActivity>
+    );
+  }
+
+  if (error) {
+    return (
+      <StyledRecentActivity>
+        <StyledSkeleton animation={false} variant="rectangular" height={100} />
+      </StyledRecentActivity>
+    );
+  }
+
   return (
     <StyledRecentActivity>
       <StyledTypography variant="h2">Recent Activity</StyledTypography>
 
-      <StyledActivityBox>
-        <StyledDiv>
-          <StyledTypography variant="h3">
-            XSS Vulnerability Report
-          </StyledTypography>
-          <StyledTypography variant="h6">Submitted 2 days ago</StyledTypography>
-        </StyledDiv>
-        <StyledChip label="Pending" />
-      </StyledActivityBox>
-
-      <StyledActivityBox>
-        <StyledDiv>
-          <StyledTypography variant="h3">
-            XSS Vulnerability Report
-          </StyledTypography>
-          <StyledTypography variant="h6">Submitted 2 days ago</StyledTypography>
-        </StyledDiv>
-        <StyledChip label="Approved" className="proved" />
-      </StyledActivityBox>
+      {recent_activities?.map((item) => {
+        return (
+          <StyledActivityBox>
+            <StyledDiv>
+              <StyledTypography variant="h3">{item}</StyledTypography>
+              <StyledTypography variant="h6">
+                Submitted 2 days ago
+              </StyledTypography>
+            </StyledDiv>
+            {/* <StyledChip label="Pending" /> */}
+          </StyledActivityBox>
+        );
+      })}
     </StyledRecentActivity>
   );
 };
 
-const PerformanceInsightsSection = () => {
-  return (
-    <StyledRecentActivity>
-      <StyledTypography variant="h2">Performance Insights</StyledTypography>
+const PerformanceInsightsSection = ({
+  performance_insight,
+  isLoading,
+  error,
+}) => {
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <>
+          <StylePerformanceBox>
+            <StyledSkeleton variant="rounded" height={100} />
+          </StylePerformanceBox>
+          <StylePerformanceBox>
+            <StyledSkeleton variant="rounded" height={100} />
+          </StylePerformanceBox>
+          <StylePerformanceBox>
+            <StyledSkeleton variant="rounded" height={100} />
+          </StylePerformanceBox>
+        </>
+      );
+    }
 
-      <StyledActivityBox>
+    if (error) {
+      return (
+        <>
+          <StylePerformanceBox>
+            <StyledSkeleton animation variant="rounded" height={100} />
+          </StylePerformanceBox>
+          <StylePerformanceBox>
+            <StyledSkeleton animation variant="rounded" height={100} />
+          </StylePerformanceBox>
+          <StylePerformanceBox>
+            <StyledSkeleton animation variant="rounded" height={100} />
+          </StylePerformanceBox>
+        </>
+      );
+    }
+
+    return (
+      <>
         <StylePerformanceBox>
           <StyledTypography className="color">
             Total Bugs Found
           </StyledTypography>
-          <StyledTypography variant="h1">12</StyledTypography>
+          <StyledTypography variant="h1">
+            {performance_insight?.total_bug_approved}
+          </StyledTypography>
         </StylePerformanceBox>
 
         <StylePerformanceBox>
           <StyledTypography>Average Severity</StyledTypography>
-          <StyledTypography variant="h1">7.5</StyledTypography>
+          <StyledTypography variant="h1">
+            {performance_insight?.average_security}
+          </StyledTypography>
         </StylePerformanceBox>
 
         <StylePerformanceBox>
           <StyledTypography>Response Time</StyledTypography>
           <StyledTypography variant="h1">24h</StyledTypography>
         </StylePerformanceBox>
-      </StyledActivityBox>
+      </>
+    );
+  };
+  return (
+    <StyledRecentActivity>
+      <StyledTypography variant="h2">Performance Insights</StyledTypography>
+
+      <StyledActivityBox>{renderContent()}</StyledActivityBox>
     </StyledRecentActivity>
   );
 };
