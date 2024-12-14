@@ -395,11 +395,11 @@ const PopUpModal = ({ data, isPopUpModalOpen, setIsPopUpModalOpen }) => {
 
             <StyledBugSummerySection>
               <StyledBugPendingBox>
+                <StyledTypography variant="h3">Expiry Date :</StyledTypography>
                 <StyledTypography variant="h3">
-                  Submission Date :
-                </StyledTypography>
-                <StyledTypography variant="h3">
-                  <span>2082-12-11</span>
+                  <span>
+                    {format(new Date(data?.expiry_date), "yyyy-MM-dd HH:mm")}
+                  </span>
                 </StyledTypography>
               </StyledBugPendingBox>
             </StyledBugSummerySection>

@@ -1,25 +1,22 @@
 import { useMutation } from "react-query";
 import { axiosAuth } from "Utils/axios";
 
-const useLogout = (onSuccess, onError) => {
+const useDeleteBug = (id, onSuccess) => {
   const { mutate, error, isLoading } = useMutation({
     mutationFn: () => {
-      return logout();
+      return deleteBug();
     },
     onSuccess: (data) => {
       onSuccess(data);
     },
-    onError: (error) => {
-      onError(error);
-    },
   });
 
-  const logout = async () => {
-    const { data } = await axiosAuth.post("/auth/logout/");
+  const deleteBug = async () => {
+    const { data } = await axiosAuth.delete(`/bugs/${id}/`);
     return data;
   };
 
   return { mutate, error, isLoading };
 };
 
-export default useLogout;
+export default useDeleteBug;

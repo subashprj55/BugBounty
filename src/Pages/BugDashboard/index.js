@@ -167,9 +167,9 @@ const RecentActivity = ({ recent_activities, isLoading, error }) => {
     <StyledRecentActivity>
       <StyledTypography variant="h2">Recent Activity</StyledTypography>
 
-      {recent_activities?.map((item) => {
+      {recent_activities?.map((item, i) => {
         return (
-          <StyledActivityBox>
+          <StyledActivityBox key={i}>
             <StyledDiv>
               <StyledTypography className="font-size" variant="h2">
                 {item}
