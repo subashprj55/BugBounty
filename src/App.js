@@ -75,7 +75,11 @@ function App() {
           }
         />
         <Route
-          path="bounty/:id/bug/create"
+          path="bounty/:bountyId/bug/create"
+          element={<PrivateRoute display={"hunter"} component={BugSubmit} />}
+        />
+        <Route
+          path="bounty/:bountyId/bug/edit/:id"
           element={<PrivateRoute display={"hunter"} component={BugSubmit} />}
         />
         <Route

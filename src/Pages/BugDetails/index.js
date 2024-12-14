@@ -426,10 +426,12 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail, data, amount }) => {
 
 const userOptions = ["Edit Bug", "Delete Bug"];
 const HunterButtonGroupDropdown = ({ data }) => {
+  const { id, bountyId } = useParams();
   const { state } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [isPopUpModalOpen, setIsPopUpModalOpen] = useState(true);
+  const [isPopUpModalOpen, setIsPopUpModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -445,15 +447,15 @@ const HunterButtonGroupDropdown = ({ data }) => {
   };
 
   const handlePrimaryClick = () => {
-    // if (options[selectedIndex] === "Edit Bug") {
-    //   navigator(`/bounty/edit/${id}`);
-    // }
-    if (options[selectedIndex] === "Delete Bug") {
+    if (userOptions[selectedIndex] === "Edit Bug") {
+      navigate(`/bounty/${bountyId}/bug/edit/${id}`);
+    }
+    if (userOptions[selectedIndex] === "Delete Bug") {
       setIsPopUpModalOpen(true);
     }
   };
 
-  if (data?.is_accepted && data?.status === "rejected") {
+  if (data?.is_accepted || data?.status === "rejected") {
     return <></>;
   }
 
