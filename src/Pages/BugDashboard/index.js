@@ -1,16 +1,15 @@
-import BugBox from "Components/BugBox";
 import BugNavContainer from "Components/BugNavContainer";
 import BugSnackbar from "Components/BugSnackbar";
 import useDashboard from "Hooks/usedashboard";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "Utils/authProvider";
 import {
   StyledActivityBox,
   StyledBox,
   StyledBoxSection,
   StyledBugIcon,
   StyledButton,
-  StyledChip,
   StyledDiv,
   StyledDollarIcon,
   StyledFlexBox,
@@ -54,6 +53,7 @@ export default BugDashboard;
 
 const BoxSection = ({ activeBounties, token, topHunter, isLoading, error }) => {
   const navigate = useNavigate();
+  const { state } = useAuth();
 
   if (isLoading) {
     return (
@@ -114,12 +114,14 @@ const BoxSection = ({ activeBounties, token, topHunter, isLoading, error }) => {
           </StyledFlexBox>
           <StyledFlexBox className="space">
             <StyledTypography variant="h1">{token} XLOP</StyledTypography>
-            <StyledButton
-              onClick={() => navigate("/rewards")}
-              variant="contained"
-            >
-              Withdraw
-            </StyledButton>
+            {state?.user?.role === "hunter" && (
+              <StyledButton
+                onClick={() => navigate("/rewards")}
+                variant="contained"
+              >
+                Withdraw
+              </StyledButton>
+            )}
           </StyledFlexBox>
         </StyledBox>
 

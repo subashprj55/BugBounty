@@ -1,4 +1,12 @@
-import { Avatar, Button, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  ButtonGroup,
+  Menu,
+  MenuItem,
+  Modal,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 const { Box, Stack } = require("@mui/system");
@@ -157,6 +165,23 @@ export const StyledButton = styled(Button)`
   width: auto !important;
 `;
 
+export const StyledButtons = styled(Button)`
+  border-radius: 0px !important;
+  width: 140px !important;
+  border-right: 1px solid white !important;
+`;
+
+export const StyledButtonGroup = styled(ButtonGroup)``;
+
+export const StyledIconButton = styled(Button)`
+  border-radius: 1px !important;
+  width: auto !important;
+`;
+
+export const StyledMenu = styled(Menu)``;
+
+export const StyledMenuItem = styled(MenuItem)``;
+
 //bug section
 
 export const StyledBugStack = styled(Stack)`
@@ -212,3 +237,48 @@ export const StyledBugTypography = styled(Typography)`
 `;
 
 export const StyledLink = styled(Link)``;
+
+//popup
+
+export const StyledModal = styled(Modal)``;
+
+export const StyledModelBox = styled(Box)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 20px;
+  width: 600px;
+  background-color: white;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
+  @media (max-width: 425px) {
+    width: 90%;
+  }
+`;
+
+export const StyledPopUpBox = styled(Box)`
+  margin: 15px 0;
+`;
+
+export const StyledBottomBox = styled(Box)`
+  padding: 5px 0;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledPopUpTypography = styled(Typography)`
+  font-weight: 500 !important;
+  text-transform: capitalize;
+`;
+
+export const StyledPopUpButton = styled(Button)`
+  width: auto !important;
+  &.delete {
+    background-color: #ff4162; !important;
+    color: white !important;
+    &:hover{
+      background-color: red; !important;
+    }
+  }
+`;
