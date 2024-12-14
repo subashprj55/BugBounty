@@ -1,5 +1,6 @@
 import BugBox from "Components/BugBox";
 import BugNavContainer from "Components/BugNavContainer";
+import BugSnackbar from "Components/BugSnackbar";
 import useDashboard from "Hooks/usedashboard";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -70,9 +71,13 @@ const BoxSection = ({ activeBounties, token, topHunter, isLoading, error }) => {
     );
   }
 
-  if (isLoading) {
+  if (error) {
     return (
       <StyledBoxSection>
+        <BugSnackbar
+          status="error"
+          snackbarMessage={"Something went wrong. Please try"}
+        />
         <StyledBox>
           <StyledSkeleton animation={false} variant="rounded" height={100} />
         </StyledBox>
@@ -129,7 +134,7 @@ const BoxSection = ({ activeBounties, token, topHunter, isLoading, error }) => {
             <StyledTypography variant="h1">
               {topHunter?.hunter_name}
             </StyledTypography>
-            <StyledLink to={`/hunter/profile/${topHunter?.id}`}>
+            <StyledLink to={`/hunter/${topHunter?.id}/profile`}>
               <StyledTypography>View Profile</StyledTypography>
             </StyledLink>
           </StyledFlexBox>
@@ -164,7 +169,9 @@ const RecentActivity = ({ recent_activities, isLoading, error }) => {
         return (
           <StyledActivityBox>
             <StyledDiv>
-              <StyledTypography variant="h3">{item}</StyledTypography>
+              <StyledTypography className="font-size" variant="h2">
+                {item}
+              </StyledTypography>
               <StyledTypography variant="h6">
                 Submitted 2 days ago
               </StyledTypography>

@@ -43,7 +43,7 @@ function App() {
           element={<PrivateRoute display={"hunter"} component={BugRewards} />}
         />
         <Route
-          path="hunter/profile/:id"
+          path="hunter/:id/profile"
           element={<PrivateRoute component={BugProfile} />}
         />
         <Route

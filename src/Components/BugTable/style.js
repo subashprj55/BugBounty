@@ -1,9 +1,11 @@
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { styled } from "styled-components";
 
@@ -20,4 +22,21 @@ export const StyledTableCell = styled(TableCell)`
   }
 `;
 
-export const StyledTableBody = styled(TableBody)``;
+export const StyledTableBody = styled(TableBody)`
+  height: 100px !important;
+  max-height: 100px !important;
+  overflow-y: scroll;
+`;
+
+export const StyledTableBox = styled(Box)``;
+
+export const StyledBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+`;
+
+export const StyledTypography = styled(Typography)`
+  text-align: center;
+`;

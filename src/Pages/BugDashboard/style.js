@@ -49,6 +49,9 @@ export const StyledTypography = styled(Typography)`
   &.color {
     color: #6b7280 !important;
   }
+  &.font-size {
+    font-weight: 500;
+  }
 `;
 
 export const StyledDollarIcon = styled(AttachMoneyIcon)`
