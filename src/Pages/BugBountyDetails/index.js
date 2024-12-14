@@ -1,5 +1,5 @@
 import BugBox from "Components/BugBox";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   StyledAvatar,
@@ -14,6 +14,8 @@ import {
   StyledBugTitleSection,
   StyledBugTypography,
   StyledButton,
+  StyledButtonGroup,
+  StyledButtons,
   StyledButtonSection,
   StyledContainerBox,
   StyledDescriptionBox,
@@ -22,12 +24,12 @@ import {
   StyledDetailsBox,
   StyledDetailsItems,
   StyledDetailsTypography,
-  StyledItemsBox,
+  StyledIconButton,
   StyledLink,
   StyledLoadingBox,
+  StyledMenu,
+  StyledMenuItem,
   StyledPriorityTypography,
-  StyledReproduceBox,
-  StyledReproduceStack,
   StyledStack,
   StyledStatusTypography,
   StyledTitleBox,
@@ -43,6 +45,7 @@ import profile from "Images/profile.png";
 import { getVisibleBugs } from "Utils/getVisibleBug";
 import BugNavContainer from "Components/BugNavContainer";
 import BugLoader from "Components/BugLoader";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const BugBounty = () => {
   const { id } = useParams();
@@ -88,7 +91,7 @@ const BugBounty = () => {
           summary={data?.description}
           expectedResult={data?.acceptance_criteria}
         />
-        <ButtonSection id={id} />
+        <ButtonSection id={id} userEmail={data?.created_by?.email} />
         <BugSection authorEmail={data?.created_by?.email} bugs={data?.bugs} />
       </StyledBugBountyPage>
     </BugNavContainer>
@@ -231,30 +234,94 @@ const DescriptionSection = ({ summary, expectedResult }) => {
   );
 };
 
-const ButtonSection = ({ id }) => {
+//hunter can create bug
+//author can edit or delete bounty
+const options = ["Edit Bug", "Delete Bug"];
+const ButtonSection = ({ id, userEmail }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  // const [isPopUpModalOpen, setIsPopUpModalOpen] = useState(false);
   const navigator = useNavigate();
   const {
-    state: {
-      user: { role },
-    },
+    state: { user },
   } = useAuth();
 
-  if (role === "client") {
-    return <></>;
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuItemClick = (index) => {
+    setSelectedIndex(index);
+    setAnchorEl(null);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handlePrimaryClick = () => {
+    if (options[selectedIndex] === "Edit Bug") {
+      navigator(`/bounty/edit/${id}`);
+    }
+  };
+
+  if (user.role === "hunter") {
+    return (
+      <StyledStack>
+        <StyledButtonSection>
+          <StyledButton
+            variant="contained"
+            onClick={() => navigator(`/bounty/${id}/bug/create`)}
+          >
+            Create Solution
+          </StyledButton>
+        </StyledButtonSection>
+      </StyledStack>
+    );
   }
 
-  return (
-    <StyledStack>
-      <StyledButtonSection>
-        <StyledButton
-          variant="contained"
-          onClick={() => navigator(`/bounty/${id}/bug/create`)}
-        >
-          Create Solution
-        </StyledButton>
-      </StyledButtonSection>
-    </StyledStack>
-  );
+  if (userEmail === user.email) {
+    return (
+      <>
+        <StyledStack>
+          <StyledButtonSection>
+            <StyledButtonGroup
+              variant="contained"
+              aria-label="Split button dropdown"
+            >
+              <StyledButtons onClick={handlePrimaryClick}>
+                {options[selectedIndex]}
+              </StyledButtons>
+              <StyledIconButton
+                size="small"
+                aria-controls={anchorEl ? "menu" : undefined}
+                aria-haspopup="true"
+                onClick={handleMenuClick}
+              >
+                <ArrowDropDownIcon />
+              </StyledIconButton>
+            </StyledButtonGroup>
+            <StyledMenu
+              id="menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {options.map((option, index) => (
+                <StyledMenuItem
+                  key={option}
+                  selected={index === selectedIndex}
+                  onClick={() => handleMenuItemClick(index)}
+                >
+                  {option}
+                </StyledMenuItem>
+              ))}
+            </StyledMenu>
+          </StyledButtonSection>
+        </StyledStack>
+      </>
+    );
+  }
 };
 
 const BugSection = ({ authorEmail, bugs }) => {

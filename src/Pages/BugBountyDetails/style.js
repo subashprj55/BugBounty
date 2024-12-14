@@ -1,4 +1,11 @@
-import { Avatar, Button, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  ButtonGroup,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 const { Box, Stack } = require("@mui/system");
@@ -156,6 +163,23 @@ export const StyledButtonSection = styled(Box)`
 export const StyledButton = styled(Button)`
   width: auto !important;
 `;
+
+export const StyledButtons = styled(Button)`
+  border-radius: 0px !important;
+  width: 140px !important;
+  border-right: 1px solid white !important;
+`;
+
+export const StyledButtonGroup = styled(ButtonGroup)``;
+
+export const StyledIconButton = styled(Button)`
+  border-radius: 1px !important;
+  width: auto !important;
+`;
+
+export const StyledMenu = styled(Menu)``;
+
+export const StyledMenuItem = styled(MenuItem)``;
 
 //bug section
 
