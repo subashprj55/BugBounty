@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   StyledAvatar,
+  StyledBottomBox,
   StyledBox,
   StyledBugBountyPage,
   StyledBugBox,
@@ -29,6 +30,11 @@ import {
   StyledLoadingBox,
   StyledMenu,
   StyledMenuItem,
+  StyledModal,
+  StyledModelBox,
+  StyledPopUpBox,
+  StyledPopUpButton,
+  StyledPopUpTypography,
   StyledPriorityTypography,
   StyledStack,
   StyledStatusTypography,
@@ -46,6 +52,8 @@ import { getVisibleBugs } from "Utils/getVisibleBug";
 import BugNavContainer from "Components/BugNavContainer";
 import BugLoader from "Components/BugLoader";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import useDeleteBounty from "Hooks/useDeleteBounty";
+import BugSnackbar from "Components/BugSnackbar";
 
 const BugBounty = () => {
   const { id } = useParams();
@@ -65,7 +73,6 @@ const BugBounty = () => {
     return (
       <BugNavContainer>
         <StyledBugBountyPage>
-          <BugBackButton />
           <StyledLoadingBox>
             <StyledTypography variant="h1">
               Something is going wrong. Please try again
@@ -91,7 +98,7 @@ const BugBounty = () => {
           summary={data?.description}
           expectedResult={data?.acceptance_criteria}
         />
-        <ButtonSection id={id} userEmail={data?.created_by?.email} />
+        <ButtonSection id={id} data={data} />
         <BugSection authorEmail={data?.created_by?.email} bugs={data?.bugs} />
       </StyledBugBountyPage>
     </BugNavContainer>
@@ -237,10 +244,10 @@ const DescriptionSection = ({ summary, expectedResult }) => {
 //hunter can create bug
 //author can edit or delete bounty
 const options = ["Edit Bug", "Delete Bug"];
-const ButtonSection = ({ id, userEmail }) => {
+const ButtonSection = ({ id, data }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  // const [isPopUpModalOpen, setIsPopUpModalOpen] = useState(false);
+  const [isPopUpModalOpen, setIsPopUpModalOpen] = useState(false);
   const navigator = useNavigate();
   const {
     state: { user },
@@ -263,6 +270,9 @@ const ButtonSection = ({ id, userEmail }) => {
     if (options[selectedIndex] === "Edit Bug") {
       navigator(`/bounty/edit/${id}`);
     }
+    if (options[selectedIndex] === "Delete Bug") {
+      setIsPopUpModalOpen(true);
+    }
   };
 
   if (user.role === "hunter") {
@@ -280,7 +290,7 @@ const ButtonSection = ({ id, userEmail }) => {
     );
   }
 
-  if (userEmail === user.email) {
+  if (data?.created_by?.email === user.email) {
     return (
       <>
         <StyledStack>
@@ -319,9 +329,126 @@ const ButtonSection = ({ id, userEmail }) => {
             </StyledMenu>
           </StyledButtonSection>
         </StyledStack>
+        {isPopUpModalOpen && (
+          <PopUpModal
+            data={data}
+            isPopUpModalOpen={isPopUpModalOpen}
+            setIsPopUpModalOpen={setIsPopUpModalOpen}
+          />
+        )}
       </>
     );
   }
+};
+
+const PopUpModal = ({ data, isPopUpModalOpen, setIsPopUpModalOpen }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { isLoading, error, mutate } = useDeleteBounty(id, () => {
+    navigate("/bounties");
+  });
+
+  const handleClose = () => {
+    setIsPopUpModalOpen(false);
+  };
+
+  const handleClick = () => {
+    mutate();
+  };
+
+  return (
+    <>
+      {isLoading && <BugLoader />}
+      {error && (
+        <BugSnackbar
+          status="error"
+          snackbarMessage={"Something is wrong. Please try again."}
+        />
+      )}
+      <StyledModal open={isPopUpModalOpen}>
+        <StyledModelBox>
+          <StyledTypography variant="h2">
+            Are you sure to delete this bug?
+          </StyledTypography>
+
+          <StyledPopUpBox>
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Bug Title :</StyledTypography>
+                <StyledPopUpTypography className="capitalize" variant="h3">
+                  {data?.title}
+                </StyledPopUpTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Created At :</StyledTypography>
+                <StyledTypography variant="h3">
+                  <span>
+                    {format(new Date(data?.created_at), "yyyy-MM-dd HH:mm")}
+                  </span>
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">
+                  Submission Date :
+                </StyledTypography>
+                <StyledTypography variant="h3">
+                  <span>2082-12-11</span>
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">
+                  Reward Amount :
+                </StyledTypography>
+                <StyledPopUpTypography className="capitalize" variant="h3">
+                  ${data?.rewarded_amount}
+                </StyledPopUpTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Severity :</StyledTypography>
+                <StyledPriorityTypography
+                  variant="h3"
+                  className={`${data?.severity}`}
+                >
+                  {data?.severity}
+                </StyledPriorityTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBottomBox>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                onClick={handleClose}
+                variant="outlined"
+              >
+                Cancel
+              </StyledPopUpButton>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                onClick={handleClick}
+                variant="contained"
+                className="delete"
+              >
+                Delete Bug
+              </StyledPopUpButton>
+            </StyledBottomBox>
+          </StyledPopUpBox>
+        </StyledModelBox>
+      </StyledModal>
+    </>
+  );
 };
 
 const BugSection = ({ authorEmail, bugs }) => {

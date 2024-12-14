@@ -2,7 +2,7 @@ import { useMutation } from "react-query";
 import { axiosAuth } from "Utils/axios";
 
 const useUpdateBounty = (id, onSuccess) => {
-  const crateBounty = async ({
+  const updateBounty = async ({
     bugTitle,
     description,
     expectedResult,
@@ -27,7 +27,7 @@ const useUpdateBounty = (id, onSuccess) => {
 
   const { mutate, data, error, isLoading } = useMutation({
     mutationFn: (values) => {
-      return crateBounty(values);
+      return updateBounty(values);
     },
     onSuccess: (data) => {
       onSuccess(data);
