@@ -64,6 +64,7 @@ import { getTimeAgoMessage } from "Utils/dateMessage";
 import BugNavContainer from "Components/BugNavContainer";
 import useBugSubmit from "Hooks/useBugSubmit";
 import useBountyDetails from "Hooks/useBountyDetails";
+import useDeleteBug from "Hooks/useDeleteBug";
 
 const BugDetails = () => {
   const { id, bountyId } = useParams();
@@ -130,6 +131,7 @@ const BugDetails = () => {
           data={data}
           amount={bountyData?.rewarded_amount}
         />
+        <HunterButtonGroupDropdown data={data} />
         <CommentSection comments={data?.comments} />
       </StyledBugDetailsPage>
     </BugNavContainer>
@@ -373,51 +375,133 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail, data, amount }) => {
     );
   }
 
-  if (bountyOwnerEmail !== state.user.email) {
+  if (bountyOwnerEmail === state.user.email) {
+    return (
+      <StyledGroupButtonBox>
+        <StyledButtonGroup
+          variant="contained"
+          aria-label="Split button dropdown"
+        >
+          <StyledButton onClick={handlePrimaryClick}>
+            {options[selectedIndex]}
+          </StyledButton>
+          <StyledIconButton
+            size="small"
+            aria-controls={anchorEl ? "menu" : undefined}
+            aria-haspopup="true"
+            onClick={handleMenuClick}
+          >
+            <ArrowDropDownIcon />
+          </StyledIconButton>
+        </StyledButtonGroup>
+        <StyledMenu
+          id="menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {options.map((option, index) => (
+            <StyledMenuItem
+              key={option}
+              selected={index === selectedIndex}
+              onClick={() => handleMenuItemClick(index)}
+            >
+              {option}
+            </StyledMenuItem>
+          ))}
+        </StyledMenu>
+        {isPopUpModalOpen && (
+          <PopUpModal
+            data={data}
+            isPopUpModalOpen={isPopUpModalOpen}
+            setIsPopUpModalOpen={setIsPopUpModalOpen}
+            buttonTitle={buttonTitle}
+            amount={amount}
+          />
+        )}
+      </StyledGroupButtonBox>
+    );
+  }
+};
+
+const userOptions = ["Edit Bug", "Delete Bug"];
+const HunterButtonGroupDropdown = ({ data }) => {
+  const { state } = useAuth();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isPopUpModalOpen, setIsPopUpModalOpen] = useState(true);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuItemClick = (index) => {
+    setSelectedIndex(index);
+    setAnchorEl(null);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handlePrimaryClick = () => {
+    // if (options[selectedIndex] === "Edit Bug") {
+    //   navigator(`/bounty/edit/${id}`);
+    // }
+    if (options[selectedIndex] === "Delete Bug") {
+      setIsPopUpModalOpen(true);
+    }
+  };
+
+  if (data?.is_accepted && data?.status === "rejected") {
     return <></>;
   }
 
-  return (
-    <StyledGroupButtonBox>
-      <StyledButtonGroup variant="contained" aria-label="Split button dropdown">
-        <StyledButton onClick={handlePrimaryClick}>
-          {options[selectedIndex]}
-        </StyledButton>
-        <StyledIconButton
-          size="small"
-          aria-controls={anchorEl ? "menu" : undefined}
-          aria-haspopup="true"
-          onClick={handleMenuClick}
+  if (data?.submitted_by?.email === state.user.email) {
+    return (
+      <StyledGroupButtonBox>
+        <StyledButtonGroup
+          variant="contained"
+          aria-label="Split button dropdown"
         >
-          <ArrowDropDownIcon />
-        </StyledIconButton>
-      </StyledButtonGroup>
-      <StyledMenu
-        id="menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {options.map((option, index) => (
-          <StyledMenuItem
-            key={option}
-            selected={index === selectedIndex}
-            onClick={() => handleMenuItemClick(index)}
+          <StyledButton onClick={handlePrimaryClick}>
+            {userOptions[selectedIndex]}
+          </StyledButton>
+          <StyledIconButton
+            size="small"
+            aria-controls={anchorEl ? "menu" : undefined}
+            aria-haspopup="true"
+            onClick={handleMenuClick}
           >
-            {option}
-          </StyledMenuItem>
-        ))}
-      </StyledMenu>
-
-      <PopUpModal
-        data={data}
-        isPopUpModalOpen={isPopUpModalOpen}
-        setIsPopUpModalOpen={setIsPopUpModalOpen}
-        buttonTitle={buttonTitle}
-        amount={amount}
-      />
-    </StyledGroupButtonBox>
-  );
+            <ArrowDropDownIcon />
+          </StyledIconButton>
+        </StyledButtonGroup>
+        <StyledMenu
+          id="menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {userOptions.map((option, index) => (
+            <StyledMenuItem
+              key={option}
+              selected={index === selectedIndex}
+              onClick={() => handleMenuItemClick(index)}
+            >
+              {option}
+            </StyledMenuItem>
+          ))}
+        </StyledMenu>
+        {isPopUpModalOpen && (
+          <HunterPopUpModal
+            data={data}
+            isPopUpModalOpen={isPopUpModalOpen}
+            setIsPopUpModalOpen={setIsPopUpModalOpen}
+          />
+        )}
+      </StyledGroupButtonBox>
+    );
+  }
 };
 
 const CommentSection = ({ comments }) => {
@@ -615,6 +699,105 @@ const PopUpModal = ({
                 className={`${action}`}
               >
                 {action} Bug
+              </StyledPopUpButton>
+            </StyledBottomBox>
+          </StyledPopUpBox>
+        </StyledModelBox>
+      </StyledModal>
+    </>
+  );
+};
+
+const HunterPopUpModal = ({ data, isPopUpModalOpen, setIsPopUpModalOpen }) => {
+  const navigate = useNavigate();
+  const { id, bountyId } = useParams();
+
+  const { isLoading, error, mutate } = useDeleteBug(id, () => {
+    navigate(`/bounty/${bountyId}`);
+  });
+
+  const handleClose = () => {
+    setIsPopUpModalOpen(false);
+  };
+
+  const handleClick = () => {
+    mutate();
+  };
+
+  return (
+    <>
+      {isLoading && <BugLoader />}
+      {error && (
+        <BugSnackbar
+          status="error"
+          snackbarMessage={"Something is wrong. Please try again."}
+        />
+      )}
+      <StyledModal open={isPopUpModalOpen}>
+        <StyledModelBox>
+          <StyledTypography variant="h2">
+            Are you sure to delete this solution?
+          </StyledTypography>
+
+          <StyledPopUpBox>
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Bug Title :</StyledTypography>
+                <StyledPopUpTypography className="capitalize" variant="h3">
+                  {data?.title}
+                </StyledPopUpTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Submitted By :</StyledTypography>
+                <StyledPopUpTypography variant="h3">
+                  {data?.submitted_by?.name}
+                </StyledPopUpTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Submitted At :</StyledTypography>
+                <StyledTypography variant="h3">
+                  <span>
+                    {format(new Date(data?.submitted_at), "yyyy-MM-dd HH:mm")}
+                  </span>
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBugSummerySection>
+              <StyledBugPendingBox>
+                <StyledTypography variant="h3">Expiry Date :</StyledTypography>
+                <StyledTypography variant="h3">
+                  <span>
+                    {format(
+                      new Date(data?.related_bounty?.expiry_date),
+                      "yyyy-MM-dd HH:mm"
+                    )}
+                  </span>
+                </StyledTypography>
+              </StyledBugPendingBox>
+            </StyledBugSummerySection>
+
+            <StyledBottomBox>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                onClick={handleClose}
+                variant="outlined"
+              >
+                Cancel
+              </StyledPopUpButton>
+              <StyledPopUpButton
+                disabled={isLoading ? true : false}
+                onClick={handleClick}
+                variant="contained"
+                className="Reject"
+              >
+                Delete Bug
               </StyledPopUpButton>
             </StyledBottomBox>
           </StyledPopUpBox>
