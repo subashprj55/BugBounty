@@ -222,3 +222,13 @@ export const StyledFormControlLabel = styled(FormControlLabel)``;
 export const StyledRadio = styled(Radio)`
   color: black !important;
 `;
+
+///edit
+
+export const StyledErrorBox = styled(Box)`
+  min-height: 90vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
