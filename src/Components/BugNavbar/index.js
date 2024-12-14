@@ -136,9 +136,16 @@ const Profile = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const { mutate, isLoading, error } = useLogout((data) => {
-    navigate("/");
-  });
+  const { mutate, isLoading, error } = useLogout(
+    (data) => {
+      logout();
+      navigate("/");
+    },
+    (error) => {
+      logout();
+      navigate("/");
+    }
+  );
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -149,7 +156,6 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    logout();
     mutate();
   };
 

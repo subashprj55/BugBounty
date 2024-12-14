@@ -1,13 +1,16 @@
 import { useMutation } from "react-query";
 import { axiosAuth } from "Utils/axios";
 
-const useLogout = (onSuccess) => {
+const useLogout = (onSuccess, onError) => {
   const { mutate, error, isLoading } = useMutation({
     mutationFn: () => {
       return logout();
     },
     onSuccess: (data) => {
       onSuccess(data);
+    },
+    onError: (error) => {
+      onError(error);
     },
   });
 
