@@ -4,8 +4,10 @@ import BugNavContainer from "Components/BugNavContainer";
 import BugSkeleton from "Components/BugSkeleton";
 import BugSnackbar from "Components/BugSnackbar";
 import useBounties from "Hooks/useBounties";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "Utils/authProvider";
+import { filterData } from "Utils/filterData";
 import {
   StyledActiveBountiesStack,
   StyledBox,
@@ -24,20 +26,37 @@ import {
   StyledRadioGroup,
   StyledRightBox,
   StyledSelectBox,
-  StyledSlider,
-  StyledSliderBox,
+  StyledSkeleton,
   StyledTitleBox,
   StyledTypography,
   StyleFormGroup,
 } from "./style";
 
 const BugActiveBounties = () => {
+  const [deadlineValue, setDeadlineValue] = useState("All");
+  const [selectedSeverities, setSelectedSeverities] = useState([]);
+  const { data, isLoading, error } = useBounties();
+  let filteredData;
+  if (data) {
+    filteredData = filterData(data, deadlineValue, selectedSeverities);
+  }
   return (
     <>
       <BugNavContainer>
         <StyledActiveBountiesStack>
-          <FilterSection />
-          <ActiveBounties />
+          <FilterSection
+            deadlineValue={deadlineValue}
+            setDeadlineValue={setDeadlineValue}
+            selectedValues={selectedSeverities}
+            setSelectedValues={setSelectedSeverities}
+            isLoading={isLoading}
+            error={error}
+          />
+          <ActiveBounties
+            data={filteredData}
+            isLoading={isLoading}
+            error={error}
+          />
         </StyledActiveBountiesStack>
       </BugNavContainer>
     </>
@@ -46,7 +65,44 @@ const BugActiveBounties = () => {
 
 export default BugActiveBounties;
 
-const FilterSection = () => {
+const FilterSection = ({
+  deadlineValue,
+  setDeadlineValue,
+  selectedValues,
+  setSelectedValues,
+  isLoading,
+  error,
+}) => {
+  const handleChange = (event) => {
+    setDeadlineValue(event.target.value);
+  };
+
+  const handleCheckBoxChange = (event) => {
+    const { name, checked } = event.target;
+
+    if (checked) {
+      setSelectedValues((prev) => [...prev, name]);
+    } else {
+      setSelectedValues((prev) => prev.filter((value) => value !== name));
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <StyledFilterBox>
+        <StyledSkeleton variant="rounded" height={300} />
+      </StyledFilterBox>
+    );
+  }
+
+  if (error) {
+    return (
+      <StyledFilterBox>
+        <StyledSkeleton animation={false} variant="rounded" height={300} />
+      </StyledFilterBox>
+    );
+  }
+
   return (
     <StyledFilterBox>
       <BugBox>
@@ -61,19 +117,33 @@ const FilterSection = () => {
               <StyledTypography variant="h3">Severity</StyledTypography>
               <StyleFormGroup>
                 <StyledFormControlLabel
-                  control={<StyledCheckbox />}
+                  control={
+                    <StyledCheckbox
+                      name="critical"
+                      checked={selectedValues.includes("critical")}
+                      onChange={handleCheckBoxChange}
+                    />
+                  }
                   label="Critical"
                 />
                 <StyledFormControlLabel
-                  control={<StyledCheckbox />}
-                  label="High"
-                />
-                <StyledFormControlLabel
-                  control={<StyledCheckbox />}
+                  control={
+                    <StyledCheckbox
+                      name="medium"
+                      checked={selectedValues.includes("medium")}
+                      onChange={handleCheckBoxChange}
+                    />
+                  }
                   label="Medium"
                 />
                 <StyledFormControlLabel
-                  control={<StyledCheckbox />}
+                  control={
+                    <StyledCheckbox
+                      name="low"
+                      checked={selectedValues.includes("low")}
+                      onChange={handleCheckBoxChange}
+                    />
+                  }
                   label="Low"
                 />
               </StyleFormGroup>
@@ -82,59 +152,33 @@ const FilterSection = () => {
             <StyledBox>
               <StyledTypography variant="h3">Deadline</StyledTypography>
               <StyledFormControl>
-                <StyledRadioGroup name="row-radio-buttons-group">
+                <StyledRadioGroup
+                  value={deadlineValue}
+                  onChange={handleChange}
+                  name="row-radio-buttons-group"
+                >
                   <StyledFormControlLabel
-                    value="all"
+                    value="All"
                     control={<StyledRadio />}
                     label="All"
                   />
                   <StyledFormControlLabel
-                    value="expiring soon"
+                    value="Expiring Soon"
                     control={<StyledRadio />}
                     label="Expiring Soon"
                   />
                   <StyledFormControlLabel
-                    value="less than 7 days"
+                    value="Less than 7 Days"
                     control={<StyledRadio />}
                     label="Less than 7 Days"
                   />
                   <StyledFormControlLabel
-                    value="less than 30 days"
+                    value="Less than 30 Days"
                     control={<StyledRadio />}
                     label="Less than 30 Days"
                   />
                 </StyledRadioGroup>
               </StyledFormControl>
-            </StyledBox>
-
-            {/* <StyledBox>
-              <StyledTypography variant="h3">Reward Range</StyledTypography>
-              <StyledSliderBox>
-                <StyledSlider aria-label="Default" valueLabelDisplay="auto" />
-              </StyledSliderBox>
-
-              <StyledButtonBox>
-                <StyledButton variant="outlined">Min</StyledButton>
-                <StyledButton variant="outlined">Max</StyledButton>
-              </StyledButtonBox>
-            </StyledBox> */}
-
-            <StyledBox>
-              <StyledTypography variant="h3">Category</StyledTypography>
-              <StyleFormGroup>
-                <StyledFormControlLabel
-                  control={<StyledCheckbox />}
-                  label="Web Applications"
-                />
-                <StyledFormControlLabel
-                  control={<StyledCheckbox />}
-                  label="Mobile Applications"
-                />
-                <StyledFormControlLabel
-                  control={<StyledCheckbox />}
-                  label="API"
-                />
-              </StyleFormGroup>
             </StyledBox>
           </StyledOptionsBox>
         </StyledFilterStack>
@@ -143,20 +187,15 @@ const FilterSection = () => {
   );
 };
 
-const ActiveBounties = () => {
-  const { data, isLoading, error } = useBounties();
-  const {
-    state: {
-      user: { role },
-    },
-  } = useAuth();
-
+const ActiveBounties = ({ data, isLoading, error }) => {
+  const { state } = useAuth();
   const navigate = useNavigate();
 
   const renderContent = () => {
     if (isLoading) {
       return <>{Array(6).fill(<BugSkeleton />)}</>;
     }
+
     if (error) {
       return (
         <>
@@ -168,6 +207,7 @@ const ActiveBounties = () => {
         </>
       );
     }
+
     if (!data) {
       return (
         <StyledErrorBox>
@@ -210,7 +250,7 @@ const ActiveBounties = () => {
     <StyledRightBox>
       <StyledTitleBox>
         <StyledTypography variant="h1">Active Bounties </StyledTypography>
-        {role === "client" && (
+        {state?.user?.role === "client" && (
           <StyledSelectBox>
             <StyledButton
               variant="contained"

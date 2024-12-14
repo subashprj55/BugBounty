@@ -7,6 +7,7 @@ import {
   FormGroup,
   Radio,
   RadioGroup,
+  Skeleton,
   Slider,
   Stack,
   Typography,
@@ -31,6 +32,10 @@ export const StyledFilterBox = styled(Box)`
   @media (max-width: 655px) {
     width: 100%;
   }
+`;
+
+export const StyledSkeleton = styled(Skeleton)`
+  width: 100%;
 `;
 
 export const StyledFilterStack = styled(Stack)`
