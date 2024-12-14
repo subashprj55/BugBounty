@@ -1,9 +1,7 @@
 import BugBox from "Components/BugBox";
 import BugNavContainer from "Components/BugNavContainer";
-import BugSelectField from "Components/BugSelectFiled";
 import useLeaderBoard from "Hooks/useLeaderBoard";
 import React from "react";
-import { leaderboardData } from "./data";
 import {
   StyledAvatar,
   StyledBoardAvatar,
@@ -11,8 +9,6 @@ import {
   StyledButton,
   StyledDashboardHeaderBox,
   StyledDashboardSection,
-  StyledHeaderBox,
-  StyledHeaderFieldsBox,
   StyledHeaderSection,
   StyledItem,
   StyledLeaderboardItems,
@@ -173,7 +169,7 @@ const DashboardSection = ({ data, isLoading, error }) => {
                   {Math.floor(net_reward)} tokens
                 </StyledProfileTypography>
                 <StyledButton
-                  onClick={() => navigate(`/hunter/profile/${id}`)}
+                  onClick={() => navigate(`/hunter/${id}/profile`)}
                   variant="contained"
                 >
                   View Profile

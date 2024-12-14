@@ -1,6 +1,7 @@
 import BugNavContainer from "Components/BugNavContainer";
 import React from "react";
 import {
+  BadgeSkeleton,
   StyledAvatar,
   StyledBadgesBox,
   StyledBadgesChip,
@@ -12,11 +13,12 @@ import {
   StyledDetails,
   StyledDiv,
   StyledHeaderBox,
+  StyledLoaderBox,
   StyledProfileBox,
   StyledProfileHead,
-  StyledProfilePage,
-  StyledRecentActivityBox,
+  StyledProfilePageBox,
   StyledRecentActivitySection,
+  StyledSkeleton,
   StyledStack,
   StyledTypography,
 } from "./style";
@@ -26,15 +28,20 @@ import CupIcon from "Images/cup.png";
 import Shield from "Images/shield.png";
 import Mark from "Images/mark.png";
 import BugBox from "Components/BugBox";
+import { useNavigate, useParams } from "react-router-dom";
+import useHunterData from "Hooks/useHunterData";
 
 const BugProfile = () => {
+  const { id } = useParams();
+  const { data, isLoading, error } = useHunterData(id);
+
   return (
     <>
       <BugNavContainer>
-        <StyledProfilePage>
-          <TitleSection />
-          <BadgesSection />
-        </StyledProfilePage>
+        <StyledProfilePageBox>
+          <TitleSection data={data} isLoading={isLoading} error={error} />
+          <BadgesSection isLoading={isLoading} error={error} />
+        </StyledProfilePageBox>
       </BugNavContainer>
     </>
   );
@@ -42,40 +49,62 @@ const BugProfile = () => {
 
 export default BugProfile;
 
-const TitleSection = () => {
-  return (
-    <>
-      <StyledHeaderBox>
-        <StyledTypography variant="h1">Hunter Profile</StyledTypography>
-      </StyledHeaderBox>
+const TitleSection = ({ data, isLoading, error }) => {
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <>
+          <StyledProfileBox>
+            <StyledSkeleton variant="rounded" />
+          </StyledProfileBox>
+          <StyledLoaderBox>
+            <StyledSkeleton variant="rounded" />
+          </StyledLoaderBox>
+        </>
+      );
+    }
 
-      <StyledStack>
+    if (error) {
+      return (
+        <>
+          <StyledProfileBox>
+            <StyledSkeleton animation={false} variant="rounded" />
+          </StyledProfileBox>
+          <StyledLoaderBox>
+            <StyledSkeleton animation={false} variant="rounded" />
+          </StyledLoaderBox>
+        </>
+      );
+    }
+
+    return (
+      <>
         <BugBox>
           <StyledProfileBox>
             <StyledProfileHead>
               <StyledDiv>
                 <StyledAvatar src={profileAvatar} />
                 <StyledTypography variant="h2" className="font">
-                  Alice Wonderhack
+                  {data?.name}
                 </StyledTypography>
               </StyledDiv>
             </StyledProfileHead>
 
             <StyledProfileHead>
-              <StyledChip label="Rank #1" />
+              <StyledChip label={`Rank #${data?.rank}`} />
             </StyledProfileHead>
 
             <StyledDetails className="space">
               <StyledDiv>
                 <StyledTypography variant="h2" className="font font-roboto">
-                  5000
+                  {Math.floor(data?.total_earned)}
                 </StyledTypography>
                 <StyledTypography variant="h6">XLOP Earned</StyledTypography>
               </StyledDiv>
 
               <StyledDiv>
                 <StyledTypography variant="h2" className="font font-roboto">
-                  42
+                  {data?.total_bugs_reported}
                 </StyledTypography>
                 <StyledTypography variant="h6">Bug Reported</StyledTypography>
               </StyledDiv>
@@ -84,7 +113,7 @@ const TitleSection = () => {
             <StyledDetails>
               <StyledDiv>
                 <StyledTypography variant="h2" className="font font-roboto">
-                  95%
+                  {Math.floor(data?.success_rate)}%
                 </StyledTypography>
                 <StyledTypography variant="h6">Success Rate</StyledTypography>
               </StyledDiv>
@@ -104,14 +133,32 @@ const TitleSection = () => {
           <StyledTypography variant="h6">
             Latest bug reports and rewards
           </StyledTypography>
-          <BugTable />
+          <BugTable data={data?.recent_activities} />
         </StyledRecentActivitySection>
-      </StyledStack>
+      </>
+    );
+  };
+  return (
+    <>
+      <StyledHeaderBox>
+        <StyledTypography variant="h1">Hunter Profile</StyledTypography>
+      </StyledHeaderBox>
+
+      <StyledStack>{renderContent()}</StyledStack>
     </>
   );
 };
 
-const BadgesSection = () => {
+const BadgesSection = ({ isLoading, error }) => {
+  const navigate = useNavigate();
+  if (isLoading) {
+    return <BadgeSkeleton variant="rounded" height={150} />;
+  }
+
+  if (error) {
+    return <BadgeSkeleton animation={false} variant="rounded" height={150} />;
+  }
+
   return (
     <>
       <StyledBadgesSection>
@@ -141,7 +188,12 @@ const BadgesSection = () => {
       </StyledBadgesSection>
 
       <StyledButtonBox>
-        <StyledButton variant="contained">Back to Leader Board</StyledButton>
+        <StyledButton
+          onClick={() => navigate("/leaderboard")}
+          variant="contained"
+        >
+          Back to Leader Board
+        </StyledButton>
       </StyledButtonBox>
     </>
   );

@@ -5,17 +5,16 @@ const {
   Avatar,
   Chip,
   Button,
+  Skeleton,
 } = require("@mui/material");
 const { styled } = require("styled-components");
 
-export const StyledProfilePage = styled(Stack)`
-  width: 100wv;
-  padding-left: 100px;
+export const StyledProfilePageBox = styled(Box)`
+  margin: 0 5%;
 `;
 
 export const StyledHeaderBox = styled(Box)`
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin: 50px 0 20px;
 `;
 
 export const StyledProfileHead = styled(Box)`
@@ -39,6 +38,12 @@ export const StyledProfileBox = styled(Box)`
   width: 31%;
   min-width: 300px;
   padding: 30px 20px;
+  height: 330px;
+`;
+
+export const StyledSkeleton = styled(Skeleton)`
+  width: 100%;
+  height: 100% !important;
 `;
 
 export const StyledAvatar = styled(Avatar)`
@@ -68,28 +73,48 @@ export const StyledDetails = styled(Stack)`
   }
 `;
 
+export const StyledLoaderBox = styled(Box)`
+  padding: 30px 20px;
+  width: 65%;
+  height: 330px;
+  @media (max-width: 1200px) {
+    width: 55%;
+  }
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+`;
+
 export const StyledRecentActivitySection = styled(Box)`
   border: 1px solid #e4e4e7;
   border-radius: 8px;
   background-color: white;
-  max-width: 54%;
-  width: 100%;
   border-radius: 6px;
   padding: 30px 20px;
+  overflow: hidden;
+  width: 65%;
+  height: 330px;
+  @media (max-width: 1200px) {
+    width: 55%;
+  }
+  @media (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 export const StyledStack = styled(Stack)`
   flex-direction: row !important;
   margin-bottom: 40px;
-  flex-wrap: wrap;
   gap: 40px;
-  @media (max-width: 985px) {
-    justify-content: center;
+  justify-content: space-between;
+  align-items: end;
+  @media (max-width: 900px) {
+    flex-wrap: wrap;
   }
 `;
 
 export const StyledBadgesSection = styled(Stack)`
-  width: 87%;
+  width: 100%;
 `;
 
 export const StyledBadgesStack = styled(Stack)`
@@ -100,9 +125,10 @@ export const StyledBadgesBox = styled(Box)``;
 
 export const StyledBadgesChip = styled(Chip)`
   background-color: #f4f4f5 !important;
-  padding: 15px !important;
+  padding: 10px 15px !important;
   margin: 20px;
   margin-left: 0;
+  height: auto !important;
   img {
     width: 20px;
     height: 20px;
@@ -117,3 +143,8 @@ export const StyledButtonBox = styled(Box)`
 `;
 
 export const StyledButton = styled(Button)``;
+
+export const BadgeSkeleton = styled(Skeleton)`
+  width: 100%;
+  margin-bottom: 50px;
+`;
