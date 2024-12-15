@@ -158,7 +158,7 @@ export const StyledButtonGroup = styled(ButtonGroup)``;
 
 export const StyledButton = styled(Button)`
   border-radius: 0px !important;
-  width: 140px !important;
+  width: 150px !important;
   border-right: 1px solid white !important;
 `;
 

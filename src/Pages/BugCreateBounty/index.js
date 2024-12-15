@@ -119,12 +119,12 @@ const CreateBugForm = () => {
           <StyledSubmitFormBox>
             <StyledHeaderBox>
               <StyledTitleTypography variant="h1">
-                Create a new Bounty
+                Create a new Bug
               </StyledTitleTypography>
             </StyledHeaderBox>
 
             <StyledInputBox>
-              <StyledTypography variant="h3">Bounty Title</StyledTypography>
+              <StyledTypography variant="h3">Bug Title</StyledTypography>
               <StyledInputField
                 name="bugTitle"
                 placeholder="Enter a concise title for the bounty"
@@ -319,7 +319,7 @@ const CreateBugForm = () => {
                   className="width"
                   type={"number"}
                   name="rewarded_amount"
-                  placeholder="Enter reward amount"
+                  placeholder="Enter reward xlop tokens"
                   {...register("rewarded_amount", {
                     required: "Bounty title is required",
                   })}
@@ -329,7 +329,6 @@ const CreateBugForm = () => {
                     {errors.rewarded_amount.message}
                   </StyledErrorMessage>
                 )}
-                <StyleSpan>$</StyleSpan>
               </StyleAmountBox>
             </StyledInputBox>
 
@@ -442,12 +441,12 @@ const EditBugForm = ({ id }) => {
           <StyledSubmitFormBox>
             <StyledHeaderBox>
               <StyledTitleTypography variant="h1">
-                Edit Bounty
+                Edit Bug
               </StyledTitleTypography>
             </StyledHeaderBox>
 
             <StyledInputBox>
-              <StyledTypography variant="h3">Bounty Title</StyledTypography>
+              <StyledTypography variant="h3">Bug Title</StyledTypography>
               <StyledInputField
                 name="bugTitle"
                 placeholder="Enter a concise title for the bounty"
@@ -642,12 +641,11 @@ const EditBugForm = ({ id }) => {
                   className="width"
                   type={"number"}
                   name="rewarded_amount"
-                  placeholder="Enter reward amount"
+                  placeholder="Enter reward xlop tokens"
                   {...register("rewarded_amount", {
                     required: "Bounty title is required",
                   })}
                 />
-                <StyleSpan>$</StyleSpan>
               </StyleAmountBox>
               {errors.rewarded_amount && (
                 <StyledErrorMessage>
@@ -658,7 +656,7 @@ const EditBugForm = ({ id }) => {
 
             <StyledButtonBox>
               <StyledButton variant="contained" type="submit">
-                Edit Bug
+                Save Changes
               </StyledButton>
             </StyledButtonBox>
           </StyledSubmitFormBox>

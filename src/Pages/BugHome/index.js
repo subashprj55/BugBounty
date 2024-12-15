@@ -214,7 +214,7 @@ const HowItWorksSection = () => {
             <br />
 
             <StyledItemsButton
-              onClick={() => navigate("/activeBounties")}
+              onClick={() => navigate("/bounties")}
               variant="contained"
             >
               Explore Bounties
@@ -227,7 +227,7 @@ const HowItWorksSection = () => {
             <StyledHowItWorkItem className="space-button">
               <img src={bug} alt="bug icon" />
               <StyledHomeTypography variant="h2">
-                Submit Bugs
+                Create Bugs
               </StyledHomeTypography>
             </StyledHowItWorkItem>
             <StyledHowItWorksTypography variant="footer" className="space">
@@ -237,7 +237,7 @@ const HowItWorksSection = () => {
             <br />
 
             <StyledItemsButton
-              onClick={() => navigate("/bugSubmit/1")}
+              onClick={() => navigate("/bounty/create")}
               variant="contained"
             >
               Submit Bugs
