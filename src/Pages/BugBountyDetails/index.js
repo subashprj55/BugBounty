@@ -93,6 +93,7 @@ const BugBounty = () => {
           createdAt={data?.created_at}
           expireDate={data?.expiry_date}
           rewarded_amount={data?.rewarded_amount}
+          bugs_count={data?.bugs_count}
         />
         <DescriptionSection
           summary={data?.description}
@@ -128,6 +129,7 @@ const DetailsSection = ({
   expireDate,
   createdAt,
   rewarded_amount,
+  bugs_count,
 }) => {
   return (
     <StyledStack>
@@ -160,11 +162,11 @@ const DetailsSection = ({
                 </StyledDetailRow>
                 <StyledDetailRow>
                   <StyledTypography variant="footer">
-                    Expire In :
+                    Created At :
                   </StyledTypography>
                   <StyledTypography variant="h3">
                     <span>
-                      {format(new Date(expireDate), "yyyy-MM-dd HH:mm")}
+                      {format(new Date(createdAt), "yyyy-MM-dd HH:mm")}
                     </span>
                   </StyledTypography>
                 </StyledDetailRow>
@@ -173,7 +175,7 @@ const DetailsSection = ({
                     Reward Amount :
                   </StyledDetailsTypography>
                   <StyledPriorityTypography variant="h3">
-                    ${Math.floor(rewarded_amount)}
+                    {Math.floor(rewarded_amount)} tokens
                   </StyledPriorityTypography>
                 </StyledDetailRow>
               </StyledDetailsItems>
@@ -197,13 +199,21 @@ const DetailsSection = ({
                 </StyledDetailRow>
                 <StyledDetailRow>
                   <StyledTypography variant="footer">
-                    Created At :
+                    Expire In :
                   </StyledTypography>
                   <StyledTypography variant="h3">
                     <span>
-                      {format(new Date(createdAt), "yyyy-MM-dd HH:mm")}
+                      {format(new Date(expireDate), "yyyy-MM-dd HH:mm")}
                     </span>
                   </StyledTypography>
+                </StyledDetailRow>
+                <StyledDetailRow>
+                  <StyledDetailsTypography variant="footer">
+                    Total Solutions :
+                  </StyledDetailsTypography>
+                  <StyledDetailsTypography variant="h3">
+                    {bugs_count}
+                  </StyledDetailsTypography>
                 </StyledDetailRow>
               </StyledDetailsItems>
             </StyledContainerBox>
@@ -410,7 +420,7 @@ const PopUpModal = ({ data, isPopUpModalOpen, setIsPopUpModalOpen }) => {
                   Reward Amount :
                 </StyledTypography>
                 <StyledPopUpTypography className="capitalize" variant="h3">
-                  ${data?.rewarded_amount}
+                  {data?.rewarded_amount} tokens
                 </StyledPopUpTypography>
               </StyledBugPendingBox>
             </StyledBugSummerySection>
@@ -464,7 +474,7 @@ const BugSection = ({ authorEmail, bugs }) => {
     <StyledStack>
       <StyledBugSection>
         <StyledTypography variant="h1" className="capitalize">
-          Bug Solutions
+          Solutions
         </StyledTypography>
 
         {newBugs.map(

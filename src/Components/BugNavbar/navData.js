@@ -2,7 +2,7 @@ export const ClientNavLinks = [
   {
     id: 0,
     linkAddress: "/bounty/create",
-    name: "Create Bounty",
+    name: "Create Bug",
   },
 ];
 

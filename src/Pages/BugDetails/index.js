@@ -191,9 +191,7 @@ const DetailsSection = ({ submitted_at, created_by, status }) => {
 
           <StyledBugSummerySection>
             <StyledBugPendingBox>
-              <StyledTypography variant="h3">
-                Bounty Created By :
-              </StyledTypography>
+              <StyledTypography variant="h3">Bug Created By :</StyledTypography>
               <StyledTypography className="capitalize" variant="h3">
                 {created_by?.name}
               </StyledTypography>
@@ -309,7 +307,9 @@ const BalanceSection = ({ sender, receiver, amount }) => {
             <StyledBugSummerySection>
               <StyledBugPendingBox>
                 <StyledTypography variant="h3">Amount</StyledTypography>
-                <StyledTypography variant="h3">${amount}</StyledTypography>
+                <StyledTypography variant="h3">
+                  {amount} tokens
+                </StyledTypography>
               </StyledBugPendingBox>
             </StyledBugSummerySection>
           </StyledDetailsBox>
@@ -319,7 +319,7 @@ const BalanceSection = ({ sender, receiver, amount }) => {
   );
 };
 
-const options = ["Approve Bug", "Reject Bug"];
+const options = ["Approve", "Reject"];
 const ButtonGroupDropdown = ({ bountyOwnerEmail, data, amount }) => {
   const { state } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -424,7 +424,7 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail, data, amount }) => {
   }
 };
 
-const userOptions = ["Edit Bug", "Delete Bug"];
+const userOptions = ["Edit Solution", "Delete Solution"];
 const HunterButtonGroupDropdown = ({ data }) => {
   const { id, bountyId } = useParams();
   const { state } = useAuth();
@@ -447,10 +447,10 @@ const HunterButtonGroupDropdown = ({ data }) => {
   };
 
   const handlePrimaryClick = () => {
-    if (userOptions[selectedIndex] === "Edit Bug") {
+    if (userOptions[selectedIndex] === "Edit Solution") {
       navigate(`/bounty/${bountyId}/bug/edit/${id}`);
     }
-    if (userOptions[selectedIndex] === "Delete Bug") {
+    if (userOptions[selectedIndex] === "Delete Solution") {
       setIsPopUpModalOpen(true);
     }
   };
@@ -611,10 +611,9 @@ const PopUpModal = ({
     setIsPopUpModalOpen(false);
   };
 
-  const action = buttonTitle.split(" ")[0];
   const handleClick = () => {
     let newAction;
-    if (action === "Approve") {
+    if (buttonTitle === "Approve") {
       newAction = "Accepted";
     } else {
       newAction = "Rejected";
@@ -639,7 +638,7 @@ const PopUpModal = ({
         <StyledModelBox>
           <StyledTypography variant="h2">
             {`
-            Are you sure you want to ${action} this bug report? This action cannot
+            Are you sure you want to ${buttonTitle} this report? This action cannot
             be undone.`}
           </StyledTypography>
 
@@ -698,9 +697,9 @@ const PopUpModal = ({
                 disabled={isLoading ? true : false}
                 onClick={handleClick}
                 variant="contained"
-                className={`${action}`}
+                className={`${buttonTitle}`}
               >
-                {action} Bug
+                {buttonTitle} Solution
               </StyledPopUpButton>
             </StyledBottomBox>
           </StyledPopUpBox>
@@ -799,7 +798,7 @@ const HunterPopUpModal = ({ data, isPopUpModalOpen, setIsPopUpModalOpen }) => {
                 variant="contained"
                 className="Reject"
               >
-                Delete Bug
+                Delete solution
               </StyledPopUpButton>
             </StyledBottomBox>
           </StyledPopUpBox>

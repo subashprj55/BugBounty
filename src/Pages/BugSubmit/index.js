@@ -372,7 +372,7 @@ const EditBugForm = () => {
                 Cancel
               </StyledButton>
               <StyledButton type="submit" variant="contained">
-                Submit Bug
+                save changes
               </StyledButton>
             </StyledButtonBox>
           </StyledSubmitFormBox>

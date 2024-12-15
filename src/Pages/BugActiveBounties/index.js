@@ -249,14 +249,14 @@ const ActiveBounties = ({ data, isLoading, error }) => {
   return (
     <StyledRightBox>
       <StyledTitleBox>
-        <StyledTypography variant="h1">Active Bounties </StyledTypography>
+        <StyledTypography variant="h1">Active Bugs </StyledTypography>
         {state?.user?.role === "client" && (
           <StyledSelectBox>
             <StyledButton
               variant="contained"
               onClick={() => navigate("/bounty/create")}
             >
-              Create Bounty
+              Create Bug
             </StyledButton>
           </StyledSelectBox>
         )}
