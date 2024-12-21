@@ -100,7 +100,7 @@ const TopHunterSection = ({ topHunter, isLoading, error }) => {
                   {topHunter?.email}
                 </StyledProfileTypography>
                 <StyledProfileTypography variant="h2">
-                  {Math.floor(topHunter?.net_reward)} Tokens
+                  {topHunter?.solved_bugs} bug Solved
                 </StyledProfileTypography>
               </StyledProfileInfoBox>
             </StyledProfileBox>
@@ -148,7 +148,7 @@ const DashboardSection = ({ data, isLoading, error }) => {
 
     return (
       <StyledLeaderboardItems>
-        {data?.map(({ id, name, net_reward }, i) => {
+        {data?.map(({ id, name, solved_bugs }, i) => {
           return (
             <StyledItem key={id}>
               <StyledLeftBox>
@@ -166,7 +166,7 @@ const DashboardSection = ({ data, isLoading, error }) => {
               </StyledLeftBox>
               <StyledRightBox>
                 <StyledProfileTypography variant="footer" className="number">
-                  {Math.floor(net_reward)} tokens
+                  {solved_bugs} bug solved
                 </StyledProfileTypography>
                 <StyledButton
                   onClick={() => navigate(`/hunter/${id}/profile`)}

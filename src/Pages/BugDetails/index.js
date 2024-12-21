@@ -352,7 +352,7 @@ const ButtonGroupDropdown = ({ bountyOwnerEmail, data, amount }) => {
           <StyledMessageBox>
             <StyledSuccessIcon />
             <StyledTypography className="accept" variant="h2">
-              This bug is already approved
+              Solution is approved
             </StyledTypography>
           </StyledMessageBox>
         </StyledGroupButtonBox>

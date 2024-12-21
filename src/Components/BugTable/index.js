@@ -25,19 +25,16 @@ const BugTable = ({ data }) => {
         <StyledTableHead>
           <StyledTableRow>
             <StyledTableCell className="bold">Data</StyledTableCell>
-            <StyledTableCell className="bold">Amount</StyledTableCell>
             <StyledTableCell className="bold">Action</StyledTableCell>
           </StyledTableRow>
         </StyledTableHead>
         <StyledTableBody>
           {data?.map(({ date, reward, action }) => {
-            if (!reward) return <></>;
             return (
               <StyledTableRow key={date}>
                 <StyledTableCell>
                   {format(new Date(date), "yyyy-MM-dd")}
                 </StyledTableCell>
-                <StyledTableCell>{reward}</StyledTableCell>
                 <StyledTableCell>{action}</StyledTableCell>
               </StyledTableRow>
             );

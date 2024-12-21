@@ -97,9 +97,9 @@ const TitleSection = ({ data, isLoading, error }) => {
             <StyledDetails className="space">
               <StyledDiv>
                 <StyledTypography variant="h2" className="font font-roboto">
-                  {Math.floor(data?.total_earned)}
+                  {Math.floor(data?.solved_bugs)}
                 </StyledTypography>
-                <StyledTypography variant="h6">XLOP Earned</StyledTypography>
+                <StyledTypography variant="h6">Bug Solved</StyledTypography>
               </StyledDiv>
 
               <StyledDiv>
