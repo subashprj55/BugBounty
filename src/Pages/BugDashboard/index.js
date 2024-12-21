@@ -101,9 +101,9 @@ const BoxSection = ({ activeBounties, token, topHunter, isLoading, error }) => {
           </StyledFlexBox>
           <StyledFlexBox className="space">
             <StyledTypography variant="h1">{activeBounties}</StyledTypography>
-            <StyledLink to={"/bounties"}>
+            {/* <StyledLink to={"/bounties"}>
               <StyledTypography>View All -&gt;</StyledTypography>
-            </StyledLink>
+            </StyledLink> */}
           </StyledFlexBox>
         </StyledBox>
 
@@ -171,7 +171,7 @@ const RecentActivity = ({ recent_activities, isLoading, error }) => {
         return (
           <StyledActivityBox key={i}>
             <StyledDiv>
-              <StyledTypography className="font-size" variant="h2">
+              <StyledTypography className="font-size" variant="footer">
                 {item}
               </StyledTypography>
               <StyledTypography variant="h6">
