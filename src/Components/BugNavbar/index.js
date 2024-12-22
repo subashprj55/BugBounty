@@ -180,7 +180,7 @@ const Profile = () => {
         open={open}
         onClose={handleClose}
       >
-        <StyledMenuItem>
+        <StyledMenuItem onClick={() => navigate("/profile")}>
           <StyledTypography variant="h3">{state.user.name}</StyledTypography>
         </StyledMenuItem>
         <StyledNavDivider />

@@ -87,7 +87,6 @@ export const StyledLoaderBox = styled(Box)`
 
 export const StyledRecentActivitySection = styled(Box)`
   border: 1px solid #e4e4e7;
-  border-radius: 8px;
   background-color: white;
   border-radius: 6px;
   padding: 30px 20px;

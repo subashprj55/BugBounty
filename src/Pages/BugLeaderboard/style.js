@@ -96,6 +96,10 @@ export const StyledItem = styled(Stack)`
   margin-bottom: 30px;
   border-radius: 6px;
   box-shadow: 1px 5px 5px #f1f1f1;
+  &:hover {
+    box-shadow: 1px 10px 5px #f1f1f1;
+    cursor: pointer;
+  }
 `;
 
 export const StyledLeftBox = styled(Stack)`

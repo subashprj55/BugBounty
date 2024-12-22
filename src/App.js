@@ -16,6 +16,7 @@ import PrivateRoute from "Components/PrivateRoute";
 import BugBounty from "Pages/BugBountyDetails";
 import BugCreateBounty from "Pages/BugCreateBounty";
 import BugDetails from "Pages/BugDetails";
+import BugUserProfile from "Pages/BugUserProfile";
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
         <Route
           path="hunter/:id/profile"
           element={<PrivateRoute component={BugProfile} />}
+        />
+        <Route
+          path="profile"
+          element={<PrivateRoute component={BugUserProfile} />}
         />
         <Route
           path="transaction"

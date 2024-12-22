@@ -114,16 +114,16 @@ export const StyledStatusTypography = styled(Typography)`
   border-radius: 6px;
   color: white;
   &.open {
-    background-color: #39d2c0;
+    background-color: #978fdc;
   }
   &.pending {
-    background-color: #ff4162;
+    background-color: #f29339;
   }
   &.accepted {
     background-color: #39d2c0;
   }
   &.rejected {
-    background-color: red;
+    background-color: #ff4162;
   }
 `;
 

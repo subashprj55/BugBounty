@@ -108,7 +108,7 @@ export const HomePageNav = () => {
             open={open}
             onClose={handleClose}
           >
-            <StyledMenuItem>
+            <StyledMenuItem onClick={() => handleButtonClick("/profile")}>
               <StyledLinksTypography variant="h3">
                 {state.user.name}
               </StyledLinksTypography>
