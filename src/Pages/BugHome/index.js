@@ -43,7 +43,8 @@ import bug from "Images/bug.png";
 import reward from "Images/reward.png";
 import { Link, useNavigate } from "react-router-dom";
 import BugBox from "Components/BugBox";
-import profile from "Images/profile.png";
+import clientProfile from "Images/profile.png";
+import hunterProfile from "Images/profileAvatar.png";
 import { useAuth } from "Utils/authProvider";
 import useLogout from "Hooks/useLogout";
 import BugLoader from "Components/BugLoader";
@@ -98,7 +99,7 @@ export const HomePageNav = () => {
         <StyledLinksStack>
           <StyledAvatar
             alt="user"
-            src={profile}
+            src={state.user.role === "client" ? clientProfile : hunterProfile}
             id="basic-button"
             onClick={handleClick}
           />

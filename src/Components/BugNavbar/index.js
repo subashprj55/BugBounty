@@ -24,7 +24,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HunterNavLinks, ClientNavLinks, CommonNavLinks } from "./navData";
-import profile from "Images/profile.png";
+import clientProfile from "Images/profile.png";
+import hunterProfile from "Images/profileAvatar.png";
 import { useAuth } from "Utils/authProvider";
 import useLogout from "Hooks/useLogout";
 import BugLoader from "Components/BugLoader";
@@ -170,7 +171,7 @@ const Profile = () => {
       )}
       <StyledAvatar
         alt="user"
-        src={profile}
+        src={state.user.role === "client" ? clientProfile : hunterProfile}
         id="basic-button"
         onClick={handleClick}
       />
