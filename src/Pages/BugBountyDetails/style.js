@@ -114,7 +114,7 @@ export const StyledStatusTypography = styled(Typography)`
   border-radius: 6px;
   color: white;
   &.open {
-    background-color: #39d2c0;
+    background-color: #978fdc;
   }
   &.pending {
     background-color: #ff4162;
