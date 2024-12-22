@@ -1,4 +1,12 @@
-const { Box, Avatar, Typography, Stack, Button } = require("@mui/material");
+import PersonIcon from "@mui/icons-material/Person";
+import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice";
+import AccountBalanceWalletSharpIcon from "@mui/icons-material/AccountBalanceWalletSharp";
+import EngineeringSharpIcon from "@mui/icons-material/EngineeringSharp";
+import PestControlIcon from "@mui/icons-material/PestControl";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import HourglassTopIcon from "@mui/icons-material/HourglassTop";
+import GradeIcon from "@mui/icons-material/Grade";
+const { Box, Avatar, Typography, Stack } = require("@mui/material");
 const { styled } = require("styled-components");
 
 export const StyledUserProfilePage = styled(Box)`
@@ -6,19 +14,29 @@ export const StyledUserProfilePage = styled(Box)`
 `;
 
 export const StyledStack = styled(Stack)`
-  flex-direction: row !important;
   margin-bottom: 40px;
-  gap: 40px;
-  justify-content: space-between;
+`;
+
+export const StyledTopBox = styled(Box)`
+  padding: 30px;
+  display: flex;
   align-items: center;
+  gap: 15%;
   @media (max-width: 900px) {
     flex-wrap: wrap;
   }
 `;
 
+//
 export const StyledProfileHead = styled(Box)`
   display: flex;
   justify-content: center;
+`;
+
+export const StyledBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  gap: 20px;
 `;
 
 export const StyledDiv = styled.div`
@@ -27,15 +45,11 @@ export const StyledDiv = styled.div`
   align-items: center;
 `;
 
-export const StyledProfileBox = styled(Box)`
-  width: 31%;
-  min-width: 300px;
-  padding: 30px 20px;
-`;
+export const StyledProfileBox = styled(Box)``;
 
 export const StyledAvatar = styled(Avatar)`
-  width: 100px !important;
-  height: 100px !important;
+  width: 140px !important;
+  height: 140px !important;
   margin-bottom: 10px;
 `;
 
@@ -47,30 +61,45 @@ export const StyledTypography = styled(Typography)`
 `;
 
 //profile description
-export const StyledProfileDescription = styled(Box)`
-  border: 1px solid #e4e4e7;
-  background-color: white;
-  border-radius: 6px;
-  padding: 30px 20px;
-  overflow: hidden;
-  width: 55%;
-  height: auto;
-  @media (max-width: 1200px) {
-    width: 55%;
-  }
-  @media (max-width: 900px) {
-    width: 100%;
-  }
-`;
+export const StyledProfileDescription = styled(Box)``;
 
 export const StyledDescriptionInfoBox = styled(Box)`
   display: flex;
   align-items: center;
+  gap: 7px;
   margin-bottom: 5px;
 `;
 
-export const StyledTextBox = styled(Box)`
-  width: 230px;
+export const StyledPersonIcon = styled(PersonIcon)`
+  color: gray;
+`;
+
+export const StyledEmail = styled(LocalPostOfficeIcon)`
+  color: gray;
+`;
+
+export const StyledWallet = styled(AccountBalanceWalletSharpIcon)`
+  color: gray;
+`;
+
+export const StyledRole = styled(EngineeringSharpIcon)`
+  color: gray;
+`;
+
+export const StyledBug = styled(PestControlIcon)`
+  color: gray;
+`;
+
+export const StyledSuccess = styled(CheckCircleIcon)`
+  color: gray;
+`;
+
+export const StyledPending = styled(HourglassTopIcon)`
+  color: gray;
+`;
+
+export const StyledGradeIcon = styled(GradeIcon)`
+  color: gray;
 `;
 
 //closed bug section
@@ -91,13 +120,13 @@ export const StyledStatusTypography = styled(Typography)`
     background-color: #978fdc;
   }
   &.pending {
-    background-color: #ff4162;
+    background-color: #f29339;
   }
   &.accepted {
     background-color: #39d2c0;
   }
   &.rejected {
-    background-color: red;
+    background-color: #ff4162;
   }
 `;
 

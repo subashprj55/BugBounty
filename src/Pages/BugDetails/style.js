@@ -97,13 +97,13 @@ export const StyledStatusTypography = styled(Typography)`
   text-transform: capitalize;
   color: white;
   &.open {
-    background-color: #39d2c0;
+    background-color: #978fdc;
   }
   &.pending {
-    background-color: #ff4162;
+    background-color: #f29339;
   }
   &.rejected {
-    background-color: red;
+    background-color: #ff4162;
   }
   &.accepted {
     background-color: #39d2c0;

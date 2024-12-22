@@ -3,21 +3,31 @@ import BugNavContainer from "Components/BugNavContainer";
 import React from "react";
 import {
   StyledAvatar,
+  StyledBox,
+  StyledBug,
   StyledButtonBox,
   StyledClosedBugSection,
   StyledClosedStack,
   StyledDescriptionInfoBox,
   StyledDiv,
+  StyledEmail,
+  StyledGradeIcon,
   StyledInfoBox,
   StyledInfoList,
+  StyledPending,
+  StyledPersonIcon,
   StyledProfileBox,
   StyledProfileDescription,
   StyledProfileHead,
+  StyledRole,
   StyledStack,
   StyledStatusTypography,
+  StyledSuccess,
   StyledTextBox,
+  StyledTopBox,
   StyledTypography,
   StyledUserProfilePage,
+  StyledWallet,
 } from "./style";
 import hunterImage from "Images/profileAvatar.png";
 import { useAuth } from "Utils/authProvider";
@@ -57,60 +67,139 @@ const BugUserProfile = () => {
 
 export default BugUserProfile;
 
+// const HeaderSection = () => {
+//   const { state } = useAuth();
+//   return (
+//     <StyledStack>
+//       <BugBox>
+//         <StyledProfileBox>
+//           <StyledProfileHead>
+//             <StyledDiv>
+//               <StyledAvatar src={hunterImage} />
+//               <StyledTypography variant="h2">
+//                 {state.user.name}
+//               </StyledTypography>
+//               <StyledTypography variant="h6" className="font">
+//                 {state.user.email}
+//               </StyledTypography>
+//             </StyledDiv>
+//           </StyledProfileHead>
+//         </StyledProfileBox>
+//       </BugBox>
+
+//       <StyledProfileDescription>
+//         <StyledDescriptionInfoBox>
+//           <StyledTypography className="font" variant="h2">
+//             total Xloop tokens Earn :
+//           </StyledTypography>
+//           <StyledTypography variant="h3">11370</StyledTypography>
+//         </StyledDescriptionInfoBox>
+//         <StyledDescriptionInfoBox>
+//           <StyledTypography className="font" variant="h2">
+//             Remaining Balance :
+//           </StyledTypography>
+//           <StyledTypography variant="h3">1000</StyledTypography>
+//         </StyledDescriptionInfoBox>
+//         <StyledDescriptionInfoBox>
+//           <StyledTypography className="font" variant="h3">
+//             total solution submitted :
+//           </StyledTypography>
+//           <StyledTypography variant="h3">137</StyledTypography>
+//         </StyledDescriptionInfoBox>
+//         <StyledDescriptionInfoBox>
+//           <StyledTypography className="font" variant="h3">
+//             total Solution Approved :
+//           </StyledTypography>
+//           <StyledTypography variant="h3">104</StyledTypography>
+//         </StyledDescriptionInfoBox>
+//       </StyledProfileDescription>
+//     </StyledStack>
+//   );
+// };
+
 const HeaderSection = () => {
   const { state } = useAuth();
   return (
     <StyledStack>
       <BugBox>
-        <StyledProfileBox>
-          <StyledProfileHead>
-            <StyledDiv>
-              <StyledAvatar src={hunterImage} />
-              <StyledTypography variant="h2">
-                {state.user.name}
-              </StyledTypography>
-              <StyledTypography variant="h6" className="font">
-                {state.user.email}
-              </StyledTypography>
-            </StyledDiv>
-          </StyledProfileHead>
-        </StyledProfileBox>
-      </BugBox>
+        <StyledTopBox>
+          <StyledBox>
+            <StyledProfileBox>
+              <StyledProfileHead>
+                <StyledDiv>
+                  <StyledAvatar src={hunterImage} />
+                </StyledDiv>
+              </StyledProfileHead>
+            </StyledProfileBox>
 
-      <StyledProfileDescription>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h2">
-              total Xloop tokens Earn :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">11370</StyledTypography>
-        </StyledDescriptionInfoBox>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h2">
-              Remaining Balance :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">1000</StyledTypography>
-        </StyledDescriptionInfoBox>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h3">
-              total solution submitted :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">137</StyledTypography>
-        </StyledDescriptionInfoBox>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h3">
-              total Solution Approved :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">104</StyledTypography>
-        </StyledDescriptionInfoBox>
-      </StyledProfileDescription>
+            <StyledProfileDescription>
+              <StyledDescriptionInfoBox>
+                <StyledPersonIcon />
+                <StyledTypography variant="h2">User Name : </StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  {state.user.name}
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+              <StyledDescriptionInfoBox>
+                <StyledEmail />
+                <StyledTypography variant="h3">Email :</StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  {state.user.email}
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+              <StyledDescriptionInfoBox>
+                <StyledWallet />
+                <StyledTypography variant="h3"> Balance :</StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  75347 Xloop tooken
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+              <StyledDescriptionInfoBox>
+                <StyledRole />
+                <StyledTypography variant="h3">Role :</StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  {state.user.role}
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+            </StyledProfileDescription>
+          </StyledBox>
+
+          <StyledProfileDescription>
+            <StyledDescriptionInfoBox>
+              <StyledBug />
+              <StyledTypography variant="h3">
+                Number of Bug Post :
+              </StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                137
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+            <StyledDescriptionInfoBox>
+              <StyledSuccess />
+              <StyledTypography variant="h3">
+                Total Solved bugs :
+              </StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                104
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+            <StyledDescriptionInfoBox>
+              <StyledPending />
+              <StyledTypography variant="h3">Pending Bugs :</StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                25
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+            <StyledDescriptionInfoBox>
+              <StyledGradeIcon />
+              <StyledTypography variant="h3">Success Rate :</StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                25%
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+          </StyledProfileDescription>
+        </StyledTopBox>
+      </BugBox>
     </StyledStack>
   );
 };
@@ -249,55 +338,84 @@ const ClientHeaderSection = () => {
   return (
     <StyledStack>
       <BugBox>
-        <StyledProfileBox>
-          <StyledProfileHead>
-            <StyledDiv>
-              <StyledAvatar src={hunterImage} />
-              <StyledTypography variant="h2">
-                {state.user.name}
-              </StyledTypography>
-              <StyledTypography variant="h6" className="font">
-                {state.user.email}
-              </StyledTypography>
-            </StyledDiv>
-          </StyledProfileHead>
-        </StyledProfileBox>
-      </BugBox>
+        <StyledTopBox>
+          <StyledBox>
+            <StyledProfileBox>
+              <StyledProfileHead>
+                <StyledDiv>
+                  <StyledAvatar src={hunterImage} />
+                </StyledDiv>
+              </StyledProfileHead>
+            </StyledProfileBox>
 
-      <StyledProfileDescription>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h2">
-              Remaining Balance :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">10,000</StyledTypography>
-        </StyledDescriptionInfoBox>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h3">
-              total Bug Post :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">137</StyledTypography>
-        </StyledDescriptionInfoBox>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h3">
-              Solved bug :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">104</StyledTypography>
-        </StyledDescriptionInfoBox>
-        <StyledDescriptionInfoBox>
-          <StyledTextBox>
-            <StyledTypography className="font" variant="h3">
-              Pending Bug :
-            </StyledTypography>
-          </StyledTextBox>
-          <StyledTypography variant="h3">25</StyledTypography>
-        </StyledDescriptionInfoBox>
-      </StyledProfileDescription>
+            <StyledProfileDescription>
+              <StyledDescriptionInfoBox>
+                <StyledPersonIcon />
+                <StyledTypography variant="h2">User Name : </StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  {state.user.name}
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+              <StyledDescriptionInfoBox>
+                <StyledEmail />
+                <StyledTypography variant="h3">Email :</StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  {state.user.email}
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+              <StyledDescriptionInfoBox>
+                <StyledWallet />
+                <StyledTypography variant="h3"> Balance :</StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  75347 Xloop tooken
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+              <StyledDescriptionInfoBox>
+                <StyledRole />
+                <StyledTypography variant="h3">Role :</StyledTypography>
+                <StyledTypography className="font" variant="h3">
+                  {state.user.role}
+                </StyledTypography>
+              </StyledDescriptionInfoBox>
+            </StyledProfileDescription>
+          </StyledBox>
+
+          <StyledProfileDescription>
+            <StyledDescriptionInfoBox>
+              <StyledBug />
+              <StyledTypography variant="h3">
+                Number of Bug Post :
+              </StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                137
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+            <StyledDescriptionInfoBox>
+              <StyledSuccess />
+              <StyledTypography variant="h3">
+                Total Solved bugs :
+              </StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                104
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+            <StyledDescriptionInfoBox>
+              <StyledPending />
+              <StyledTypography variant="h3">Pending Bugs :</StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                25
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+            <StyledDescriptionInfoBox>
+              <StyledGradeIcon />
+              <StyledTypography variant="h3">Success Rate :</StyledTypography>
+              <StyledTypography className="font" variant="h3">
+                25%
+              </StyledTypography>
+            </StyledDescriptionInfoBox>
+          </StyledProfileDescription>
+        </StyledTopBox>
+      </BugBox>
     </StyledStack>
   );
 };
