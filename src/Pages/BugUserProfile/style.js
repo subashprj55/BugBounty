@@ -1,11 +1,12 @@
 import PersonIcon from "@mui/icons-material/Person";
 import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice";
-import AccountBalanceWalletSharpIcon from "@mui/icons-material/AccountBalanceWalletSharp";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import EngineeringSharpIcon from "@mui/icons-material/EngineeringSharp";
 import PestControlIcon from "@mui/icons-material/PestControl";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import GradeIcon from "@mui/icons-material/Grade";
+import AddCardIcon from "@mui/icons-material/AddCard";
 const { Box, Avatar, Typography, Stack } = require("@mui/material");
 const { styled } = require("styled-components");
 
@@ -78,7 +79,7 @@ export const StyledEmail = styled(LocalPostOfficeIcon)`
   color: gray;
 `;
 
-export const StyledWallet = styled(AccountBalanceWalletSharpIcon)`
+export const StyledWallet = styled(MonetizationOnIcon)`
   color: gray;
 `;
 
@@ -99,6 +100,10 @@ export const StyledPending = styled(HourglassTopIcon)`
 `;
 
 export const StyledGradeIcon = styled(GradeIcon)`
+  color: gray;
+`;
+
+export const StyledAddCardIcon = styled(AddCardIcon)`
   color: gray;
 `;
 

@@ -2,6 +2,7 @@ import BugBox from "Components/BugBox";
 import BugNavContainer from "Components/BugNavContainer";
 import React from "react";
 import {
+  StyledAddCardIcon,
   StyledAvatar,
   StyledBox,
   StyledBug,
@@ -23,13 +24,13 @@ import {
   StyledStack,
   StyledStatusTypography,
   StyledSuccess,
-  StyledTextBox,
   StyledTopBox,
   StyledTypography,
   StyledUserProfilePage,
   StyledWallet,
 } from "./style";
 import hunterImage from "Images/profileAvatar.png";
+import clientProfile from "Images/profile.png";
 import { useAuth } from "Utils/authProvider";
 import { Link } from "react-router-dom";
 const BugUserProfile = () => {
@@ -67,56 +68,6 @@ const BugUserProfile = () => {
 
 export default BugUserProfile;
 
-// const HeaderSection = () => {
-//   const { state } = useAuth();
-//   return (
-//     <StyledStack>
-//       <BugBox>
-//         <StyledProfileBox>
-//           <StyledProfileHead>
-//             <StyledDiv>
-//               <StyledAvatar src={hunterImage} />
-//               <StyledTypography variant="h2">
-//                 {state.user.name}
-//               </StyledTypography>
-//               <StyledTypography variant="h6" className="font">
-//                 {state.user.email}
-//               </StyledTypography>
-//             </StyledDiv>
-//           </StyledProfileHead>
-//         </StyledProfileBox>
-//       </BugBox>
-
-//       <StyledProfileDescription>
-//         <StyledDescriptionInfoBox>
-//           <StyledTypography className="font" variant="h2">
-//             total Xloop tokens Earn :
-//           </StyledTypography>
-//           <StyledTypography variant="h3">11370</StyledTypography>
-//         </StyledDescriptionInfoBox>
-//         <StyledDescriptionInfoBox>
-//           <StyledTypography className="font" variant="h2">
-//             Remaining Balance :
-//           </StyledTypography>
-//           <StyledTypography variant="h3">1000</StyledTypography>
-//         </StyledDescriptionInfoBox>
-//         <StyledDescriptionInfoBox>
-//           <StyledTypography className="font" variant="h3">
-//             total solution submitted :
-//           </StyledTypography>
-//           <StyledTypography variant="h3">137</StyledTypography>
-//         </StyledDescriptionInfoBox>
-//         <StyledDescriptionInfoBox>
-//           <StyledTypography className="font" variant="h3">
-//             total Solution Approved :
-//           </StyledTypography>
-//           <StyledTypography variant="h3">104</StyledTypography>
-//         </StyledDescriptionInfoBox>
-//       </StyledProfileDescription>
-//     </StyledStack>
-//   );
-// };
-
 const HeaderSection = () => {
   const { state } = useAuth();
   return (
@@ -151,7 +102,7 @@ const HeaderSection = () => {
                 <StyledWallet />
                 <StyledTypography variant="h3"> Balance :</StyledTypography>
                 <StyledTypography className="font" variant="h3">
-                  75347 Xloop tooken
+                  5347 Xloop tooken
                 </StyledTypography>
               </StyledDescriptionInfoBox>
               <StyledDescriptionInfoBox>
@@ -166,18 +117,16 @@ const HeaderSection = () => {
 
           <StyledProfileDescription>
             <StyledDescriptionInfoBox>
-              <StyledBug />
-              <StyledTypography variant="h3">
-                Number of Bug Post :
-              </StyledTypography>
+              <StyledAddCardIcon />
+              <StyledTypography variant="h3">total earned:</StyledTypography>
               <StyledTypography className="font" variant="h3">
-                137
+                23455 Xloop tokens
               </StyledTypography>
             </StyledDescriptionInfoBox>
             <StyledDescriptionInfoBox>
               <StyledSuccess />
               <StyledTypography variant="h3">
-                Total Solved bugs :
+                Total Approved Solutions:
               </StyledTypography>
               <StyledTypography className="font" variant="h3">
                 104
@@ -185,7 +134,9 @@ const HeaderSection = () => {
             </StyledDescriptionInfoBox>
             <StyledDescriptionInfoBox>
               <StyledPending />
-              <StyledTypography variant="h3">Pending Bugs :</StyledTypography>
+              <StyledTypography variant="h3">
+                Pending Solutions :
+              </StyledTypography>
               <StyledTypography className="font" variant="h3">
                 25
               </StyledTypography>
@@ -343,7 +294,7 @@ const ClientHeaderSection = () => {
             <StyledProfileBox>
               <StyledProfileHead>
                 <StyledDiv>
-                  <StyledAvatar src={hunterImage} />
+                  <StyledAvatar src={clientProfile} />
                 </StyledDiv>
               </StyledProfileHead>
             </StyledProfileBox>
@@ -406,13 +357,13 @@ const ClientHeaderSection = () => {
                 25
               </StyledTypography>
             </StyledDescriptionInfoBox>
-            <StyledDescriptionInfoBox>
+            {/* <StyledDescriptionInfoBox>
               <StyledGradeIcon />
               <StyledTypography variant="h3">Success Rate :</StyledTypography>
               <StyledTypography className="font" variant="h3">
                 25%
               </StyledTypography>
-            </StyledDescriptionInfoBox>
+            </StyledDescriptionInfoBox> */}
           </StyledProfileDescription>
         </StyledTopBox>
       </BugBox>
