@@ -193,7 +193,13 @@ const ActiveBounties = ({ data, isLoading, error }) => {
 
   const renderContent = () => {
     if (isLoading) {
-      return <>{Array(6).fill(<BugSkeleton />)}</>;
+      return (
+        <>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <BugSkeleton key={index} />
+          ))}
+        </>
+      );
     }
 
     if (error) {

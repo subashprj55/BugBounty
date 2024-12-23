@@ -1,4 +1,5 @@
 import BugBox from "Components/BugBox";
+import { useQueryClient } from "react-query";
 import { Controller, useForm } from "react-hook-form";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
@@ -76,11 +77,13 @@ const CreateBugForm = () => {
   } = useForm();
   const navigate = useNavigate();
   const [uploadedFile, setUploadedFile] = useState(null);
+  const queryClient = useQueryClient();
 
   const { mutate, data, isLoading, error } = useCreateBounty((data) => {
     setTimeout(() => {
       reset();
       navigate(`/bounty/${data?.id}`);
+      queryClient.invalidateQueries({ queryKey: ["bounties"] });
     }, 2000);
   });
 

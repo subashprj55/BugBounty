@@ -13,15 +13,21 @@ const useCreateBounty = (onSuccess) => {
   }) => {
     const date = new Date(selectedDate).toISOString();
 
-    const { data } = await axiosAuth.post("/bounties/", {
-      title: bugTitle,
-      description,
-      acceptance_criteria: expectedResult,
-      expiry_date: date,
-      attachments: uploadedFile,
-      severity: security,
-      rewarded_amount,
+    const form = new FormData();
+    form.append("attachments", uploadedFile);
+    form.append("title", bugTitle);
+    form.append("description", description);
+    form.append("acceptance_criteria", expectedResult);
+    form.append("expiry_date", date);
+    form.append("severity", security);
+    form.append("rewarded_amount", rewarded_amount);
+
+    const { data } = await axiosAuth.post("/bounties/", form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
+
     return data;
   };
 
