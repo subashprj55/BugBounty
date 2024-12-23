@@ -4,6 +4,7 @@ import useDashboard from "Hooks/usedashboard";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "Utils/authProvider";
+import { getTimeAgoMessage } from "Utils/dateMessage";
 import {
   StyledActivityBox,
   StyledBox,
@@ -167,15 +168,15 @@ const RecentActivity = ({ recent_activities, isLoading, error }) => {
     <StyledRecentActivity>
       <StyledTypography variant="h2">Recent Activity</StyledTypography>
 
-      {recent_activities?.map((item, i) => {
+      {recent_activities?.map(({ date, action }) => {
         return (
-          <StyledActivityBox key={i}>
+          <StyledActivityBox key={date}>
             <StyledDiv>
               <StyledTypography className="font-size" variant="footer">
-                {item}
+                {action}
               </StyledTypography>
               <StyledTypography variant="h6">
-                Submitted 2 days ago
+                Submitted {getTimeAgoMessage(date)}
               </StyledTypography>
             </StyledDiv>
             {/* <StyledChip label="Pending" /> */}
