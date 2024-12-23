@@ -133,6 +133,11 @@ export const StyledStatusTypography = styled(Typography)`
   &.rejected {
     background-color: #ff4162;
   }
+  &.date {
+    color: gray;
+    font-weight: 600;
+    font-style: italic;
+  }
 `;
 
 export const StyledInfoBox = styled(Box)`

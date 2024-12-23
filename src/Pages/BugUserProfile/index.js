@@ -33,17 +33,20 @@ import hunterImage from "Images/profileAvatar.png";
 import clientProfile from "Images/profile.png";
 import { useAuth } from "Utils/authProvider";
 import { Link } from "react-router-dom";
+import useUserProfile from "Hooks/useUserProfile";
+import { getTimeLeftMessage } from "Utils/dateMessage";
 const BugUserProfile = () => {
   const { state } = useAuth();
+  const { data, isLoading, error } = useUserProfile();
 
   if (state.user.role === "hunter") {
     return (
       <>
         <BugNavContainer>
           <StyledUserProfilePage>
-            <HeaderSection />
-            <ClosedBugsSection />
-            <PendingBugsSection />
+            <HeaderSection hunterData={data} />
+            <ClosedBugsSection closed_bugs={data?.closed_bugs} />
+            <PendingBugsSection pending_bugs={data?.pending_bugs} />
           </StyledUserProfilePage>
         </BugNavContainer>
       </>
@@ -55,8 +58,8 @@ const BugUserProfile = () => {
       <>
         <BugNavContainer>
           <StyledUserProfilePage>
-            <ClientHeaderSection />
-            <ClientBugsSection />
+            <ClientHeaderSection clientData={data} />
+            <ClientBugsSection bounties={data?.bounties} />
           </StyledUserProfilePage>
         </BugNavContainer>
       </>
@@ -68,7 +71,7 @@ const BugUserProfile = () => {
 
 export default BugUserProfile;
 
-const HeaderSection = () => {
+const HeaderSection = ({ hunterData }) => {
   const { state } = useAuth();
   return (
     <StyledStack>
@@ -102,7 +105,7 @@ const HeaderSection = () => {
                 <StyledWallet />
                 <StyledTypography variant="h3"> Balance :</StyledTypography>
                 <StyledTypography className="font" variant="h3">
-                  5347 Xloop tooken
+                  {Math.floor(hunterData?.balance)} Xloop tooken
                 </StyledTypography>
               </StyledDescriptionInfoBox>
               <StyledDescriptionInfoBox>
@@ -129,7 +132,7 @@ const HeaderSection = () => {
                 Total Approved Solutions:
               </StyledTypography>
               <StyledTypography className="font" variant="h3">
-                104
+                {hunterData?.total_bugs}
               </StyledTypography>
             </StyledDescriptionInfoBox>
             <StyledDescriptionInfoBox>
@@ -138,14 +141,14 @@ const HeaderSection = () => {
                 Pending Solutions :
               </StyledTypography>
               <StyledTypography className="font" variant="h3">
-                25
+                {hunterData?.solved_bugs}
               </StyledTypography>
             </StyledDescriptionInfoBox>
             <StyledDescriptionInfoBox>
               <StyledGradeIcon />
               <StyledTypography variant="h3">Success Rate :</StyledTypography>
               <StyledTypography className="font" variant="h3">
-                25%
+                {hunterData?.success_rate}%
               </StyledTypography>
             </StyledDescriptionInfoBox>
           </StyledProfileDescription>
@@ -155,7 +158,7 @@ const HeaderSection = () => {
   );
 };
 
-const ClosedBugsSection = () => {
+const ClosedBugsSection = ({ closed_bugs }) => {
   return (
     <StyledClosedBugSection>
       <BugBox>
@@ -163,56 +166,26 @@ const ClosedBugsSection = () => {
           <StyledTypography variant="h2">Closed Solutions</StyledTypography>
 
           <StyledInfoBox>
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="accepted">
-                  accepted
-                </StyledStatusTypography>
-              </StyledButtonBox>
+            {closed_bugs?.map(({ id, title, status }) => {
+              return (
+                <StyledInfoList key={id}>
+                  <StyledButtonBox>
+                    <StyledTypography variant="h3" className="font">
+                      {title}
+                    </StyledTypography>
+                    <StyledStatusTypography variant="h3" className={status}>
+                      {status}
+                    </StyledStatusTypography>
+                  </StyledButtonBox>
 
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
-
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="rejected">
-                  rejected
-                </StyledStatusTypography>
-              </StyledButtonBox>
-
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
-
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="rejected">
-                  rejected
-                </StyledStatusTypography>
-              </StyledButtonBox>
-
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
+                  <Link to={""}>
+                    <StyledTypography variant="footer">
+                      View Details
+                    </StyledTypography>
+                  </Link>
+                </StyledInfoList>
+              );
+            })}
           </StyledInfoBox>
         </StyledClosedStack>
       </BugBox>
@@ -220,7 +193,7 @@ const ClosedBugsSection = () => {
   );
 };
 
-const PendingBugsSection = () => {
+const PendingBugsSection = ({ pending_bugs }) => {
   return (
     <StyledClosedBugSection>
       <BugBox>
@@ -228,21 +201,25 @@ const PendingBugsSection = () => {
           <StyledTypography variant="h2">Pending Solutions</StyledTypography>
 
           <StyledInfoBox>
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="pending">
-                  pending
-                </StyledStatusTypography>
-              </StyledButtonBox>
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
+            {pending_bugs.map(({ id, title, status }) => {
+              return (
+                <StyledInfoList key={id}>
+                  <StyledButtonBox>
+                    <StyledTypography variant="h3" className="font">
+                      {title}
+                    </StyledTypography>
+                    <StyledStatusTypography variant="h3" className={status}>
+                      {status}
+                    </StyledStatusTypography>
+                  </StyledButtonBox>
+                  <Link to={""}>
+                    <StyledTypography variant="footer">
+                      View Details
+                    </StyledTypography>
+                  </Link>
+                </StyledInfoList>
+              );
+            })}
 
             <StyledInfoList>
               <StyledButtonBox>
@@ -284,7 +261,7 @@ const PendingBugsSection = () => {
 };
 
 ///client
-const ClientHeaderSection = () => {
+const ClientHeaderSection = ({ clientData }) => {
   const { state } = useAuth();
   return (
     <StyledStack>
@@ -318,7 +295,7 @@ const ClientHeaderSection = () => {
                 <StyledWallet />
                 <StyledTypography variant="h3"> Balance :</StyledTypography>
                 <StyledTypography className="font" variant="h3">
-                  75347 Xloop tooken
+                  {Math.floor(clientData?.balance)} Xloop tooken
                 </StyledTypography>
               </StyledDescriptionInfoBox>
               <StyledDescriptionInfoBox>
@@ -338,30 +315,21 @@ const ClientHeaderSection = () => {
                 Number of Bug Post :
               </StyledTypography>
               <StyledTypography className="font" variant="h3">
-                137
+                {clientData?.total_bounties}
               </StyledTypography>
             </StyledDescriptionInfoBox>
             <StyledDescriptionInfoBox>
               <StyledSuccess />
-              <StyledTypography variant="h3">
-                Total Solved bugs :
-              </StyledTypography>
+              <StyledTypography variant="h3">expired bugs :</StyledTypography>
               <StyledTypography className="font" variant="h3">
-                104
-              </StyledTypography>
-            </StyledDescriptionInfoBox>
-            <StyledDescriptionInfoBox>
-              <StyledPending />
-              <StyledTypography variant="h3">Pending Bugs :</StyledTypography>
-              <StyledTypography className="font" variant="h3">
-                25
+                {clientData?.expired_bounties}
               </StyledTypography>
             </StyledDescriptionInfoBox>
             {/* <StyledDescriptionInfoBox>
-              <StyledGradeIcon />
-              <StyledTypography variant="h3">Success Rate :</StyledTypography>
+              <StyledPending />
+              <StyledTypography variant="h3">Pending Bugs :</StyledTypography>
               <StyledTypography className="font" variant="h3">
-                25%
+                {hunterData?.total_bounties - hunterData?.expired_bounties}
               </StyledTypography>
             </StyledDescriptionInfoBox> */}
           </StyledProfileDescription>
@@ -371,61 +339,37 @@ const ClientHeaderSection = () => {
   );
 };
 
-const ClientBugsSection = () => {
+const ClientBugsSection = ({ bounties }) => {
   return (
     <StyledClosedBugSection>
       <BugBox>
         <StyledClosedStack>
           <StyledTypography variant="h2">Bugs Status</StyledTypography>
           <StyledInfoBox>
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="open">
-                  open
-                </StyledStatusTypography>
-              </StyledButtonBox>
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
-
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="open">
-                  open
-                </StyledStatusTypography>
-              </StyledButtonBox>
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
-
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="accepted">
-                  accepted
-                </StyledStatusTypography>
-              </StyledButtonBox>
-
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
+            {bounties?.map(({ title, id, expiry_date }) => {
+              const date = getTimeLeftMessage(expiry_date);
+              console.log(date);
+              return (
+                <StyledInfoList key={id}>
+                  <StyledButtonBox>
+                    <StyledTypography variant="h3" className="font">
+                      {title}
+                    </StyledTypography>
+                    <StyledStatusTypography
+                      variant="h3"
+                      className={date === "Expired" ? "rejected" : "date"}
+                    >
+                      {date}
+                    </StyledStatusTypography>
+                  </StyledButtonBox>
+                  <Link to={`/bounty/${id}`}>
+                    <StyledTypography variant="footer">
+                      View Details
+                    </StyledTypography>
+                  </Link>
+                </StyledInfoList>
+              );
+            })}
           </StyledInfoBox>
         </StyledClosedStack>
       </BugBox>
