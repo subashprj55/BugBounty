@@ -27,11 +27,13 @@ import {
   StyledDetailsTypography,
   StyledIconButton,
   StyledLink,
+  StyledLinkTag,
   StyledLoadingBox,
   StyledMenu,
   StyledMenuItem,
   StyledModal,
   StyledModelBox,
+  StyledOpenInNewIcon,
   StyledPopUpBox,
   StyledPopUpButton,
   StyledPopUpTypography,
@@ -98,6 +100,7 @@ const BugBounty = () => {
         <DescriptionSection
           summary={data?.description}
           expectedResult={data?.acceptance_criteria}
+          attachments={data?.attachments}
         />
         <ButtonSection id={id} data={data} />
         <BugSection authorEmail={data?.created_by?.email} bugs={data?.bugs} />
@@ -224,7 +227,7 @@ const DetailsSection = ({
   );
 };
 
-const DescriptionSection = ({ summary, expectedResult }) => {
+const DescriptionSection = ({ summary, expectedResult, attachments }) => {
   return (
     <StyledStack>
       <BugBox>
@@ -245,6 +248,22 @@ const DescriptionSection = ({ summary, expectedResult }) => {
               </StyledTypography>
             </StyledDescriptionStack>
           </StyledBox>
+
+          {attachments && (
+            <StyledBox>
+              <StyledTypography variant="h3">Attachments :</StyledTypography>
+              <StyledDescriptionStack>
+                <StyledLinkTag
+                  href={attachments}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <StyledOpenInNewIcon /> Watch Attachment
+                </StyledLinkTag>
+              </StyledDescriptionStack>
+            </StyledBox>
+          )}
         </StyledDescriptionBox>
       </BugBox>
     </StyledStack>

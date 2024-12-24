@@ -1,3 +1,4 @@
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {
   Avatar,
   Button,
@@ -135,6 +136,18 @@ export const StyledDescriptionBox = styled(Box)`
 
 export const StyledDescriptionStack = styled(Stack)`
   padding-top: 5px;
+`;
+
+export const StyledLinkTag = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: gray;
+`;
+
+export const StyledOpenInNewIcon = styled(OpenInNewIcon)`
+  width: 20px !important;
+  height: 20px !important;
 `;
 
 //reproduce section
