@@ -123,7 +123,7 @@ const HeaderSection = ({ hunterData }) => {
               <StyledAddCardIcon />
               <StyledTypography variant="h3">total earned:</StyledTypography>
               <StyledTypography className="font" variant="h3">
-                23455 Xloop tokens
+                {Math.floor(hunterData?.total_earned)} Xloop tokens
               </StyledTypography>
             </StyledDescriptionInfoBox>
             <StyledDescriptionInfoBox>
@@ -166,7 +166,7 @@ const ClosedBugsSection = ({ closed_bugs }) => {
           <StyledTypography variant="h2">Closed Solutions</StyledTypography>
 
           <StyledInfoBox>
-            {closed_bugs?.map(({ id, title, status }) => {
+            {closed_bugs?.map(({ id, title, status, related_bounty }) => {
               return (
                 <StyledInfoList key={id}>
                   <StyledButtonBox>
@@ -178,7 +178,7 @@ const ClosedBugsSection = ({ closed_bugs }) => {
                     </StyledStatusTypography>
                   </StyledButtonBox>
 
-                  <Link to={""}>
+                  <Link to={`/bounty/${related_bounty?.id}/bug/${id}`}>
                     <StyledTypography variant="footer">
                       View Details
                     </StyledTypography>
@@ -201,7 +201,7 @@ const PendingBugsSection = ({ pending_bugs }) => {
           <StyledTypography variant="h2">Pending Solutions</StyledTypography>
 
           <StyledInfoBox>
-            {pending_bugs.map(({ id, title, status }) => {
+            {pending_bugs?.map(({ id, title, status, related_bounty }) => {
               return (
                 <StyledInfoList key={id}>
                   <StyledButtonBox>
@@ -212,7 +212,7 @@ const PendingBugsSection = ({ pending_bugs }) => {
                       {status}
                     </StyledStatusTypography>
                   </StyledButtonBox>
-                  <Link to={""}>
+                  <Link to={`/bounty/${related_bounty?.id}/bug/${id}`}>
                     <StyledTypography variant="footer">
                       View Details
                     </StyledTypography>
@@ -220,39 +220,6 @@ const PendingBugsSection = ({ pending_bugs }) => {
                 </StyledInfoList>
               );
             })}
-
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="pending">
-                  pending
-                </StyledStatusTypography>
-              </StyledButtonBox>
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
-
-            <StyledInfoList>
-              <StyledButtonBox>
-                <StyledTypography variant="h3" className="font">
-                  Message isn't deliver
-                </StyledTypography>
-                <StyledStatusTypography variant="h3" className="pending">
-                  pending
-                </StyledStatusTypography>
-              </StyledButtonBox>
-
-              <Link to={""}>
-                <StyledTypography variant="footer">
-                  View Details
-                </StyledTypography>
-              </Link>
-            </StyledInfoList>
           </StyledInfoBox>
         </StyledClosedStack>
       </BugBox>
