@@ -27,12 +27,14 @@ import {
   StyledGroupButtonBox,
   StyledIconButton,
   StyledItemsBox,
+  StyledLinkTag,
   StyledLoadingBox,
   StyledMenu,
   StyledMenuItem,
   StyledMessageBox,
   StyledModal,
   StyledModelBox,
+  StyledOpenInNewIcon,
   StyledPopUpBox,
   StyledPopUpButton,
   StyledPopUpTypography,
@@ -115,6 +117,7 @@ const BugDetails = () => {
           summary={data?.description}
           expectedResult={data?.related_bounty?.acceptance_criteria}
           actualResult={data?.expected_result}
+          attachments={data?.attachments}
         />
         <StepsReproduceSection step_to_reproduce={data?.guide} />
 
@@ -203,7 +206,12 @@ const DetailsSection = ({ submitted_at, created_by, status }) => {
   );
 };
 
-const DescriptionSection = ({ summary, expectedResult, actualResult }) => {
+const DescriptionSection = ({
+  summary,
+  expectedResult,
+  actualResult,
+  attachments,
+}) => {
   return (
     <StyledStack>
       <BugBox>
@@ -232,6 +240,22 @@ const DescriptionSection = ({ summary, expectedResult, actualResult }) => {
                 <StyledTypography variant="footer">
                   {actualResult}
                 </StyledTypography>
+              </StyledDescriptionStack>
+            </StyledBox>
+          )}
+
+          {attachments && (
+            <StyledBox>
+              <StyledTypography variant="h3">Attachments :</StyledTypography>
+              <StyledDescriptionStack>
+                <StyledLinkTag
+                  href={attachments}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <StyledOpenInNewIcon /> Watch Attachment
+                </StyledLinkTag>
               </StyledDescriptionStack>
             </StyledBox>
           )}

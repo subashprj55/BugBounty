@@ -8,12 +8,16 @@ const useCreateBug = (onSuccess) => {
     reproduceSteps,
     uploadedFile,
   }) => {
-    const { data } = await axiosAuth.post("/bugs/", {
-      related_bounty: id,
-      is_accepted: true,
-      attachment: uploadedFile,
-      guide: reproduceSteps,
-      expected_result: expectedResult,
+    const form = new FormData();
+    form.append("related_bounty", id);
+    form.append("attachment", uploadedFile);
+    form.append("guide", reproduceSteps);
+    form.append("expected_result", expectedResult);
+
+    const { data } = await axiosAuth.post("/bugs/", form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
     return data;
   };

@@ -1,3 +1,4 @@
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
@@ -127,6 +128,18 @@ export const StyledDescriptionStack = styled(Stack)`
 
 export const StyledBox = styled(Box)`
   margin-top: 20px;
+`;
+
+export const StyledLinkTag = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: gray;
+`;
+
+export const StyledOpenInNewIcon = styled(OpenInNewIcon)`
+  width: 20px !important;
+  height: 20px !important;
 `;
 
 //reproduce section

@@ -209,7 +209,9 @@ const ActiveBounties = ({ data, isLoading, error }) => {
             status="error"
             snackbarMessage={"Something went wrong. Please try again"}
           />
-          {Array(6).fill(<BugSkeleton loading={false} />)}
+          {Array.from({ length: 6 }).map((_, index) => (
+            <BugSkeleton key={index} loading={false} />
+          ))}
         </>
       );
     }
