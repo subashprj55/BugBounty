@@ -64,7 +64,7 @@ export const StyledNavLink = styled(Link)`
     padding: 13px 2%;
   }
   &.nav-active {
-    color: #6a1b9a;
+    color: #f1f505;
     font-weight: 500;
   }
 `;
