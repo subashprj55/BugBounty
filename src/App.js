@@ -17,6 +17,8 @@ import BugBounty from "Pages/BugBountyDetails";
 import BugCreateBounty from "Pages/BugCreateBounty";
 import BugDetails from "Pages/BugDetails";
 import BugUserProfile from "Pages/BugUserProfile";
+import BugForgotPassword from "Pages/BugForgotPassword";
+import BugNewPassword from "Pages/BugNewPassword";
 
 function App() {
   return (
@@ -30,6 +32,16 @@ function App() {
         <Route
           path="login"
           element={<PublicRoute restricted={true} component={BugLogin} />}
+        />
+        <Route
+          path="forgotPassword"
+          element={
+            <PublicRoute restricted={true} component={BugForgotPassword} />
+          }
+        />
+        <Route
+          path="newPassword/:token"
+          element={<PublicRoute restricted={true} component={BugNewPassword} />}
         />
         <Route
           path="signup"

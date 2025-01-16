@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 export const StyledLoginStack = styled(Stack)`
@@ -12,7 +11,7 @@ export const StyledLoginStack = styled(Stack)`
 export const StyledForm = styled.form``;
 
 export const StyledLoginBox = styled(Box)`
-  width: fit-content;
+  width: 330px;
   padding: 50px 50px;
 `;
 
@@ -35,19 +34,6 @@ export const StyledBox = styled(Box)`
 `;
 
 export const StyledLoginButton = styled(Button)``;
-
-export const StyledLink = styled(Link)``;
-
-export const StyledBottomBox = styled(Box)`
-  margin-top: 20px;
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  @media (max-width: 400px) {
-    flex-direction: column;
-    gap: 0.8em;
-  }
-`;
 
 export const StyledInputField = styled.input`
   font-size: 14px;
@@ -72,3 +58,5 @@ export const StyledButtonStack = styled(Stack)`
   position: relative;
   padding-bottom: 5px;
 `;
+
+export const StyledTypography = styled(Typography)``;

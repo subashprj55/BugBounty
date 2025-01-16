@@ -1,7 +1,7 @@
 import { useMutation } from "react-query";
 import { axiosAuth } from "Utils/axios";
 
-const useSendSignupOpt = (onSuccess) => {
+const useSendOpt = (onSuccess) => {
   const { mutate, data, error, isLoading } = useMutation({
     mutationFn: (values) => {
       return signUpOtp(values);
@@ -23,4 +23,4 @@ const useSendSignupOpt = (onSuccess) => {
   return { mutate, data, error, isLoading };
 };
 
-export default useSendSignupOpt;
+export default useSendOpt;

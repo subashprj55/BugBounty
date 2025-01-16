@@ -33,10 +33,10 @@ import {
   StyledToggleButton,
   StyledToggleButtonGroup,
 } from "./style";
-import useSendSignupOpt from "Hooks/useSendSignupOtp";
 import useSignup from "Hooks/useSignup";
 import BugSnackbar from "Components/BugSnackbar";
 import BugLoader from "Components/BugLoader";
+import useSendOpt from "Hooks/useSendOtp";
 
 const BugSignup = () => {
   const {
@@ -407,7 +407,7 @@ const BugPopupWindow = ({ popUpModel, setPopUpModel, userEmail }) => {
     mutate: otpMutation,
     isLoading,
     error,
-  } = useSendSignupOpt((data) => {
+  } = useSendOpt((data) => {
     navigate("/login");
   });
 
